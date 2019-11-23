@@ -2,35 +2,62 @@
 {% load static %}
 {% block title %}힙드로브-홈{% endblock %}
 {% block local_head_resources %}
+  <link rel="stylesheet" href="{% static 'hipdrobe/css/index.css' %}">
+{% endblock %}
+{% block bg %}
+  {% include 'bd-carousel.html' %}
 {% endblock %}
 {% block content %}
-<div class="container-fluid content-wrap">
+  <div class="container-fluid content-wrap">
     <div class="content-main">
-        <h1>content-main</h1>
-        <h1>content-main</h1>
-        <h1>content-main</h1>
-        <h1>content-main</h1>
-        <h1>content-main</h1>
-        <h1>content-main</h1>
-        <h1>content-main</h1>
-        <h1>content-main</h1>
-        <h1>content-main</h1>
-
+ 
     </div>
-    <div class="content-info">
-        <h3>content-info</h3>
-        <h3>content-info</h3>
-        <h3>content-info</h3>
-        <h3>content-info</h3>
-        <h3>content-info</h3>
-        <h3>content-info</h3>
-        <h3>content-info</h3>
-        <h3>content-info</h3>
+  </div>
+  
+{% endblock %}
+{% block content-bottom %}
+  <div class="container-fluid content-bottom">
+    <div class="content-bottom-elem">
+      <p class="p-head">
+        나만의 옷장에 아이템을 등록하고<br>
+        부위별로 설정해 보세요!
+      </p>
+      <p class="p-body">
+          머리 속으로 상상하는 것 보다<br>
+          훨씬 좋은 조합을 찾을 수 있을걸요?<br>
+          <i>Fashion Insight!</i>
+      </p>
+      <a href=""><ins><i>Go!</i></ins></a>
     </div>
-    
-
-</div>
+    <hr>
+    <div class="content-bottom-elem">
+      <p class="p-head">
+        힙드로브가 제공하는 나만의 힙스탯!<br>
+        여러가지 재미있는 정보를 즐겨보세요!
+      </p>
+      <p class="p-body">
+          나의 레벨은? 나는 옷이 많은 편? 적은 편?<br>
+          나는 어떤 스타일의 옷을 주로 입을까?<br>
+          <i>정보가 쌓이면 유의미한 정보를 얻을 수 있어요!</i>
+      </p>
+      <a href=""><ins><i>Go!</i></ins></a>
+    </div>
+    <hr>
+    <div class="content-bottom-elem">
+      <p class="p-head">
+        무름르 프르글 무글무글 크프르르글<br>
+        아옳옳옳옳 프르글 무름르 프르글
+      </p>
+      <p class="p-body">
+          블라블라 브블라 블라브블 블라라라블라<br>
+          요로로로롤 롤로로롤 로롱로로로로롱로로롤?<br>
+          <i>철컹철컹!</i>
+      </p>
+      <a href=""><ins><i>Go!</i></ins></a>
+    </div>
+  </div>
 {% endblock %}
 {% block local_body_resources %}
+  <script src="{% static 'hipdrobe/js/index.js' %}"></script>
 {% endblock %}
 

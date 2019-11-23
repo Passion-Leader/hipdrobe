@@ -1,0 +1,45 @@
+/*
+ * index.css
+ */
+
+
+.wrapper {
+    color: white;
+}
+
+.content-bottom {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.content-bottom-elem {
+    padding: 40px;
+}
+
+.content-bottom-elem p {
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+.content-bottom-elem .p-head {
+    color: black;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.content-bottom-elem .p-body {
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.content-bottom hr {
+    background-color: black;
+    width: 45%;
+}
+
+
+
+
+#bg {
+    background-image: url( "/static/hipdrobe/img/bg_index01.jpg" );
+}

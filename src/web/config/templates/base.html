@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
@@ -11,92 +12,129 @@
     <link rel="shortcut icon" href="{% static 'hipdrobe/favicon/favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'hipdrobe/favicon/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'hipdrobe/css/global.css' %}"/>
+    <link rel="stylesheet" href="{% static 'hipdrobe/css/global.css' %}" />
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    
+
     <!---- local resources ---->
     {% block local_head_resources %}
     {% endblock %}
 </head>
+
 <body>
+    
+    <!-- Wrapper -->
     <div class="wrapper">
+        {% block bg %}
+        {% endblock %}
+
         <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>SideBar</h3>
+                <a href="{% url 'hipdrobe:index' %}">
+                    <div id="brand-main"></div>
+                    <div class="right"><span class="brand-del">war</span><span class="brand-sub">drobe</span></div>
+                    <div class="clearfix"></div>
+                    <div id="brand-main-hangeul"></div>
+                </a>
             </div>
             <ul class="list-unstyled components">
-                    <p>Dummy Heading</p>
-                    <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="#">Home 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 3</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li>
-                                <a href="#">Page 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Page 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Page 3</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Portfolio</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
+                <p>Dummy Heading</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
         </nav>
 
         <!-- Page Content-->
         <div id="content">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
-        
+                    <div>
+                        <p id="page-title"></p>
+                    </div>
+                    <div id="log-section">
+                        <ul>
+                            <li class="login-info">
+                                로그인
+                            </li>
+                            <li class="meta-info2">
+                                도움말
+                            </li>
+                            <li class="meta-info2">
+                                <div class="icon">
+                                    <i class="fas fa-comment-alt" style="font-size:1.3em;"></i>
+                                </div>
+                                <div class="num">
+                                    <span>0</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
                     </button>
-        
+                    -->
                 </div>
             </nav>
             {% block content %}
             {% endblock %}
         </div>
     </div>
-     <!-- Footer -->
-     <footer id="footer">
+    {% block content-bottom %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer id="footer">
+        <hr>
         <div class="footer-wrap">
             <div>
                 <p>
                     멀티캠퍼스 아이디어톤 프로젝트 <span class="foot-brand">Hipdrove</span>(힙드로브)<br>
-                    [4차 5기] Open-API(B) Team <span class="foot-team">Passion Leader</span>(패션리더) <span class="italic">all right reserved</span></p>
+                    [4차 5기] Open-API(B) Team <span class="foot-team">Passion Leader</span>(패션리더) <span class="italic">all right reserved</span>
+                </p>
             </div>
             <div>
                 <h3 class="italic"><a href="#"><ins>Contact us</ins></a></h3>
             </div>
-            
         </div>
     </footer>
 
@@ -104,9 +142,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{% static 'hipdrobe/js/global.js' %}"></script>
 
     <!---- local body resources ---->
     {% block local_body_resources %}
     {% endblock %}
 </body>
+
 </html>

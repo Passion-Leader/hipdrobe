@@ -29,10 +29,10 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 220px;
+    max-width: 220px;
     /* min-height: 100vh; */
-    background: #7386D5;
+    /* background: #7386D5; */
     color: #fff;
     transition: all 0.3s;
 }
@@ -43,7 +43,8 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header{
     padding: 20px;
-    background: #6d7fcc;
+    /* background: #6d7fcc; */
+    text-align: center;
 }
 
 #sidebar ul.components {
@@ -62,20 +63,161 @@ a, a:hover, a:focus {
     display: block;
 }
 #sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+    /* color: #7386D5; */
+    background: rgba(0, 0, 0, 0.5);
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: rgba(0, 0, 0, 0.3);
 }
+
+/* 
+ * Custom
+ */
+
+
+/* 
+ * carousel
+ */
+.bd-carousel {
+    position: absolute;
+}
+
+.carousel-item img {
+    min-width: 1024px;
+    min-height: 656px;
+}
+
+.bg {
+    z-index: -1;
+}
+
+/* 
+ * sidebar
+ */
+#sidebar .brand-del {
+    color: lightgray;
+}
+
+#sidebar .brand-sub {
+    font-style: italic;
+    font-size: 2em;
+}
+
+#sidebar #brand-main-hangeul {
+    margin: 0px 15px 0px 0px;
+
+}
+
+
+/* 
+ * login section
+ */
+#log-section {
+    margin: 20px 50px 10px 10px;
+}
+
+#log-section li {
+    display: inline-block;
+    list-style-type: none;
+    margin-left: 10px;
+}
+
+.meta-info2 span {
+    color: black;
+}
+
+.meta-info2 .icon {
+    position: absolute;
+    margin: 20px 50px 10px 10px;
+    top: 10px;
+    width: 2%;
+    text-align: center;
+}
+
+.meta-info2 .num {
+    position: absolute;
+    margin: 20px 50px 10px 10px;
+    top: 8px;
+    text-align: center;
+    width: 2%;
+}
+
+
+/* 
+ * content
+ */
+#content {
+    width: 100%;
+}
+
+.content-wrap {
+    display: flex;
+}
+
+.content-main {
+    width: 100%;
+}
+
+.content-info {
+    min-width: 200px;
+    max-width: 200px;
+    /* min-height: 100vh; */
+    /* transition: all 0.3s; */
+}
+
+.content-info.active {
+    margin-left: 200px;
+}
+
+
+/* 
+ * footer
+ */
+#footer {
+    padding: 20px;
+    text-align: center;
+}
+
+#footer p {
+    font-size: 12px;
+}
+
+.foot-brand {
+    font-size: 1.7em;
+    font-weight: 600;
+}
+
+.foot-team {
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+#footer hr {
+    margin: 20px 0px 30px 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+
+/* 
+ * common etc.
+ */
+.italic {
+    font-style: italic;
+}
+
+.right {
+    float: right;
+}
+
 
 /* 
  * Bootstrap4 기본 style 약간 바꾸기
@@ -93,58 +235,6 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
-#content {
-    width: 100%;
-}
-
-.content-wrap {
-    display: flex;
-}
-
-.content-main {
-    width: 100%;
-}
-
-.content-info {
-    min-width: 200px;
-    max-width: 200px;
-    /* min-height: 100vh; */
-    transition: all 0.3s;
-}
-
-.content-info.active {
-    margin-left: 200px;
-}
-
-
-#footer {
-    padding: 20px;
-    text-align: center;
-}
-
-#footer p {
-    font-size: 14px;
-}
-
-.foot-brand {
-    font-size: 2em;
-    font-weight: 600;
-}
-
-.foot-team {
-    font-size: 1.5em;
-    font-weight: 600;
-}
-
-
-
-.italic {
-    font-style: italic;
-}
-
-
-
-
 
 
 /*
@@ -152,7 +242,7 @@ a[data-toggle="collapse"] {
  */
 @media (max-width: 768px) {
     #sidebar {
-        margin-left: -250px;
+        margin-left: -220px;
     }
     #sidebar.active {
         margin-left: 0;
