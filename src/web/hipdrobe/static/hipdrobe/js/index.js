@@ -1,3 +1,8 @@
+/*
+ *  index.js
+ */
+
+
 $(document).ready(function(){
     // Index page는 로고 흰색
     fillLogoH();

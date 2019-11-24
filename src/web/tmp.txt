@@ -1,2 +1,8 @@
+CSS Templates
 https://github.com/BlackrockDigital/startbootstrap-creative 
 https://demo.themewagon.com/preview/free-responsive-bootstrap-4-admin-dashboard-template-label
+
+Font, Typography, Icon
+https://fontawesome.com/
+https://danmarshall.github.io/google-font-to-svg-path/
+

@@ -1,4 +1,8 @@
 /*
+ * global.css
+ */
+
+/*
  * 폰트는 추후 다시 선택
  */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
@@ -49,7 +53,7 @@ a, a:hover, a:focus {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    /* border-bottom: 1px solid #47748b; */
 }
 
 #sidebar ul p {
@@ -60,6 +64,7 @@ a, a:hover, a:focus {
 #sidebar ul li a {
     padding: 10px;
     font-size: 1.1em;
+    font-weight: 300;
     display: block;
 }
 #sidebar ul li a:hover {
@@ -91,8 +96,8 @@ ul ul a {
 }
 
 .carousel-item img {
-    min-width: 1024px;
-    min-height: 656px;
+    min-width: 1200px;
+    min-height: 768px;
 }
 
 .bg {
@@ -116,6 +121,16 @@ ul ul a {
 
 }
 
+
+/*
+ * nav
+ */
+#page-title {
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 3em;
+    padding: 0px;
+    margin: 0px;
+}
 
 /* 
  * login section
@@ -160,6 +175,26 @@ ul ul a {
 
 .content-wrap {
     display: flex;
+}
+
+.content-head hr{
+    width: 98%;
+    background-color: #ddd;
+}
+
+.content-head ul {
+    padding-left: 0px;
+}
+
+.content-head li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 10px;  
+}
+
+.content-head li.active {
+    font-size: 1.3em;
+    font-weight: 600;
 }
 
 .content-main {
@@ -252,5 +287,11 @@ a[data-toggle="collapse"] {
 @media (max-width: 1024px) {
     .content-info  {
         display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    #content .ctnt-center {
+        padding-left: 30px;
     }
 }

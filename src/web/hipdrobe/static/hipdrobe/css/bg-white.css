@@ -1,0 +1,30 @@
+/*
+ * bg-white.css
+ */
+
+
+
+#sidebar ul li {
+    color: black;
+
+}
+
+#sidebar ul li a {
+    font-weight: 500;
+}
+
+#sidebar ul p {
+    color: black;
+}
+
+#sidebar .brand-del {
+    color: gray;
+}
+
+#sidebar .brand-sub {
+    color: black;
+}
+
+.meta-info2 span {
+    color: white;
+}
