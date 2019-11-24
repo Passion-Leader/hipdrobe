@@ -4,7 +4,7 @@ $(document).ready(function(){
     fillLogoSubB();
 
     // 제목 및 액티브 효과 적용
-    setTitle("힙-스탯 <sup>statistics</sup>");
+    setTitle(["나만의 옷장 :", "힙-스탯 <sup>statistics</sup>"]);
     setActive(["main-ln-wardrobe", "ln-stat"]);
 
 

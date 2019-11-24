@@ -4,7 +4,7 @@ $(document).ready(function(){
     fillLogoSubB();
 
     // 제목 및 액티브 효과 적용
-    setTitle("나만의 옷장");
+    setTitle(["나만의 옷장 :", "내 옷장 보기"]);
     setActive(["main-ln-wardrobe", "ln-items"]);
 
 

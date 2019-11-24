@@ -17,12 +17,18 @@
     color: black;
 }
 
-#sidebar .brand-del {
+.brand-del {
     color: gray;
 }
 
-#sidebar .brand-sub {
+.brand-sub {
     color: black;
+}
+
+#sidebar ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .meta-info2 span {
