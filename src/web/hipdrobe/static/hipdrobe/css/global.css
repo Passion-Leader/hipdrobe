@@ -70,7 +70,7 @@ a, a:hover, a:focus {
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 1.9em;
     font-weight: 300;
     display: block;
 }
@@ -239,7 +239,7 @@ nav.navbar > div > div p {
 }
 
 .content-head li.active {
-    font-size: 1.3em;
+    font-size: 1.6em;
     font-weight: 600;
 }
 
