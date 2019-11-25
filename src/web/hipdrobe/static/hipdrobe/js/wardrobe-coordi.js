@@ -1,3 +1,6 @@
+
+var g_elem = [];
+
 $(document).ready(function(){
     // Index page는 로고 흰색
     fillLogoB();
@@ -7,4 +10,6 @@ $(document).ready(function(){
     setTitle(["나만의 옷장 :", "코디 작성"]);
     setActive(["main-ln-wardrobe", "ln-coordi"]);
 
+    // enable test Drag & Drop 
+    enableDnD();
 });

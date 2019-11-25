@@ -11,6 +11,10 @@ function setTitle(titles){
     $("#page-title-sub").html(titles[1]);
 }
 
+
+/* ----------------------------------------------------------------------------
+ * 활성화 효과 주기
+ */
 function setActive(ids) {
     for( id of ids ){
         $("#"+id).addClass('active');
@@ -39,6 +43,7 @@ anime.timeline({loop: true})
     delay: 1000
   });
 
+  
 /* ----------------------------------------------------------------------------
  * index page에서 이미지 밑 부분의 컨텐츠 시작 위치를 맞추기 위한 함수
  */

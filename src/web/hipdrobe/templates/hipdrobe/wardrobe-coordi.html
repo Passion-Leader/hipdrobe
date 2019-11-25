@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}힙드로브-코디네이터{% endblock %}
+{% block title %}힙드로브-코디 작성{% endblock %}
 {% block local_head_resources %}
   <link rel="stylesheet" href="{% static 'hipdrobe/css/narrow.css' %}">
   <link rel="stylesheet" href="{% static 'hipdrobe/css/bg-white.css' %}">
+  <link rel="stylesheet" href="{% static 'hipdrobe/css/char-win.css' %}">
   <link rel="stylesheet" href="{% static 'hipdrobe/css/wardrobe-coordi.css' %}">
 {% endblock %}
 {% block bg %}
@@ -14,6 +15,10 @@
     <!-- main content section -->
     <div class="content-main">
         <h3>content-main</h3>
+        <div>
+          {% include 'char-win-control.html' %}
+          {% include 'char-win.html' %}
+        </div>
 
     </div>
 
@@ -33,6 +38,8 @@
 {% block content-bottom %}
 {% endblock %}
 {% block local_body_resources %}
+  <script src="{% static 'hipdrobe/third-party-etc/displace.min.js' %}"></script>
+  <script src="{% static 'hipdrobe/js/char-win.js' %}"></script>
   <script src="{% static 'hipdrobe/js/wardrobe-coordi.js' %}"></script>
 {% endblock %}
 
