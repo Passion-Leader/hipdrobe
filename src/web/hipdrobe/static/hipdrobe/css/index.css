@@ -1,22 +1,25 @@
 /*
  * index.css
  */
-
+ @import url('https://fonts.googleapis.com/css?family=Stylish&display=swap');
 
 .wrapper {
     color: white;
 }
 
 .content-bottom {
+    font-family: 'Stylish', sans-serif;
     text-align: center;
     margin-top: 20px;
 }
 
 .content-bottom-elem {
+    font-family: 'Stylish', sans-serif;
     padding: 40px;
 }
 
 .content-bottom-elem p {
+    font-family: 'Stylish', sans-serif;
     margin: 0px;
     margin-bottom: 10px;
 }
@@ -28,6 +31,7 @@
 }
 
 .content-bottom-elem .p-body {
+    font-family: 'Stylish', sans-serif;
     font-size: 1em;
     font-weight: 600;
 }

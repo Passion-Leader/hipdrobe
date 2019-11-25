@@ -7,6 +7,11 @@
  */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap');
+
+
+
+
 .wrapper {
     display: flex;
     width: 100%;
@@ -14,8 +19,10 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
     background: #fafafa;
+    font-family: 'Nanum Pen Script', cursive;
+
 }
 
 p {
@@ -310,7 +317,6 @@ a[data-toggle="collapse"] {
 }
 
 
-
 /*
  * Media query 
  */
@@ -338,3 +344,25 @@ a[data-toggle="collapse"] {
         padding-left: 30px;
     }
 }
+
+/* text effect */
+.ml7 {
+    position: relative;
+    font-weight: 900;
+    font-size: 2.0em;
+  }
+.ml7 .text-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.2em;
+    padding-right: 0.05em;
+    padding-bottom: 0.1em;
+    overflow: hidden;
+  }
+.ml7 .letter {
+    transform-origin: 0 100%;
+    display: inline-block;
+    line-height: 1em;
+  }
+
+
