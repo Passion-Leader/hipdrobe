@@ -18,6 +18,10 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    
+    
+    <!-- text effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 
     <!---- local resources ---->
     {% block local_head_resources %}
@@ -36,9 +40,16 @@
             <div class="sidebar-header">
                 <a href="{% url 'hipdrobe:index' %}">
                     <div id="brand-main"></div>
-                    <div class="right"><span class="brand-del">war</span><span class="brand-sub">drobe</span></div>
+                    
+                    <h1 class="ml7">
+                        <span class="text-wrapper">
+                          <span class="letters">Wardrobe</span>
+                        </span>
+                      </h1>
+<!-- 
+                    <div class="m17"><span class="text-wrapper">war</span><span class="letters">drobe</span></div>
                     <div class="clearfix"></div>
-                    <div id="brand-main-hangeul"></div>
+                    <div id="brand-main-hangeul"></div> -->
                 </a>
             </div>
             <ul class="list-unstyled components">
@@ -161,6 +172,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="{% static 'hipdrobe/js/global.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 
     <!---- local body resources ---->
     {% block local_body_resources %}
