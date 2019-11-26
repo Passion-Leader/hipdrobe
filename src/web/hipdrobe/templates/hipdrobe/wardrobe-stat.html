@@ -15,6 +15,25 @@
     <div class="content-main">
         <h3>content-main</h3>
 
+        <h4>장고 의존성 탈피 이미지 업로드 테스트</h4>
+        <hr>
+        <form enctype="multipart/form-data" method="POST" id="id-form-upload">
+          <div class="form-group">
+            <label for="image">이미지</label>
+            <input class="form-control-file btn btn-info" type="file" accept="image/*" name="image" id="image"/>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="uploadClothes(event)">업로드</button>
+        </form>
+        <br>
+        <div>
+          <div style="width:300px; height:300px; display:inline-block;">
+            <img src="" alt="프리뷰" id="preview" style="max-width:100%; height:auto; visibility: collapse; vertical-align: bottom;"/>
+          </div>
+          <div style="display:inline-block;">
+            <img src="" alt="썸네일" id="thumbnail" style="visibility: collapse; vertical-align: bottom;"/>
+          </div>
+        </div>
+
     </div>
 
     <!-- info section -->
@@ -33,6 +52,7 @@
 {% block content-bottom %}
 {% endblock %}
 {% block local_body_resources %}
+  <script src="{% static 'hipdrobe/js/upload.js' %}"></script>
   <script src="{% static 'hipdrobe/js/wardrobe-stat.js' %}"></script>
 {% endblock %}
 

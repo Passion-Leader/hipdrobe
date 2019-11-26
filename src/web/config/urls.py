@@ -16,7 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
+# for clothes static path
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('', include("hipdrobe.urls")),
     path('admin/', admin.site.urls),
 ]
+
+
+urlpatterns += static(settings.CLOTHES_URL, document_root=settings.CLOTHES_ROOT)
