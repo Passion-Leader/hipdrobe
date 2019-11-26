@@ -13,4 +13,5 @@ class User(models.Model):
     item_top=models.IntegerField()
     item_bottom=models.IntegerField()
     item_shoes=models.IntegerField()
+    gender =models.IntegerField()
 
