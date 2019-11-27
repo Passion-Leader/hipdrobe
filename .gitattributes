@@ -1,6 +1,6 @@
 # linguist setting
-vendor/bootstrap/*   linguist-vendored
-/third-party-etc/* linguist-vendored
+vendor/*    linguist-vendored
+third-party-etc/*   linguist-vendored
 *.ppt   binary
 *.md    binary
 
