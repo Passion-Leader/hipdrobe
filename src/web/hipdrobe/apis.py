@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.http import HttpResponse
 from PIL import Image
 from pilkit.processors import Thumbnail
 import os, json
 
+@csrf_exempt 
 def upload(request):
     if request.method == 'POST':
         if 'image' in request.FILES:
