@@ -6,7 +6,7 @@ from PIL import Image
 from pilkit.processors import Thumbnail
 import os, json
 
-@csrf_exempt 
+
 def upload(request):
     if request.method == 'POST':
         if 'image' in request.FILES:

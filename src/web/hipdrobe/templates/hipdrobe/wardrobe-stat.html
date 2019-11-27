@@ -18,6 +18,7 @@
         <h4>장고 의존성 탈피 이미지 업로드 테스트</h4>
         <hr>
         <form enctype="multipart/form-data" method="POST" id="id-form-upload">
+          {% csrf_token %}
           <div class="form-group">
             <label for="image">이미지</label>
             <input class="form-control-file btn btn-info" type="file" accept="image/*" name="image" id="image"/>

@@ -11,7 +11,7 @@ function uploadClothes(event){
     //$("#btnSubmit").prop("disabled", true);
 
     $.ajax({
-        headers: { "X-CSRFToken": getCookie('csrftoken') },
+        // headers: { "X-CSRFToken": getCookie('csrftoken') },
         type: "POST",
         enctype: 'multipart/form-data',
         url: "/wardrobe/upload/",
