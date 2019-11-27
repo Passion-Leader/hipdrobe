@@ -1,6 +1,6 @@
 # linguist setting
-vendor/*    linguist-vendored
-third-party-etc/*   linguist-vendored
+src/web/hipdrobe/static/hipdrobe/vendor/*    linguist-vendored
+src/web/hipdrobe/static/hipdrobe/third-party-etc/*   linguist-vendored
 *.ppt   binary
 *.md    binary
 
