@@ -1,0 +1,163 @@
+class User(models.Model):
+    userid = models.CharField(primary_key=True, max_length=15)
+    userpwd = models.CharField(max_length=15)
+    nick = models.CharField(max_length=15)
+    gender = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+    logged_at = models.DateTimeField(auto_now_add = True)
+    level_point = models.IntegerField(default=0) # 적립 포인트
+    level = models.IntegerField(default=1) # 적립 포인트에 따른 레벨
+    top_count = models.IntegerField(default=0) # 상의 개수
+    bottom_count = models.IntegerField(default=0) # 하의 개수
+    shoes_count = models.IntegerField(default=0) # 부위가 발인 의류의 개수
+
+
+class Part(models.Model):
+    part = models.CharField(primary_key=True, max_length=10)
+    part_name = models.CharField(max_length=10)
+
+
+class Cate1(models.Model):
+    cate1 = models.CharField(primary_key=True, max_length=20)
+    cate1_name = models.CharField(max_length=15)
+    part = models.ForeignKey(Part, on_delete=models.CASCADE)
+
+class Cate2(models.Model):
+    cate2 = models.CharField(max_length=20)
+    cate2_name = models.CharField(max_length=15)
+    cate1 = models.ForeignKey(Cate1, on_delete=models.CASCADE)
+    worn = models.Integer(default=0) # 입은 횟수
+    
+
+class Clothes(models.Model):
+    userid = models.ForeignKey(User, on_delete=models.CASCADE) # 유저id
+    cate1_name = models.CharField(max_length=20) # 카테고리1 이름
+    cate2_name = models.CharField(max_length=20) # 카테고리2 이름
+    part = models.CharField(max_length=10) # 부위
+    url = models.CharField(max_length=256) # 옷 사진 url
+    color = models.TextField(null=True) # 색상
+    solid = models.BooleanField(null=True) # 단색 여부
+    pattern = models.CharField(max_length=10, null=True) # solid, stripe, dot, printing
+    season = models.CharField(max_length=15, null=True) # multi-select로 (봄, 여름, 가을, 겨울)
+    descript = models.CharField(max_length=100m null=True) # 비고
+    worn = models.IntegerField(default=0) # 옷 입은 횟수
+    brand = models.CharField(max_length=15, null=True)
+    texture = models.CharField(max_length=15, null=True)
+    
+    
+ --------------------------------------------
+Part	# 착용 부위
+part 		part_name
+head 		머리
+top  		상의
+bottom 		하의
+foot 		발
+else		기타
+
+
+Cate1		# 1차 분류
+cate1		cate1_name		part
+long_outer	긴 아우터			top
+short_outer	짧은 아우터		top
+suit_top		정장 상의			top
+suit_bottom	정장 하의			bottom
+blazer		블레이저			top
+shirts		셔츠			top
+neat		니트			top
+pants		바지			bottom
+mantoman	맨투맨			top
+hood		후드			top
+tshirts		티셔츠			top
+sports_top	트레이닝 상의		top
+sports_bottom	트레이닝 하의		bottom
+hat		모자			head
+onepiece		원피스			top
+skirt		치마			bottom
+shoe		신발			foot
+socks		양말			foot
+accessory		액세서리			else
+bag		가방			else
+
+
+
+Cate2		# 2차 분류
+cate2		cate2_name		cate1			worn
+coat		코트			long_outer	
+parka		파카			long_outer
+trench		트렌치 코트		long_outer
+l_padding	롱패딩			long_outer
+s_padding	숏패딩			short_outer
+leather		가죽자켓			short_outer
+mustang		무스탕자켓		short_outer
+fleece		플리스			short_outer
+bomber		봄버자켓			short_outer
+denim		데님자켓			short_outer
+vest		조끼(베스트)		short_outer
+suit_t_daily	데일리 정장 상의		suit_top
+suit_t_evening	이브닝 정장 상의		suit_top
+suit_b_daily	데일리 정장 하의		suit_bottom
+suit_b_evening	이브닝 정장 하의		suit_bottom
+blazer_basic	베이직 블레이저		blazer
+blazer_casual	캐쥬얼 블레이저		blazer
+shirts_basic	기본 셔츠			shirts
+shirts_formal	정장 셔츠			shirts
+shirts_denim	데님 셔츠			shirts
+shirts_blouse	블라우스			shirts
+shirts_corduroy	코듀로이			shirts
+shirts_over	오버핏 셔츠		shirts
+shirts_half	반팔 셔츠			shirts
+shirts_else	기타			shirts
+neat_basic	니트 스웨터		neat
+neat_cardigan	가디건			neat
+neat_turtle	터틀넥			neat
+pants_basic	면바지			pants
+pants_slacks	슬랙스			pants
+pants_short	반바지			pants
+pants_jean	진			pants
+pants_leggings	레깅스			pants
+pants_else	기타			pants
+mantoman_basic	기본 맨투맨		mantoman
+hood_jacket	후드 집업			hood
+hood_basic	기본 후드			hood
+tshirts_basic	기본티			tshirts
+tshirts_long	롱 슬리브			tshirts
+tshirts_polo	카라티			tshirts
+tshirts_sleeve	민소매			tshirts
+hat_baseball	야구모자			hat
+hat_fedora	페도라			hat
+hat_beanie	비니			hat
+hat_beret		베렛			hat
+hat_snapback	스냅백			hat
+hat_else		기타			hat
+one_off		오프숄더			onepiece
+one_flower	플라워 원피스		onepiece
+one_ethnic	에스닉 원피스		onepiece
+one_sleeve	슬리브리스		onepiece
+one_else		기타			onepiece
+skirt_minie	미니			skirt
+skirt_midie	미디			skirt
+skirt_long	롱스커트			skirt
+skirt_aline	A라인			skirt
+skirt_hline	H라인			skirt
+skirt_flared	플레어			skirt
+skirt_else		기타			skirt
+shoe_sports	운동화			shoe
+shoe_boots	부츠			shoe
+shoe_heel	힐			shoe
+shoe_sneakers	스니커즈			shoe
+shoe_sandal	샌들			shoe
+shoe_flat		플랫 슈즈			shoe
+shoe_loafer	로퍼			shoe
+shoe_else	기타			shoe
+socks_basic	기본 양말			socks
+socks_ankle	발목양말			socks
+socks_knee	니삭스			socks
+acc_earings	귀걸이			accessory
+acc_ring		반지			accessory
+acc_bracelet	팔찌			accessory
+acc_watch	시계			accessory
+bag_backpack	백팩			bag
+bag_cross	크로스백			bag
+bag_echo		에코백			bag
+bag_else		기타			bag
