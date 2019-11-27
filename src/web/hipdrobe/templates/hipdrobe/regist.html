@@ -40,7 +40,9 @@
 	
 	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" style="line-height:3.0em">
-			<form class="login100-form validate-form">
+			
+			<form class="login100-form validate-form", method="POST", action =''>
+					{% csrf_token %}
 				<span class="login100-form-title p-b-37">
 					회원가입
 				</span>
@@ -51,7 +53,12 @@
                 </div>
                 
 				<div class="wrap-input100 validate-input m-b-20" data-validate="비밀번호를 입력하세요">
-					<input class="input100" type="text" name="userpw" placeholder="비밀번호" required>
+					<input class="input100" type="password" name="userpw1" placeholder="비밀번호" required>
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 validate-input m-b-20" data-validate="비밀번호를 입력하세요">
+					<input class="input100" type="password" name="userpw2" placeholder="비밀번호 확인" required>
 					<span class="focus-input100"></span>
                 </div>
                 
@@ -62,11 +69,11 @@
 
 				<div>
                     <label>
-                        <input type="radio" class="option-input radio" name="example" />
+                        <input type="radio" class="option-input radio" name="gender" value="male"  checked="checked"/>
                             남성
                     </label>
                     <label>
-                        <input type="radio" class="option-input radio" name="example" />
+                        <input type="radio" class="option-input radio" name="gender" value="female" />
                             여성
                     </label>
                 <div>
@@ -74,7 +81,7 @@
                 <br/>
                 
 				<div class="container-login100-form-btn">
-					<button class="login100-form-btn">
+					<button type="submit" class="login100-form-btn">
 						회원가입
 					</button>
 				</div>
