@@ -1,8 +1,23 @@
 /*
- * upload.js
+ * apis-additem.js
  */
+function openAddItemDialog(event) {
+    $.ajax({
+        // headers: { "X-CSRFToken": getCookie('csrftoken') },
+        type: "GET",
+        url: "/apis/parts/",
+        success: function (data) {
+            alert(data['parts']);
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+            alert("fail");
+        }
+   });
+}
 
-function uploadClothes(event){
+
+function uploadImage(event) {
     event.preventDefault();
     
     var form = $('#id-form-upload')[0];
@@ -14,7 +29,7 @@ function uploadClothes(event){
         // headers: { "X-CSRFToken": getCookie('csrftoken') },
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "/wardrobe/upload/",
+        url: "/apis/upload/",
         data: data,
         processData: false,
         contentType: false,
@@ -35,3 +50,5 @@ function uploadClothes(event){
         }
    });
  }
+
+ 

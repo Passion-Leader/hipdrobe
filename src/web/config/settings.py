@@ -126,4 +126,5 @@ STATIC_URL = '/static/'
 
 
 CLOTHES_URL = '/clothes/'
-CLOTHES_ROOT = 'c:\\hipdrobe\\clothes'
+# CLOTHES_ROOT = 'c:\\hipdrobe\\clothes'
+CLOTHES_ROOT = os.path.join(BASE_DIR, 'data', 'user', 'clothes_images')

@@ -6,8 +6,32 @@ from PIL import Image
 from pilkit.processors import Thumbnail
 import os, json
 
+# Models
+from .models import *
 
+
+# -----------------------------------------------------------------------------
+# parts
+# -----------------------------------------------------------------------------
+def parts(request):
+    """
+    DB에서 Parts의 부위별 이름을 반환
+    """
+    parts = list(map(
+        lambda part : part['part_name'], Part.objects.values('part_name')))
+    json_data = json.dumps({'parts': parts})
+
+    return HttpResponse(json_data, content_type="application/json")
+
+
+# -----------------------------------------------------------------------------
+# upload
+# -----------------------------------------------------------------------------
 def upload(request):
+    """
+    이미지를 전송받고 리사이징하고(미구현) 썸네일을 생성.
+    투명화 부분 추후 확인해야함. 추후 PNG로 저장 예정.
+    """
     if request.method == 'POST':
         if 'image' in request.FILES:
             file = request.FILES['image']
@@ -28,9 +52,12 @@ def upload(request):
             target.save(os.path.join(settings.CLOTHES_ROOT, 
                 filename[0:filename.rindex('.')] +'_thumb.jpg'), quality=60)
 
-            json_data = json.dumps({'org':filename, 'tar':filename[0:filename.rindex('.')] +'_thumb.jpg'})
+            json_data = json.dumps({
+                'org':filename, 
+                'tar':filename[0:filename.rindex('.')] +'_thumb.jpg'
+            })
+
             return HttpResponse(json_data, content_type="application/json")
 
-            # return HttpResponse(filename[0:filename.rindex('.')] )
-
     return HttpResponse('Failed to Upload File')
+

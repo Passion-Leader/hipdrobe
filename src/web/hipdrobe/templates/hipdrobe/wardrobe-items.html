@@ -9,12 +9,12 @@
 {% block bg %}
 {% endblock %}
 {% block content %}
-  {% include 'wardrobe-link.html' %}
+  {% include '_wardrobe-link.html' %}
   <div class="container-fluid content-wrap ctnt-center">
     <!-- main content section -->
     <div class="content-main">
         <h3>content-main</h3>
-
+        <button class="btn btn-primary" onclick="openAddItemDialog(event)">옷 추가 테스트</button>
         
         
 
@@ -36,8 +36,10 @@
   </div>
 {% endblock %}
 {% block content-bottom %}
+  {% include '_wardrobe-additem.html' %}
 {% endblock %}
 {% block local_body_resources %}
+  <script src="{% static 'hipdrobe/js/apis-additem.js' %}"></script>
   <script src="{% static 'hipdrobe/js/wardrobe-items.js' %}"></script>
 {% endblock %}
 

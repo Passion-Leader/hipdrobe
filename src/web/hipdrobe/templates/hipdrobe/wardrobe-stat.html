@@ -9,7 +9,7 @@
 {% block bg %}
 {% endblock %}
 {% block content %}
-  {% include 'wardrobe-link.html' %}
+  {% include '_wardrobe-link.html' %}
   <div class="container-fluid content-wrap ctnt-center">
     <!-- main content section -->
     <div class="content-main">
@@ -23,7 +23,7 @@
             <label for="image">이미지</label>
             <input class="form-control-file btn btn-info" type="file" accept="image/*" name="image" id="image"/>
           </div>
-          <button type="button" class="btn btn-primary" onclick="uploadClothes(event)">업로드</button>
+          <button type="button" class="btn btn-primary" onclick="uploadImage(event)">업로드</button>
         </form>
         <br>
         <div>
@@ -53,7 +53,7 @@
 {% block content-bottom %}
 {% endblock %}
 {% block local_body_resources %}
-  <script src="{% static 'hipdrobe/js/upload.js' %}"></script>
+  <script src="{% static 'hipdrobe/js/apis-additem.js' %}"></script>
   <script src="{% static 'hipdrobe/js/wardrobe-stat.js' %}"></script>
 {% endblock %}
 
