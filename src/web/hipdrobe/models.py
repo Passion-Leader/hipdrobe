@@ -15,10 +15,16 @@ class User(models.Model):
     count_shoes=models.IntegerField(default=0) # 신발 보유 개수
     gender = models.IntegerField()
 
+    def __str__(self):
+        return self.userid
+
 
 class Part(models.Model):
     part = models.CharField(primary_key=True, max_length=10)
     part_name = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.part_name
 
 
 class Cate1(models.Model):
@@ -26,13 +32,20 @@ class Cate1(models.Model):
     cate1_name = models.CharField(max_length=20)
     part = models.ForeignKey(Part, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.cate1_name
+
+
 class Cate2(models.Model):
     cate2 = models.CharField(max_length=20)
     cate2_name = models.CharField(max_length=20)
     cate1 = models.ForeignKey(Cate1, on_delete=models.CASCADE)
     worn = models.IntegerField(default=0) # 해당 카테고리 옷 입은 횟수
-    
 
+    def __str__(self):
+        return self.cate2_name
+
+    
 class Clothes(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE) # 유저id
     cate1_name = models.CharField(max_length=20) # 카테고리1 이름
@@ -47,6 +60,10 @@ class Clothes(models.Model):
     worn = models.IntegerField(default=0) # 옷 입은 횟수
     brand = models.CharField(max_length=30, null=True)
     texture = models.CharField(max_length=15, null=True)
+
+    def __str__(self):
+        return f"{self.part}|{self.cate1_name}|{self.cate2_name}"
+
 
 
 

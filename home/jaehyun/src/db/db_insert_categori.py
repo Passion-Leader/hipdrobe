@@ -97,7 +97,7 @@ shoe_flat = Cate2.objects.create(cate2='shoe_flat', cate2_name='플랫 슈즈', 
 shoe_loafer = Cate2.objects.create(cate2='shoe_loafer', cate2_name='로퍼', cate1=shoe)
 shoe_else = Cate2.objects.create(cate2='shoe_else', cate2_name='기타', cate1=shoe)
 socks_basic = Cate2.objects.create(cate2='socks_basic', cate2_name='기본 양말', cate1=socks)
-socks_ankle = Cate2.objects.create(cate2='socks_ankle', cate2_name='발목양말', cate1=socks)
+socks_ankle = Cate2.objects.create(cate2='socks_ankle', cate2_name='발목 양말', cate1=socks)
 socks_knee = Cate2.objects.create(cate2='socks_knee', cate2_name='니삭스', cate1=socks)
 acc_earings = Cate2.objects.create(cate2='acc_earings', cate2_name='귀걸이', cate1=accessory)
 acc_ring = Cate2.objects.create(cate2='acc_ring', cate2_name='반지', cate1=accessory)
