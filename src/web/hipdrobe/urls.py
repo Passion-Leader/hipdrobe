@@ -9,6 +9,7 @@ urlpatterns = [
     path('wardrobe/coordi/', views.coordi, name="coordi"),
     path('wardrobe/stat/', views.stat, name="stat" ),
     path('regist/',views.regist, name="regist"),
+    
 
 
 
