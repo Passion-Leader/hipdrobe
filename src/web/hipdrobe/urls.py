@@ -8,7 +8,7 @@ urlpatterns = [
     path('wardrobe/items/', views.items, name="items" ),
     path('wardrobe/coordi/', views.coordi, name="coordi"),
     path('wardrobe/stat/', views.stat, name="stat" ),
-    path('wardrobe/regist/',views.regist, name="regist"),
+    path('regist/',views.regist, name="regist"),
 
 
 
