@@ -14,12 +14,12 @@
   <div class="container-fluid content-wrap ctnt-center">
     <!-- main content section -->
     <div class="content-main">
-        <h3>content-main</h3>
-        <div>
-          {% include '_char-win-control.html' %}
-          {% include '_char-win.html' %}
-        </div>
-
+      <button class="btn btn-primary" onclick="openAddItemDialog(event)">옷 추가 테스트</button>
+      <h3>content-main</h3>
+      <div>
+        {% include '_char-win-control.html' %}
+        {% include '_char-win.html' %}
+      </div>
     </div>
 
     <!-- info section -->
@@ -36,8 +36,10 @@
   </div>
 {% endblock %}
 {% block content-bottom %}
+  {% include '_wardrobe-additem.html' %}
 {% endblock %}
 {% block local_body_resources %}
+  <script src="{% static 'hipdrobe/js/apis-additem.js' %}"></script>
   <script src="{% static 'hipdrobe/third-party-etc/displace.min.js' %}"></script>
   <script src="{% static 'hipdrobe/js/char-win.js' %}"></script>
   <script src="{% static 'hipdrobe/js/wardrobe-coordi.js' %}"></script>
