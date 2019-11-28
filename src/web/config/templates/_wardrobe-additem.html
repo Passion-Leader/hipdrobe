@@ -1,24 +1,94 @@
 <!-- Modal -->
 <div class="modal fade" id="id-modal-additem" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">새 아이템 등록</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-group">
-            <label for="id-additem-part">부위</label>
-            <input type=""></input>
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-3">
+              <div class="form-group">
+                <label for="id-additem-part">* 부위</label>
+                <select name="part" class="form-control custom-select custom-select-lg" id="id-additem-part"
+                  onchange="onPartChange()">
+                  <option value="" selected><span style=>선택하세요</span></option>
+                </select>
+              </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="id-additem-cate1">* 카테고리 I</label>
+                    <select name="part" class="form-control custom-select custom-select-lg" id="id-additem-cate1"
+                      onchange="onCate1Change()">
+                      <option value="" selected>선택하세요</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="id-additem-cate2">* 카테고리 II</label>
+                    <select name="part" class="form-control custom-select custom-select-lg mb-3" id="id-additem-cate2">
+                        <option value="" selected>선택하세요</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-3">
+              <label for="id-additem-color">색상</label>
+              <input type="color" name="color" class="form-control" id="id-additem-color"/>
+            </div>
+            <div class="col-3">
+              <label>색상 타입</label>
+              <div class="form-control">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="colortype" id="id-additem-colortype1" value="true">
+                  <label class="form-check-label" for="id-additem-colortype1">단색</label>
+                </div>
+                <div class="form-check form-check-inline right">
+                  <input class="form-check-input" type="radio" name="colortype" id="id-additem-colortype2" value="false">
+                  <label class="form-check-label" for="id-additem-colortype2">복합</label>
+                </div>
+              </div>
+            </div> 
+            <div class="col-1">
+            </div>
+            <div class="col-5">
+              <label>무늬</label>
+              <div class="form-control">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern1" value="solid">
+                  <label class="form-check-label" for="id-additem-pattern1">Solid</label>
+                </div>
+                <div class="form-check form-check-inline right">
+                  <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern2" value="stripe">
+                  <label class="form-check-label" for="id-additem-pattern2">Stripe</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern3" value="dot">
+                  <label class="form-check-label" for="id-additem-pattern3">Dot</label>
+                </div>
+                <div class="form-check form-check-inline right">
+                  <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern4" value="print">
+                  <label class="form-check-label" for="id-additem-pattern4">Printing</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            
           </div>
         <form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary">등록</button>
       </div>
     </div>
   </div>

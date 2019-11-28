@@ -2,12 +2,15 @@
  * apis-additem.js
  */
 function openAddItemDialog(event) {
+    _eraseOption('#id-additem-cate1')
+    _eraseOption('#id-additem-cate2')
+    
     $.ajax({
-        // headers: { "X-CSRFToken": getCookie('csrftoken') },
         type: "GET",
         url: "/apis/parts/",
         success: function (data) {
-            alert(data['parts']);
+            _addOption('#id-additem-part', data['parts'])
+            $('#id-modal-additem').modal('toggle');
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -15,6 +18,55 @@ function openAddItemDialog(event) {
         }
    });
 }
+
+function onPartChange() {
+    part_name = $('#id-additem-part option:selected').val()
+    if (part_name == "") {
+        _eraseOption('#id-additem-cate1')
+        _eraseOption('#id-additem-cate2')
+        return;
+    }      
+
+    $.ajax({
+        type: "GET",
+        url: "/apis/cate1/",
+        contentType: "application/json",
+        data: {part: part_name},
+        success: function (data) {
+            _addOption('#id-additem-cate1', data['cate1'])
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+            alert("fail");
+        }
+   });
+}
+
+function onCate1Change() {
+    cate1_name = $('#id-additem-cate1 option:selected').val()
+    if (cate1_name == "") {
+        _eraseOption('#id-additem-cate2')
+        return;
+    }
+        
+
+    $.ajax({
+        type: "GET",
+        url: "/apis/cate2/",
+        contentType: "application/json",
+        data: {cate1: cate1_name},
+        success: function (data) {
+            _addOption('#id-additem-cate2', data['cate2'])
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+            alert("fail");
+        }
+   });
+}
+
+
+
 
 
 function uploadImage(event) {
@@ -52,3 +104,17 @@ function uploadImage(event) {
  }
 
  
+
+function _addOption(target, data) {
+    var select = $(target).html("");
+    select.append("<option value='' selected>선택하세요</option>")
+
+    for (let opt of data) {
+        select.append("<option value='" + opt + "'>" + opt + "</option>");
+    }
+}
+
+function _eraseOption(target) {
+    var select = $(target).html("");
+    select.append("<option selected>선택하세요</option>")
+}
