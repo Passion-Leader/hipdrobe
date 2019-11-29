@@ -25,6 +25,37 @@ def parts(request):
 
 
 # -----------------------------------------------------------------------------
+# cate1
+# -----------------------------------------------------------------------------
+def cate1(request):
+    """
+    DB에서 Cate1의 분류 이름을 반환
+    """
+    part = Part.objects.get(part_name=request.GET.get('part'))
+    cate1 = list(map(lambda cate1 : cate1['cate1_name'], 
+        Cate1.objects.filter(part=part).values('cate1_name')))
+    json_data = json.dumps({'cate1': cate1})
+
+    return HttpResponse(json_data, content_type="application/json")
+
+
+# -----------------------------------------------------------------------------
+# cate1
+# -----------------------------------------------------------------------------
+def cate2(request):
+    """
+    DB에서 Cate2의 분류 이름을 반환
+    """
+    cate1 = Cate1.objects.get(cate1_name=request.GET.get('cate1'))
+    cate2 = list(map(lambda cate2 : cate2['cate2_name'], 
+        Cate2.objects.filter(cate1=cate1).values('cate2_name')))
+    json_data = json.dumps({'cate2': cate2})
+
+    return HttpResponse(json_data, content_type="application/json")
+
+
+
+# -----------------------------------------------------------------------------
 # upload
 # -----------------------------------------------------------------------------
 def upload(request):
