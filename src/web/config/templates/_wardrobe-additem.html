@@ -1,4 +1,5 @@
 <!-- Modal -->
+{% load static %}
 <div class="modal fade" id="id-modal-additem" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -38,35 +39,41 @@
                     </select>
                 </div>
             </div>
-          </div>
+          </div><!-- 첫 줄 end-->
           <div class="row mb-3">
             <div class="col-3">
               <label for="id-additem-color">색상</label>
               <input type="color" name="color" class="form-control" id="id-additem-color"/>
             </div>
-            <div class="col-3">
-              <label>색상 타입</label>
+            <div class="col-4">
+              <label>착용 가능 계절</label>
               <div class="form-control">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="colortype" id="id-additem-colortype1" value="true">
-                  <label class="form-check-label" for="id-additem-colortype1">단색</label>
+                  <input class="form-check-input" type="checkbox" name="season" id="id-additem-season1" value="봄" checked>
+                  <label class="form-check-label" for="id-additem-season1">봄</label>
                 </div>
-                <div class="form-check form-check-inline right">
-                  <input class="form-check-input" type="radio" name="colortype" id="id-additem-colortype2" value="false">
-                  <label class="form-check-label" for="id-additem-colortype2">복합</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="season" id="id-additem-season2" value="여름" checked>
+                  <label class="form-check-label" for="id-additem-season2">여름</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="season" id="id-additem-season3" value="가을" checked>
+                  <label class="form-check-label" for="id-additem-season3">가을</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="season" id="id-additem-season4" value="겨울" checked>
+                  <label class="form-check-label" for="id-additem-season4">겨울</label>
                 </div>
               </div>
-            </div> 
-            <div class="col-1">
             </div>
             <div class="col-5">
               <label>무늬</label>
               <div class="form-control">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern1" value="solid">
+                  <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern1" value="solid" checked>
                   <label class="form-check-label" for="id-additem-pattern1">Solid</label>
                 </div>
-                <div class="form-check form-check-inline right">
+                <div class="form-check form-check-inline ">
                   <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern2" value="stripe">
                   <label class="form-check-label" for="id-additem-pattern2">Stripe</label>
                 </div>
@@ -74,17 +81,67 @@
                   <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern3" value="dot">
                   <label class="form-check-label" for="id-additem-pattern3">Dot</label>
                 </div>
-                <div class="form-check form-check-inline right">
+                <div class="form-check form-check-inline ">
                   <input class="form-check-input" type="radio" name="pattern" id="id-additem-pattern4" value="print">
                   <label class="form-check-label" for="id-additem-pattern4">Printing</label>
                 </div>
               </div>
             </div>
-          </div>
+          </div><!-- 둘째 줄 end-->
+
           <div class="row mb-3">
-            
+            <div class="col-3">
+              <label>색상 타입</label>
+              <div class="form-control">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="colortype" id="id-additem-colortype1" value="true" checked>
+                  <label class="form-check-label" for="id-additem-colortype1">단색</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="colortype" id="id-additem-colortype2" value="false">
+                  <label class="form-check-label" for="id-additem-colortype2">복합</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-9">
+              <label>메모</label>
+              <input type="text" class="form-control" placeholder="메모를 작성하세요."/>
+            </div>
+          </div><!-- 셋째 줄 end-->
+          <input type="hidden" name="url" id="id-additem-url"/>
+        </form>
+
+
+
+        <div class="row">
+          <div class="col-3">
+            <div class="row mb-3">
+              <div class="col-12">
+                <label for="id-form-upload">옷 사진 등록</label>
+                <form enctype="multipart/form-data" method="POST" id="id-form-upload">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <input class="form-control-file btn btn-info" type="file" accept="image/*" name="image" id="image"/>
+                  </div>
+                  <button type="button" class="btn btn-primary" onclick="uploadImage(event)">업로드</button>
+                </form>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div id="id-div-thumbnail">
+                  <img src="" alt="썸네일" id="id-additem-thumbnail"/>
+                </div>
+              </div>
+            </div>
           </div>
-        <form>
+          <div class="col-9">
+            <label>프리뷰</label>
+            <div id="id-div-preview">
+              <img src="" alt=" 프리뷰 이미지" id="id-additem-preview"/>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>

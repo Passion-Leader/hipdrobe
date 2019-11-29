@@ -259,6 +259,48 @@ nav.navbar > div > div p {
 }
 
 
+/*
+ * modal-additem
+ */
+#id-modal-additem .form-control {
+    height: auto;
+}
+
+
+#id-div-preview, 
+#id-div-thumbnail {
+    border: 1px dashed gray;
+    border-radius: 10px;
+}
+
+
+#id-div-preview {
+    width: 215px;
+    height: 215px;
+  
+}
+
+#id-div-thumbnail {
+    width: 100px;
+    height: 100px;
+}
+
+#id-additem-preview,
+#id-additem-thumbnail {
+    max-width: 100%; 
+    max-height: 100%;
+    border-radius: 10px;
+}
+    
+
+#id-additem-preview {
+    
+}
+
+#id-additem-thumbnail {
+
+}
+
 /* 
  * footer
  */
