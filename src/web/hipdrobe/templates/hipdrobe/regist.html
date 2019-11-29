@@ -8,15 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
     <link rel="shortcut icon" href="{% static 'hipdrobe/favicon/favicon.ico' %}" type="image/x-icon">
-    <link rel="icon" href="{% static 'hipdrobe/favicon/favicon.ico' %}" type="image/x-icon">
+    <!-- <link rel="icon" href="{% static 'hipdrobe/favicon/favicon.ico' %}" type="image/x-icon"> -->
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'hipdrobe/vendor/bootstrap/css/bootstrap.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'hipdrobe/vendor/animate/animate.css' %>">
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="{% static 'hipdrobe/vendor/css-hamburgers/hamburgers.min.css' %}">
 <!--===============================================================================================-->
@@ -41,7 +35,7 @@
 	
 	</video>
 	
-	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+	<div class="container-login100" >
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" style="line-height:3.0em">
 			
 			<form class="login100-form validate-form", method="POST", action =''>
@@ -50,8 +44,8 @@
 					회원가입
 				</span>
 
-				<div class="wrap-input100 validate-input m-b-20" data-validate="이메일을 입력하세요">
-					<input class="input100" type="email"" id="userid" name="userid" placeholder="이메일"" required>
+				<div class="wrap-input100 validate-input m-b-20">
+					<input class="input100" type="email" id="userid" name="userid" placeholder="이메일" required>
 					<span class="focus-input100"></span>
 				</div>
 				<div class="check_font" id="id_check"></div>
@@ -127,7 +121,40 @@
 <!--===============================================================================================-->
 	<!-- jquery 라이브러리 사용 -->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+
 <!--===============================================================================================-->
+<script>
+ function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $(document).ready(function() {
+        var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+          }
+        });
+      });
+</script>
 <script>
 //비밀번호 확인
 $('#userpw2').blur(function() {
@@ -146,7 +173,43 @@ $('#userpw2').blur(function() {
 	}
 })
 
-</script>
+//이메일 중복 확인
+$('#userid').blur( function() {
+	var userid = $('#userid').val()
+			
+	$.ajax({
+		url:'/check_id?userid='+userid,
+		dataType:'json',
+		type:'get',
+		
+		success:function(response){
+			if(response.result != 'success'){
+			console.error(response.data)
+			return;
+		}
+		if(response.data == 'exist'){
+			$("#id_check").text("사용중인 이메일입니다 :p");
+			$("#id_check").css("color","red");
+			$("#id_check").css("text-align","center");
+			$("#reg_submit").attr("disabled",true);
+			
+		}
+		else{
+			$("#id_check").text("사용가능한 이메일입니다 :p");
+			$("#id_check").css("color","blue");
+			$("#id_check").css("text-align","center");
+			$("#reg_submit").attr("disabled",false);
+			
+		}
+		},
 
+	
+		error : function(xhr, error){
+			alert("서버와의 통신에서 문제가 발생했습니다.");
+			console.error("error : " + error);
+		}
+	})
+});
+</script>
 </body>
 </html>
