@@ -4,6 +4,8 @@ from django.conf import settings
 from django.http import HttpResponse
 from PIL import Image
 from pilkit.processors import Thumbnail
+from rest_framework import serializers
+
 import os, json
 
 # Models
@@ -40,7 +42,11 @@ def cate1(request):
 
 
 # -----------------------------------------------------------------------------
+<<<<<<< HEAD
 # cate1
+=======
+# cate2
+>>>>>>> aa8467c7e8820f9d99233513294e795d0eb2a47b
 # -----------------------------------------------------------------------------
 def cate2(request):
     """
@@ -92,3 +98,14 @@ def upload(request):
 
     return HttpResponse('Failed to Upload File')
 
+# -----------------------------------------------------------------------------
+# clothes : userid에 해당되는 데이터 전부 불러오기
+# -----------------------------------------------------------------------------
+# def clothes(request):
+#     u_clothes = Clothes.objects.filter(userid=request.GET.get('userid'))
+#     json_data = {
+#         "clothes" : u_clothes
+#     }
+#     data = serializers.serialize('json', json_data)
+#     print(data)
+#     return HttpResponse(data, content_type="application/json")

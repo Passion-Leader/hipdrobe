@@ -8,4 +8,38 @@ $(document).ready(function(){
     setActive(["main-ln-wardrobe", "ln-items"]);
 
 
+    $('.fun-btn').on('click', function(event) {
+        $(this).toggleClass('start-fun');
+        var $page = $('.page');
+        $page.toggleClass('color-bg-start')
+          .toggleClass('bg-animate-color');
+      
+        //change text when when button is clicked
+      
+        $(this).hasClass('start-fun') ?
+          $(this).text('stop the fun') :
+          $(this).text('start the fun');
+      
+      });
+
+    $('.fun-btn').click(function() {
+        // $.ajax({
+        //     type: "GET",
+        //     url: "/apis/clothes/",
+        //     contentType: "application/json",
+        //     data: {userid: "itemtest"},
+        //     success: function (data) {
+        //         alert(data)
+        //     },
+        //     error: function (e) {
+        //         console.log("ERROR : ", e);
+        //         alert("fail");
+        //     }
+        // });
+        $('#myModal').modal();
+          
+    })
+
 });
+
+
