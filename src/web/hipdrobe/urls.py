@@ -20,4 +20,5 @@ urlpatterns = [
     path('apis/cate1/', apis.cate1, name="cate1"),
     path('apis/cate2/', apis.cate2, name="cate2"),
     path('apis/upload/', apis.upload, name="upload"),
+    # path('apis/clothes/', apis.clothes, name="clothes"),
 ]
