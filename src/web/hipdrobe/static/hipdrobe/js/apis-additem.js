@@ -89,10 +89,10 @@ function uploadImage(event) {
         timeout: 600000,
         success: function (data) {
             console.log(data);
-            $('#preview').prop('src', "/clothes/" + data['org']);
-            $('#preview').css('visibility', 'visible');
-            $('#thumbnail').prop('src', "/clothes/" + data['tar']);
-            $('#thumbnail').css('visibility', 'visible');
+            $('#id-additem-preview').prop('src', "/clothes/" + data['org']);
+            $('#id-additem-preview').css('visibility', 'visible');
+            $('#id-additem-thumbnail').prop('src', "/clothes/" + data['tar']);
+            $('#id-additem-thumbnail').css('visibility', 'visible');
             //$("#btnSubmit").prop("disabled", false);
         },
         error: function (e) {
