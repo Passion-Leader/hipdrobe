@@ -5,8 +5,7 @@
 
 $(document).ready(function(){
     // Index page는 로고 흰색
-    fillLogoH();
-    fillLogoSubH();
+    changeLogColor('white')
 
     // Index page는 페이지 제목 없음
     setTitle("");
@@ -19,4 +18,5 @@ $(document).ready(function(){
 window.onresize = function(event) {
     fitBottom();
 };
+
 

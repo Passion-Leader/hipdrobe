@@ -6,6 +6,7 @@
  * 폰트는 추후 다시 선택
  */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import "https://fonts.googleapis.com/css?family=Rock+Salt&display=swap";
 @import "https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap";
 
 
@@ -110,6 +111,14 @@ a, a:hover, a:focus {
 /* 
  * sidebar
  */
+
+ #brand-main, #brand-main-narrow {
+    font-family: 'Rock Salt', cursive;
+    font-size: 5em;
+    color: white;
+ }
+
+
 .brand-del {
     color: lightgray;
 }
@@ -129,7 +138,7 @@ a, a:hover, a:focus {
  * nav
  */
  .navbar-narrow {
-    margin-top: -140px;
+    margin-top: -150px;
     padding: 20px 0px 0px 0px;
     transition: all 0.3s;
  }
@@ -154,7 +163,11 @@ a, a:hover, a:focus {
 }
 
 #brand-main-hangeul-narrow {
+    font-family: 'Nanum Pen Script', cursive;
     display: block;
+    font-size: 3.5em;
+    line-height: 1;
+    color: white;
 }
 
 nav.navbar > div > div p {

@@ -107,7 +107,8 @@ function _addOption(target, data) {
     var select = $(target).html("");
     select.append("<option value='' selected>선택하세요</option>");
 
-    for (let opt of data) {
+    for(let i = 0; i < data.length; i++) {
+        opt = data[i];
         select.append("<option value='" + opt + "'>" + opt + "</option>");
     }
 }
@@ -118,12 +119,14 @@ function _eraseOption(target) {
 }
 
 function _clearModal() {
-    for (form of $('#id-modal-additem').find('form')) {
-        form.reset();
+    let forms = $('#id-modal-additem').find('form');
+    for(let i = 0; i < forms.length; i++) {
+        forms[i].reset();
     }
 
-    for (img of $('#id-modal-additem').find('img')) {
-        $(img).attr('src', '');
+    let imgs = $('#id-modal-additem').find('img');
+    for(let i = 0; i < imgs.length; i++) {
+        $(imgs[i]).attr('src', '');
     }
 
     $('#id-div-imgselect').css('display', 'none');
