@@ -447,6 +447,14 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
+.custom-control-label:before{
+    /* background-color:red; */
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::before{
+    /* background-color: orange; */
+}
+
 
 
 
