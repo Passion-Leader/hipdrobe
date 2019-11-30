@@ -273,20 +273,30 @@ nav.navbar > div > div p {
 #id-modal-additem .legend {
     font-size: 16px;
 }
+
+#id-modal-additem .alert {
+    margin-top: 10px;
+}
+
+#id-div-imgselect {
+    display: none;
+}
+
     
 #id-additem-color {
     height: 40px !important;
 }
 
-#id-div-preview, 
+.cls-div-preview, 
 #id-div-thumbnail {
     border: 1px dashed gray;
     border-radius: 10px;
 }
 
-#id-div-preview {
-    width: 215px;
-    height: 215px;
+.cls-div-preview {
+    width: 100%;
+    height: auto;
+
 }
 
 #id-div-thumbnail {
@@ -294,7 +304,8 @@ nav.navbar > div > div p {
     height: 100px;
 }
 
-#id-additem-preview,
+#id-additem-preview1,
+#id-additem-preview2,
 #id-additem-thumbnail {
     max-width: 100%; 
     max-height: 100%;
@@ -322,15 +333,6 @@ nav.navbar > div > div p {
     margin-bottom: 0px;
 }
 
-
-
-#id-additem-preview {
-    
-}
-
-#id-additem-thumbnail {
-
-}
 
 /* 
  * footer

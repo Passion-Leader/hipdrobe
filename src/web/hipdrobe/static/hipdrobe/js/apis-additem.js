@@ -9,6 +9,7 @@ function openAddItemDialog(event) {
         type: "GET",
         url: "/apis/parts/",
         success: function (data) {
+            _clearModal()
             _addOption('#id-additem-part', data['parts'])
             $('#id-modal-additem').modal('toggle');
         },
@@ -89,10 +90,11 @@ function uploadImage(event) {
         timeout: 600000,
         success: function (data) {
             console.log(data);
-            $('#id-additem-preview').prop('src', "/clothes/" + data['org']);
-            $('#id-additem-preview').css('visibility', 'visible');
+            $('#id-div-imgselect').css('display', 'block');
+            $('#id-additem-preview1').prop('src', "/clothes/" + data['org']);
+            // $('#id-additem-preview').css('visibility', 'visible');
             $('#id-additem-thumbnail').prop('src', "/clothes/" + data['tar']);
-            $('#id-additem-thumbnail').css('visibility', 'visible');
+            // $('#id-additem-thumbnail').css('visibility', 'visible');
             //$("#btnSubmit").prop("disabled", false);
         },
         error: function (e) {
@@ -107,7 +109,7 @@ function uploadImage(event) {
 
 function _addOption(target, data) {
     var select = $(target).html("");
-    select.append("<option value='' selected>선택하세요</option>")
+    select.append("<option value='' selected>선택하세요</option>");
 
     for (let opt of data) {
         select.append("<option value='" + opt + "'>" + opt + "</option>");
@@ -116,5 +118,17 @@ function _addOption(target, data) {
 
 function _eraseOption(target) {
     var select = $(target).html("");
-    select.append("<option selected>선택하세요</option>")
+    select.append("<option selected>선택하세요</option>");
+}
+
+function _clearModal() {
+    for (form of $('#id-modal-additem').find('form')) {
+        form.reset();
+    }
+
+    for (img of $('#id-modal-additem').find('img')) {
+        $(img).attr('src', '');
+    }
+
+    $('#id-div-imgselect').css('display', 'none');
 }

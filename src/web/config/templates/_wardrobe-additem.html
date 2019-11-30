@@ -123,8 +123,6 @@
           <input type="hidden" name="url" id="id-additem-url"/>
         </form>
 
-
-
         <div class="row">
           <div class="col-3">
             <div class="row mb-3">
@@ -139,6 +137,7 @@
                 </form>
               </div>
             </div>
+            <!--
             <div class="row">
               <div class="col-12">
                 <div id="id-div-thumbnail">
@@ -146,11 +145,44 @@
                 </div>
               </div>
             </div>
+            -->
           </div>
-          <div class="col-9">
-            <label>프리뷰</label>
-            <div id="id-div-preview">
-              <img src="" alt=" 프리뷰 이미지" id="id-additem-preview"/>
+          <div class="col-9" id="id-div-imgselect">
+            <label><i class="fas fa-asterisk"></i> 이미지 선택</label>
+            <div class="form-control">
+              <div class="row">
+                <div class="col-5">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="image" type="radio" id="id-additem-image1" value="0">
+                    <label class="form-check-label" for="id-additem-image1">원본</label>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="image" type="radio" id="id-additem-image2" value="1">
+                    <label class="form-check-label" for="id-additem-image2">배경 제거</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <div id="id-div-preview-1" class="cls-div-preview">
+                    <img src="" alt=" 프리뷰 이미지1" id="id-additem-preview1"/>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div id="id-div-preview-2" class="cls-div-preview">
+                    <img src="" alt=" 프리뷰 이미지2" id="id-additem-preview2"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">사진이 마음에 들지 않으세요?</h4>
+              <span>아래 사이트에 가시면 완벽한 배경 제거가 가능합니다!</span>
+              <hr>
+              <span class="mb-0"><a href="https://www.remove.bg/" class="alert-link">remove.bg</a></span><br>
+              <span class="mb-0"><a href="https://online.photoscissors.com/" class="alert-link">PhotoScissors Online</a></span>
             </div>
           </div>
         </div>
@@ -162,3 +194,6 @@
     </div>
   </div>
 </div>
+
+
+
