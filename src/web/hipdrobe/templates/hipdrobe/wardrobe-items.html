@@ -9,7 +9,7 @@
 {% block bg %}
 {% endblock %}
 {% block content %}
-  {% include '_wardrobe-link.html' %}
+  {% include 'hipdrobe/include/_wardrobe-link.html' %}
   <div class="container-fluid content-wrap ctnt-center">
     <!-- main content section -->
     <div class="content-main">
@@ -47,7 +47,7 @@
   </div>
 {% endblock %}
 {% block content-bottom %}
-  {% include 'hipdrobe/_items_modal.html' %}
+  {% include 'hipdrobe/include/_items_modal.html' %}
 {% endblock %}
 {% block local_body_resources %}
   <script src="{% static 'hipdrobe/js/wardrobe-items.js' %}"></script>
