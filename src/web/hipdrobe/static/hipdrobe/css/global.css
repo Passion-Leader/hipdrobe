@@ -266,6 +266,11 @@ nav.navbar > div > div p {
     height: auto;
 }
 
+#id-modal-additem .modal-title {
+    font-size: 1.75em;
+    line-height: 1;
+}
+
 #id-modal-additem .fa-asterisk {
     color: orange;
 }
@@ -287,10 +292,13 @@ nav.navbar > div > div p {
     height: 40px !important;
 }
 
-.cls-div-preview, 
-#id-div-thumbnail {
+.cls-div-preview {
     border: 1px dashed gray;
     border-radius: 10px;
+    text-align: center;
+    vertical-align: middle;
+    background-image: url('../img/fake-alpha.png');
+    background-repeat: repeat;
 }
 
 .cls-div-preview {

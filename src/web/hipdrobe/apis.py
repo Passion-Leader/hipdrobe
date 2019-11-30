@@ -1,15 +1,22 @@
+# django 
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.http import HttpResponse
-from PIL import Image
-from pilkit.processors import Thumbnail
-from rest_framework import serializers
-
-import os, json
 
 # Models
 from .models import *
+
+# other python packages
+import os, json
+from PIL import Image, ExifTags
+from pilkit.processors import Thumbnail, ResizeToFit
+import uuid
+from .removebg import removebg
+from rest_framework import serializers
+
+
 
 
 # -----------------------------------------------------------------------------
@@ -60,39 +67,71 @@ def cate2(request):
 # -----------------------------------------------------------------------------
 # upload
 # -----------------------------------------------------------------------------
+@require_POST
 def upload(request):
     """
-    이미지를 전송받고 리사이징하고(미구현) 썸네일을 생성.
-    투명화 부분 추후 확인해야함. 추후 PNG로 저장 예정.
+    이미지를 전송받고 리사이징 및 초보적인 투명화를 진행
+    유저에거 컨펌 받기 위해 사진 두 장(원본 리사이즈드, 투명화)의 참조 경로를 리턴함
     """
-    if request.method == 'POST':
-        if 'image' in request.FILES:
-            file = request.FILES['image']
-            filename = file._name
+    if 'image' in request.FILES:
+        userfile = request.FILES['image']
+        filename = userfile._name
+        
+        # 디렉토리가 없으면 생성
+        if not os.path.exists(settings.CLOTHES_ROOT):
+            os.makedirs(settings.CLOTHES_ROOT)
+        if not os.path.exists(settings.CLOTHES_ROOT_TMP):
+            os.makedirs(settings.CLOTHES_ROOT_TMP)
 
-            if not os.path.exists(settings.CLOTHES_ROOT):
-                os.makedirs(settings.CLOTHES_ROOT)
+        # 임시 파일명 생성
+        infix = str(uuid.uuid4()).split('-')[4]
+        temp_file =  infix + '_' + filename
+        temp_file_png = \
+            infix + '_' +  filename[0:filename.rindex('.')] + '.png'
 
-            fp = open(os.path.join(settings.CLOTHES_ROOT, filename) , 'wb')
-            for chunk in file.chunks():
-                fp.write(chunk)
-            fp.close()
+        # 원본 저장
+        fp = open(
+            os.path.join(settings.CLOTHES_ROOT_TMP, temp_file) , 'wb')
+        for chunk in userfile.chunks():
+            fp.write(chunk)
+        fp.close()
 
-            processor = Thumbnail(width=150, height=150)
-            source = Image.open(os.path.join(settings.CLOTHES_ROOT, filename))
-            target = processor.process(source)
-            target = target.convert('RGB')
-            target.save(os.path.join(settings.CLOTHES_ROOT, 
-                filename[0:filename.rindex('.')] +'_thumb.jpg'), quality=60)
+        # 스마트폰 카메라로 찍은 경우 특정 orientation 에서 이미지가 돌아가는 문제 수정
+        source = Image.open(
+            os.path.join(settings.CLOTHES_ROOT_TMP, temp_file))
+        if source._getexif() != None: 
+            exif = dict((ExifTags.TAGS[k], v) \
+                for k, v in source._getexif().items() if k in ExifTags.TAGS)
+            if 'Orientation' in list(exif.keys()):
+                source = source.rotate(-90, expand=True) \
+                    if exif['Orientation'] == 6 \
+                    else source
 
-            json_data = json.dumps({
-                'org':filename, 
-                'tar':filename[0:filename.rindex('.')] +'_thumb.jpg'
-            })
+        # 임시 리사이즈 및 저장 
+        processor = ResizeToFit(width=250, height=250)
+        target = processor.process(source)
+        target.save(os.path.join(settings.CLOTHES_ROOT_TMP, temp_file_png))
 
-            return HttpResponse(json_data, content_type="application/json")
+
+        # 초보적 배경 제거
+        if source.mode == "RGBA" or "transparency" in source.info:
+            mod_file_png = temp_file_png
+        else:
+            mod_file_png = removebg(settings.CLOTHES_ROOT_TMP, temp_file_png)
+
+        json_data = json.dumps({
+            'org': temp_file_png, 
+            'mod': mod_file_png
+        })
+
+        # processor = Thumbnail(width=150, height=150)
+        # source = Image.open(os.path.join(settings.CLOTHES_ROOT_TMP, temp_file))
+        # target = processor.process(source)
+
+        return HttpResponse(json_data, content_type="application/json")
 
     return HttpResponse('Failed to Upload File')
+
 
 # -----------------------------------------------------------------------------
 # clothes : userid에 해당되는 데이터 전부 불러오기

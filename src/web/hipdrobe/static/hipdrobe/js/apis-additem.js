@@ -91,15 +91,11 @@ function uploadImage(event) {
         success: function (data) {
             console.log(data);
             $('#id-div-imgselect').css('display', 'block');
-            $('#id-additem-preview1').prop('src', "/clothes/" + data['org']);
-            // $('#id-additem-preview').css('visibility', 'visible');
-            $('#id-additem-thumbnail').prop('src', "/clothes/" + data['tar']);
-            // $('#id-additem-thumbnail').css('visibility', 'visible');
-            //$("#btnSubmit").prop("disabled", false);
+            $('#id-additem-preview1').prop('src', "/clothes_tmp/" + data['org']);
+            $('#id-additem-preview2').prop('src', "/clothes_tmp/" + data['mod']);
         },
         error: function (e) {
             console.log("ERROR : ", e);
-            //$("#btnSubmit").prop("disabled", false);
             alert("fail");
         }
    });

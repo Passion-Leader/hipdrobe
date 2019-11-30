@@ -1,8 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from .models import User
-import simplejson as json
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+
+from .models import User
+
+import simplejson as json
+
 
 # Create your views here.
 # -----------------------------------------------------------------------------

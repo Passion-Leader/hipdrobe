@@ -12,6 +12,8 @@ idna==2.8
 ipython==7.9.0
 ipython-genutils==0.2.0
 jedi==0.15.1
+numpy==1.17.4
+opencv-python==4.1.2.30
 parso==0.5.1
 pickleshare==0.7.5
 pilkit==2.0
