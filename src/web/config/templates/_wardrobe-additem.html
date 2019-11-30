@@ -12,34 +12,38 @@
       <div class="modal-body">
         <form>
           {% csrf_token %}
-          <div class="row">
+          <div class="row cls-additem-firstrow">
             <div class="col-3">
               <div class="form-group">
-                <label for="id-additem-part">* 부위</label>
+                <label for="id-additem-part"><i class="fas fa-asterisk"></i> 부위</label>
                 <select name="part" class="form-control custom-select custom-select-lg" id="id-additem-part"
-                  onchange="onPartChange()">
+                  onchange="onPartChange()" required>
                   <option value="" selected><span style=>선택하세요</span></option>
                 </select>
               </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label for="id-additem-cate1">* 카테고리 I</label>
+                    <label for="id-additem-cate1"><i class="fas fa-asterisk"></i> 카테고리 I</label>
                     <select name="part" class="form-control custom-select custom-select-lg" id="id-additem-cate1"
-                      onchange="onCate1Change()">
+                      onchange="onCate1Change()" required>
                       <option value="" selected>선택하세요</option>
                     </select>
                 </div>
             </div>
             <div class="col-5">
                 <div class="form-group">
-                    <label for="id-additem-cate2">* 카테고리 II</label>
-                    <select name="part" class="form-control custom-select custom-select-lg mb-3" id="id-additem-cate2">
-                        <option value="" selected>선택하세요</option>
+                    <label for="id-additem-cate2"><i class="fas fa-asterisk"></i> 카테고리 II</label>
+                    <select name="part" class="form-control custom-select custom-select-lg mb-3" id="id-additem-cate2"
+                      required>
+                      <option value="" selected>선택하세요</option>
                     </select>
                 </div>
             </div>
           </div><!-- 첫 줄 end-->
+          <div class="divider">
+            <span>선택 사항</span><hr>
+          </div>
           <div class="row mb-3">
             <div class="col-3">
               <label for="id-additem-color">색상</label>
@@ -103,9 +107,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-9">
+            <div class="col-2">
+              <label for="id-additem-texture">재질</label>
+              <input class="form-control" type="text" name="texture" id="id-additem-texture">
+            </div>
+            <div class="col-2">
+              <label for="id-additem-brand">브랜드</label>
+              <input class="form-control" type="text" name="brand" id="id-additem-brand">
+            </div>
+            <div class="col-5">
               <label>메모</label>
-              <input type="text" class="form-control" placeholder="메모를 작성하세요."/>
+              <textarea rows="3" class="form-control" placeholder="메모를 작성하세요."></textarea>
             </div>
           </div><!-- 셋째 줄 end-->
           <input type="hidden" name="url" id="id-additem-url"/>
