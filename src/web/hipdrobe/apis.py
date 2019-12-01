@@ -13,7 +13,7 @@ import os, json
 from PIL import Image, ExifTags
 from pilkit.processors import Thumbnail, ResizeToFit
 import uuid
-from .removebg import removebg
+# from .removebg import removebg
 from rest_framework import serializers
 
 
