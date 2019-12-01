@@ -92,6 +92,23 @@ a, a:hover, a:focus {
  */
 
 
+/*
+ * loading
+ */
+#loading {
+    visibility: collapse;
+    position: absolute;
+    z-index: 10000;
+    width: 100%;
+    line-height: 100vh;
+    text-align: center;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+#loading img {
+    width: 15%;
+}
+
 /* 
  * carousel
  */
@@ -296,11 +313,10 @@ nav.navbar > div > div p {
     margin-top: 10px;
 }
 
-#id-div-imgselect {
-    display: none;
+label#image-select-error {
+    float: right;
 }
 
-    
 #id-additem-color {
     height: 40px !important;
 }
@@ -352,6 +368,11 @@ nav.navbar > div > div p {
 
 .cls-additem-firstrow .form-group {
     margin-bottom: 0px;
+}
+
+#id-modal-additem label.error {
+    color: red;
+    margin-left: 5px;
 }
 
 

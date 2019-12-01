@@ -64,7 +64,18 @@ anime.timeline({loop: true})
     delay: 2000
   });
 
-  
+
+
+/* ----------------------------------------------------------------------------
+ * loading
+ */
+function enableLoading() {
+    $('#loading').css('visibility', 'visible' )
+}
+
+function disableLoading() {
+    $('#loading').css('visibility', 'collapse' )
+}
 
 
 /*-----------------------------------------------------------------------------
