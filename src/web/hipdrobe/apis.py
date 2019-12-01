@@ -13,7 +13,7 @@ import os, json
 from PIL import Image, ExifTags
 from pilkit.processors import Thumbnail, ResizeToFit
 import uuid
-# from .removebg import removebg
+from .removebg import removebg
 from rest_framework import serializers
 
 
@@ -140,8 +140,6 @@ def upload(request):
 @require_POST
 def additem(request):
     data = request.POST
-
-    print(data)
 
     try:
         # 저장할 유저 선택 및 옷 이미지 저장 경로 생성
