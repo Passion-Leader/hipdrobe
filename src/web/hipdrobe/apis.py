@@ -65,7 +65,7 @@ def cate2(request):
 
 
 # -----------------------------------------------------------------------------
-# upload
+# upload image
 # -----------------------------------------------------------------------------
 @require_POST
 def upload(request):
@@ -134,6 +134,65 @@ def upload(request):
 
 
 # -----------------------------------------------------------------------------
+# additem
+# -----------------------------------------------------------------------------
+# 나중에 로그인 필수 넣기
+@require_POST
+def additem(request):
+    data = request.POST
+
+    print(data)
+
+    try:
+        # 저장할 유저 선택 및 옷 이미지 저장 경로 생성
+        user = User.objects.get(userid='user01@test.com')
+        destPath = destFile = os.path.join(settings.CLOTHES_ROOT, user.userid)
+        if not os.path.exists(destPath):
+            os.makedirs(destPath)
+
+        # 선택한 파일을 자신의 CLOTHES_ROOT/계정명/파일명 으로 저장
+        filename = data['url'][data['url'].rindex('/')+1:]
+        srcfile = os.path.join(settings.CLOTHES_ROOT_TMP, filename )
+        destFile = os.path.join(destPath, filename)
+        os.rename(srcfile, destFile)
+
+        # 임시 파일 삭제
+        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, 
+            filename[:filename.index('_')])
+        
+        # DB 저장 가즈아~
+        clothes = Clothes()
+        clothes.userid = user
+        clothes.part = data['part']
+        clothes.cate1_name = data['cate1']
+        clothes.cate2_name = data['cate2']
+        clothes.color = data['color']
+        clothes.solid = True if data['colortype'] == 'true' else False
+        clothes.season = str(data.getlist('season'))[1:-1].replace("'", "")
+        if data['pattern'] != ''    : clothes.pattern = data['pattern']
+        if data['texture'] != ''   : clothes.texture = data['texture']
+        if data['brand'] != ''      : clothes.brand = data['brand']
+        if data['descript'] != ''   : clothes.descript = data['descript']
+        clothes.url = user.userid + '/' + filename
+        clothes.save()
+
+        json_data = json.dumps({
+            'result': 'success', 
+        })
+
+    except:
+        filename = data['url'][data['url'].rindex('/')+1:]
+        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, 
+            filename[:filename.index('_')])
+
+        json_data = json.dumps({
+            'result': 'fail', 
+        })
+
+    return HttpResponse(json_data, content_type="application/json")
+
+
+# -----------------------------------------------------------------------------
 # clothes : userid에 해당되는 데이터 전부 불러오기
 # -----------------------------------------------------------------------------
 # def clothes(request):
@@ -144,3 +203,19 @@ def upload(request):
 #     data = serializers.serialize('json', json_data)
 #     print(data)
 #     return HttpResponse(data, content_type="application/json")
+
+
+
+# -----------------------------------------------------------------------------
+# Temporary Image File 삭제
+# -----------------------------------------------------------------------------
+def _deleteTmpImage(path, infix):
+    try:
+        filenames = os.listdir(path)
+        for filename in filenames:
+            full_filename = os.path.join(path, filename)
+            if not os.path.isdir(full_filename) and infix in filename:
+                os.remove(full_filename)
+
+    except Exception as e:
+        print(e)

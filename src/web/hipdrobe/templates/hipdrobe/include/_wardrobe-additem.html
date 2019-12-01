@@ -116,8 +116,8 @@
               <input class="form-control" type="text" name="brand" id="id-additem-brand">
             </div>
             <div class="col-5">
-              <label>메모</label>
-              <textarea rows="3" class="form-control" placeholder="메모를 작성하세요."></textarea>
+              <label for="id-additem-desc">메모</label>
+              <textarea rows="3" class="form-control" name="descript" id="id-additem-desc" placeholder="메모를 작성하세요."></textarea>
             </div>
           </div><!-- 셋째 줄 end-->
           <input type="hidden" name="url" id="id-additem-url"/>
@@ -152,26 +152,26 @@
               <label><i class="fas fa-asterisk"></i> 이미지 선택</label>
               <div class="form-control">
                 <div class="row">
-                  <div class="col-5">
+                  <div class="col-6">
                     <div class="custom-control custom-radio">
-                      <input class="custom-control-input" name="image-select" type="radio" id="id-additem-image1" value="0">
+                      <input class="custom-control-input" name="image-select" type="radio" id="id-additem-image1" onchange="onImageSelect(this)" value="0">
                       <label class="custom-control-label" for="id-additem-image1">원본</label>
                     </div>
                   </div>
-                  <div class="col-5">
+                  <div class="col-6">
                     <div class="custom-control custom-radio">
-                      <input class="custom-control-input" name="image-select" type="radio" id="id-additem-image2" value="1">
+                      <input class="custom-control-input" name="image-select" type="radio" id="id-additem-image2" onchange="onImageSelect(this)" value="1">
                       <label class="custom-control-label" for="id-additem-image2">배경 제거</label>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-5">
+                  <div class="col-6">
                     <div id="id-div-preview-1" class="cls-div-preview">
                       <img src="{% static 'hipdrobe/img/no-image.png' %}" alt=" 프리뷰 이미지1" id="id-additem-preview1"/>
                     </div>
                   </div>
-                  <div class="col-5">
+                  <div class="col-6">
                     <div id="id-div-preview-2" class="cls-div-preview">
                       <img src="{% static 'hipdrobe/img/no-image.png' %}" alt=" 프리뷰 이미지2" id="id-additem-preview2"/>
                     </div>
