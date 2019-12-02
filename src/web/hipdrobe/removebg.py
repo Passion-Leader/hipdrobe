@@ -76,7 +76,7 @@ def removebg(path, filename):
     # cv2.waitKey()
 
     # cv2.imwrite(args.file_out, img_a*255)
-    mod_file_png = filename[0:filename.rindex('.')] + '_mod.png'
+    mod_file_png = filename[0:filename.rindex('.')] + '-mod.png'
     # cv2.imwrite(os.path.join(path, mod_file_png), masked)
 
     src = masked
