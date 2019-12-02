@@ -124,25 +124,27 @@
                     </div>
                     <div id="log-section">
                         <ul>
-                            <!-- <a class="login-info" style="font-size:2em;" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">로그인</a> -->
                         <a class="login-info" style="font-size:2em;" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">로그인</a>
-<!--                             
+                        
                         <div class="modal fade login" id="loginModal">
                                 <div class="modal-dialog login animated">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title" >로그인</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
                                         </div>
                                         <div class="modal-body">
                                             <div class="box">
                                                 <div class="content">
                                                     <div class="social">
+                                                        <a class="circle github" href="#">
+                                                            <i class="fa fa-github fa-fw"></i>
+                                                        </a>
                                                         <a id="google_login" class="circle google" href="#">
-                                                                <i class="fab fa-google"></i>
+                                                            <i class="fa fa-google-plus fa-fw"></i>
                                                         </a>
                                                         <a id="facebook_login" class="circle facebook" href="#">
-                                                                <i class="fab fa-facebook-square"></i>
+                                                            <i class="fa fa-facebook fa-fw"></i>
                                                         </a>
                                                     </div>
                                                     <div class="division">
@@ -152,11 +154,10 @@
                                                     </div>
                                                     <div class="error"></div>
                                                     <div class="form loginBox">
-                                                        <form method="POST" action="" accept-charset="UTF-8">
-                                                            <input id="email" class="form-control" type="text" placeholder="Email" name="userid">
-                                                            <input id="password" class="form-control" type="password" placeholder="Password" name="userpw">
-                                                            <input class="btn btn-default btn-login" type="submit" value="Login" onclick="loginAjax()">
-                                                            <input class="btn btn-default btn-login" type="submit" value="Login">
+                                                        <form method="" action="" accept-charset="UTF-8">
+                                                        <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                                        <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                                        <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
                                                         </form>
                                                     </div>
                                                 </div>
@@ -171,9 +172,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                                                         -->
+                            </div>                                                        
                             </li>
-                            <!-- <li class="login-info" style="font-size:2em;"><a href="{% url 'hipdrobe:regist' %}">회원가입</a> -->
                             <li class="login-info" style="font-size:2em;"><a href="{% url 'hipdrobe:regist' %}">회원가입</a>
                                 
                             </li>
@@ -232,7 +232,6 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/c131d7d3d4.js" crossorigin="anonymous"></script>
 
     <!-- text effect -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
@@ -242,12 +241,10 @@
 	<script src="{% static 'hipdrobe/js/bootstrap.js'%}" type="text/javascript"></script>
 	<script src="{% static 'hipdrobe/js/login-register.js'%}" type="text/javascript"></script>
 
-
     <script>
-
-    //    $(document).ready(function(){
-    //     openLoginModal();
-    // });
+       $(document).ready(function(){
+        openLoginModal();
+    });
     </script>
 
     <!---- local body resources ---->

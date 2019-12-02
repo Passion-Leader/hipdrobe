@@ -23,7 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'hipdrobe/css/regist_util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'hipdrobe/css/regist_main.css' %}">
 <!--===============================================================================================-->
-
+	
 	
 
 
@@ -118,8 +118,7 @@
 <!--===============================================================================================-->
 	<script src="{% static 'hipdrobe/vendor/countdowntime/countdowntime.js' %}"></script>
 <!--===============================================================================================-->
-	<script src="{% static 'hipdrobe/js/regist_main.js' %}"></script>
-	
+    <script src="{% static 'hipdrobe/js/regist_main.js' %}"></script>
 <!--===============================================================================================-->
 	<!-- jquery 라이브러리 사용 -->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -193,22 +192,20 @@ $('#userid').blur( function() {
 			return;
 		}
 		if(response.data == 'exist'){
-			console.log(response.data)
-			$("#id_check").text("사용중인 이메일입니다 :(");
+			$("#id_check").text("사용중인 이메일입니다 :p");
 			$("#id_check").css("color","red");
 			$("#id_check").css("text-align","center");
 			$("#reg_submit").attr("disabled",true);
 			
 		}
 		else{
-			$("#id_check").text("사용가능 이메일입니다 :D");
+			$("#id_check").text("사용가능한 이메일입니다 :p");
 			$("#id_check").css("color","blue");
 			$("#id_check").css("text-align","center");
-			$("#reg_submit").attr("disabled",true);
-
-		}	
+			$("#reg_submit").attr("disabled",false);
+			
 		}
-		,
+		},
 
 	
 		error : function(xhr, error){
@@ -217,7 +214,6 @@ $('#userid').blur( function() {
 		}
 	})
 });
-
 </script>
 </body>
 </html>

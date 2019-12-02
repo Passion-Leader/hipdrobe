@@ -7,8 +7,6 @@ from django.views.decorators.http import require_POST
 from .models import User
 
 import simplejson as json
-# from django.contrib.auth.models import User
-# from django.contrib import auth
 
 
 # Create your views here.
@@ -61,34 +59,11 @@ def regist(request):
 def check_id(request):
     try:
         user = User.objects.get(userid=request.GET['userid'])
-    
-    
     except Exception as e:
         user = None
-        print(user)
     result = {
     'result':'success',
     # 'data' : model_to_dict(user)  # console에서 확인
     'data' : "not exist" if user is None else "exist"
     }
     return JsonResponse(result)
-
-
-def login(request):
-    if request.method=="POST":
-        username=request.POST['userid']
-        password=request.POST['userpwd']
-        user=auth.authenticate(request,username=username,password=password)
-        if user is not None:
-            auth.login(request,user)
-            return redirect(request, user)
-            return redirect('index')
-        else:
-            return render(request,'index.html',{'error':'오류'})
-        
-    else:
-        return render(request,'index.html')
-
-def logout(request):
-    auth.logout(request)
-    return redirect('index')

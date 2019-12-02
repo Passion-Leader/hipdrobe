@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views, apis
-from django.contrib.auth import views as auth_views
+
 
 app_name = "hipdrobe"
 urlpatterns = [
@@ -21,7 +21,5 @@ urlpatterns = [
     path('apis/cate2/', apis.cate2, name="cate2"),
     path('apis/upload/', apis.upload, name="upload"),
     path('check_id/',views.check_id,name="check_id"),
-    # path('login/',views.login,name="login"),
-
     # path('apis/clothes/', apis.clothes, name="clothes"),
 ]
