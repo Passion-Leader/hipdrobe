@@ -31,6 +31,7 @@ $(document).ready(function(){
             data: {userid: "user01@test.com", name: name},
             success: function (data) {
                 console.log(data['url'])
+                _addOption('#img_list', data['url'])
                 $('#myModal').modal();
             },
             error: function (e) {
