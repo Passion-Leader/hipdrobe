@@ -98,6 +98,10 @@ function getCookie(name) {
 }
 
 
+function openmodal(){
+    $('.login-info').openmodal
+}
+
 
 /* ----------------------------------------------------------------------------
  * 로고 제네레이터 

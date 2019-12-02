@@ -376,6 +376,88 @@ label#image-select-error {
 }
 
 
+/* base 모달 */
+.modal-dialog .modal-content .modal-header .modal-title {
+    color:black;
+    font-size:30px;
+    text-align:center;
+    margin-left:212px;
+}
+
+.modal-dialog .modal-content .modal-division {
+    float: none;
+    margin: 0 auto 18px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+.modal-dialog .modal-content .modal-division .line {
+    border-top: 1px solid #DFDFDF;
+    position: absolute;
+    top: 10px;
+    width: 34%;
+}
+.modal-dialog .modal-content .modal-division .line.l {
+    left: 0;
+}
+.modal-dialog .modal-content .modal-division .line.r {
+    right: 0;
+}
+.modal-dialog .modal-content .modal-division span {
+    color: #424242;
+    font-size: 28px;
+}
+
+.modal-dialog .modal-content .modal-body .box .social {
+    float: none;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.modal-dialog .modal-content .modal-body .social .circle{
+    background-color: #EEEEEE;
+    color: #FFFFFF;
+    border-radius: 100px;
+    display: inline-block;
+    margin: 0 17px;
+    padding: 15px;
+}
+.modal-dialog .modal-content .modal-body .social .circle .fa{
+    font-size: 16px;
+}
+.modal-dialog .modal-content .modal-body .social .facebook{
+    background-color: #455CA8;
+    color: #FFFFFF;
+}
+.modal-dialog .modal-content .modal-body .social .google{
+    background-color: #F74933;
+}
+.modal-dialog .modal-content .modal-body .social .github{
+    background-color: #403A3A;
+}
+.modal-dialog .modal-content .modal-body .facebook:hover{
+    background-color: #6E83CD;
+}
+.modal-dialog .modal-content .modal-body .google:hover{
+    background-color: #FF7566;
+}
+.modal-dialog .modal-content .modal-body .github:hover{
+    background-color: #4D4D4d;;
+}
+.modal-dialog .modal-content .modal-footer{
+    font-size: 15px;
+    color:black;
+}
+.modal-dialog .modal-content .modal-footer input{
+    font-size: 20px;
+    color:black;
+}
+.modal-dialog .modal-content .modal-footer span{
+    margin-right: 330px;
+    font-size: 20px;
+}
+
 /* 
  * footer
  */
