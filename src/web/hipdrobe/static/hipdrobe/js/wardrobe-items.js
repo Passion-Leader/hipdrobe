@@ -6,7 +6,7 @@ $(document).ready(function(){
     setTitle(["나만의 옷장 :", "내 옷장 보기"]);
     setActive(["main-ln-wardrobe", "ln-items"]);
 
-
+    // 아이템 버튼 onMouse & click 이벤트
     $('.fun-btn').on('click', function(event) {
         $(this).toggleClass('start-fun');
         var $page = $('.page');
@@ -28,9 +28,9 @@ $(document).ready(function(){
             type: "GET",
             url: "/apis/clothes/",
             contentType: "application/json",
-            data: {userid: "itemtest", name: name},
+            data: {userid: "user01@test.com", name: name},
             success: function (data) {
-                alert(data['url'][0])
+                console.log(data['url'])
                 $('#myModal').modal();
             },
             error: function (e) {
