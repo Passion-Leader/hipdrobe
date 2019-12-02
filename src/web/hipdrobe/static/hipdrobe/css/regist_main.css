@@ -477,7 +477,8 @@ iframe {
 .btn-hide-validate {
   font-family: Material-Design-Iconic-Font;
   font-size: 15px;
-  color: #fa4251;
+  
+  color: #57b846;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -500,7 +501,7 @@ iframe {
   content: "\f269";
   font-family: Material-Design-Iconic-Font;
   font-size: 15px;
-  color: #57b846;
+  color: #fa4251;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
