@@ -84,10 +84,13 @@ def upload(request):
             os.makedirs(settings.CLOTHES_ROOT_TMP)
 
         # 임시 파일명 생성
-        infix = str(uuid.uuid4()).split('-')[4]
-        temp_file =  infix + '_' + filename
+        uuid_list = str(uuid.uuid4()).split('-')
+        print(uuid_list)
+        prefix = uuid_list[0] + '-' + uuid_list[4]
+        temp_file =  prefix + filename[filename.rindex('.')-1:]
+        print(temp_file)
         temp_file_png = \
-            infix + '_' +  filename[0:filename.rindex('.')] + '.png'
+            temp_file[0:temp_file.rindex('.')] + '-resized.png'
 
         # 원본 저장
         fp = open(
@@ -156,7 +159,7 @@ def additem(request):
 
         # 임시 파일 삭제
         _deleteTmpImage(settings.CLOTHES_ROOT_TMP, 
-            filename[:filename.index('_')])
+            filename[:filename.rindex('-')])
         
         # DB 저장 가즈아~
         clothes = Clothes()
@@ -181,7 +184,7 @@ def additem(request):
     except:
         filename = data['url'][data['url'].rindex('/')+1:]
         _deleteTmpImage(settings.CLOTHES_ROOT_TMP, 
-            filename[:filename.index('_')])
+            filename[:filename.rindex('-')])
 
         json_data = json.dumps({
             'result': 'fail', 
