@@ -23,20 +23,22 @@ $(document).ready(function(){
       });
 
     $('.fun-btn').click(function() {
-        // $.ajax({
-        //     type: "GET",
-        //     url: "/apis/clothes/",
-        //     contentType: "application/json",
-        //     data: {userid: "itemtest"},
-        //     success: function (data) {
-        //         alert(data)
-        //     },
-        //     error: function (e) {
-        //         console.log("ERROR : ", e);
-        //         alert("fail");
-        //     }
-        // });
-        $('#myModal').modal();
+        var name = $(this).val()
+        // alert(name)
+        $.ajax({
+            type: "GET",
+            url: "/apis/clothes/",
+            contentType: "application/json",
+            data: {userid: "itemtest", name: name},
+            success: function (data) {
+                alert(data['url'][0])
+                $('#myModal').modal();
+            },
+            error: function (e) {
+                console.log("ERROR : ", e);
+                alert("fail");
+            }
+        });
           
     })
 

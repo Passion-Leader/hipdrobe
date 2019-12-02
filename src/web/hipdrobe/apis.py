@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from PIL import Image
 from pilkit.processors import Thumbnail
 from rest_framework import serializers
+from django.db.models import Q
 
 import os, json
 
@@ -97,11 +98,29 @@ def upload(request):
 # -----------------------------------------------------------------------------
 # clothes : userid에 해당되는 데이터 전부 불러오기
 # -----------------------------------------------------------------------------
-# def clothes(request):
-#     u_clothes = Clothes.objects.filter(userid=request.GET.get('userid'))
-#     json_data = {
-#         "clothes" : u_clothes
-#     }
-#     data = serializers.serialize('json', json_data)
-#     print(data)
-#     return HttpResponse(data, content_type="application/json")
+def clothes(request):
+    userid = request.GET.get('userid')
+    name = request.GET.get('name')
+    # print(name)
+
+    if name == '상의':
+        url = list(map(lambda clothes : clothes['url'], 
+            Clothes.objects.filter(Q(userid = userid) & Q(part = name) & ~Q(cate1_name__endswith = '아우터')).values('url')))
+        json_data = json.dumps({'url': url})
+
+    if name == '아우터':
+        url = list(map(lambda clothes : clothes['url'], 
+            Clothes.objects.filter(Q(userid = userid) & Q(cate1_name__endswith = name)).values('url')))
+        json_data = json.dumps({'url': url})    
+
+    if name == '하의':
+        url = list(map(lambda clothes : clothes['url'], 
+            Clothes.objects.filter(Q(userid = userid) & Q(part = name)).values('url')))
+        json_data = json.dumps({'url': url})  
+
+    else:
+        url = list(map(lambda clothes : clothes['url'], 
+            Clothes.objects.filter(Q(userid = userid) & Q(cate1_name = name)).values('url')))
+        json_data = json.dumps({'url': url})   
+
+    return HttpResponse(json_data, content_type="application/json")
