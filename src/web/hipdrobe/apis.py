@@ -168,10 +168,10 @@ def additem(request):
         clothes.solid = True if data['colortype'] == 'true' else False
         clothes.season = str(data.getlist('season'))[1:-1].replace("'", "")
         if data['pattern'] != ''    : clothes.pattern = data['pattern']
-        if data['texture'] != ''   : clothes.texture = data['texture']
+        if data['texture'] != ''    : clothes.texture = data['texture']
         if data['brand'] != ''      : clothes.brand = data['brand']
         if data['descript'] != ''   : clothes.descript = data['descript']
-        clothes.url = user.userid + '/' + filename
+        clothes.url = '/clothes/' + user.userid + '/' + filename
         clothes.save()
 
         json_data = json.dumps({
