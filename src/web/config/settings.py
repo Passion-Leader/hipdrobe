@@ -129,3 +129,6 @@ STATIC_URL = '/static/'
 CLOTHES_URL = '/clothes/'
 # CLOTHES_ROOT = 'c:\\hipdrobe\\clothes'
 CLOTHES_ROOT = os.path.join(BASE_DIR, 'data', 'user', 'clothes_images')
+
+CLOTHES_URL_TMP = '/clothes_tmp/'
+CLOTHES_ROOT_TMP = os.path.join(BASE_DIR, 'data', 'user', 'clothes_images', 'tmp')

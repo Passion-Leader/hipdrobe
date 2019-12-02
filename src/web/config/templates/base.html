@@ -8,25 +8,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
 
-    <!---- global resources ---->
+    <!-- global resources -->
     <link rel="shortcut icon" href="{% static 'hipdrobe/favicon/favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'hipdrobe/favicon/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'hipdrobe/css/global.css' %}" />
     
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     
-    <!-- text effect -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    
 
-    <!---- local resources ---->
+
+
+    <!-- local resources -->
     {% block local_head_resources %}
     {% endblock %}
 </head>
 
 <body>
+    <div id="loading">
+        <img src="{% static 'hipdrobe/img/square-grid-loader.svg' %}"/>
+    </div>
     
     <!-- Wrapper -->
     <div class="wrapper">
@@ -37,7 +38,7 @@
         <nav id="sidebar">
             <div class="sidebar-header">
                 <a href="{% url 'hipdrobe:index' %}">
-                    <div id="brand-main"></div>
+                    <div id="brand-main">HIP</div>
                     
                     <h1 class="ml7">
                         <span class="text-wrapper">
@@ -94,12 +95,12 @@
                 <div class="container-fluid">
                     <div>
                         <a href="{% url 'hipdrobe:index'%}">
-                            <p id="brand-main-narrow"></p>
+                            <p id="brand-main-narrow">HIP</p>
                         </a>
                     </div>
                     <div>
                         <a href="{% url 'hipdrobe:index'%}">
-                            <p id="brand-main-hangeul-narrow"></p>
+                            <p id="brand-main-hangeul-narrow">힙드로브</p>
                             <span class="brand-del">war</span><span class="brand-sub">drobe</span>
                         </a>
                     </div>
@@ -119,9 +120,53 @@
                     </div>
                     <div id="log-section">
                         <ul>
-                                
-                            <li class="login-info" style="font-size:2em;"><a href="#">로그인</a>
-                                
+                        <li class="login-info" style="font-size:2em;"><a data-toggle="modal" href="#exampleModal">로그인</a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content" >
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel" >로그인</h5>
+                                    </div>
+                                    <div class="modal-body" >
+                                        <div class="box">
+                                        <div class="social">
+                                                <a class="kakao" href="#">
+                                                <img src="{% static 'hipdrobe/img/kakao.png'%}" >
+                                                </a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a class="kakao" href="#">
+                                                        <img src="{% static 'hipdrobe/img/naver.png'%}" >
+                                                </a>
+                                        </div>
+                                        </div>
+                                        <div class="modal-division">
+                                                <div class="line l"></div>
+                                                <span>or</span>
+                                                <div class="line r"></div>
+                                        </div>
+                                        <div class="loginBox">
+                                                <form method="" action="" accept-charset="UTF-8">
+                                                <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                                <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                                
+                                                </form>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                            <span>
+                                                    <a href="{% url 'hipdrobe:regist'%}">회원가입</a>
+                                            </span>
+                                            <div class="login-footer">
+                                                    
+                                                <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
+                                                
+                                            </div>                                            
+                                        </div>
+                                </div>
+                                </div>
+                            </div>
                             </li>
                             <li class="login-info" style="font-size:2em;"><a href="{% url 'hipdrobe:regist' %}">회원가입</a>
                                 
@@ -139,13 +184,7 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
-                    <!--
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span>Toggle Sidebar</span>
-                    </button>
-                    -->
+                    </div>                    
                 </div>
             </nav>
             {% block content %}
@@ -171,15 +210,19 @@
         </div>
     </footer>
 
-    <!---- global body resources ---->
+    <!-- global body resources -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <!-- text effect -->
     <script src="{% static 'hipdrobe/js/global.js' %}"></script>
-    
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-    <!---- local body resources ---->
+    <!-- local body resources -->
     {% block local_body_resources %}
     {% endblock %}
 </body>

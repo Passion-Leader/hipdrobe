@@ -11,14 +11,14 @@ function enableDnD() {
     const elems = document.querySelectorAll('.moveable');
     const options = { constrain: true };
 
-    for(elem of elems) {
-        g_moveables.push(displacejs(elem, options));
+    for(i = 0; i < elems.length; i++) {
+        g_moveables.push(displacejs(elems[i], options));
     }
 }
 
 function disableDnD() {
-    for(elem of g_moveables) {
-        elem.destroy();
+    for(i = 0; i < g_moveables.length; i++) {
+        g_moveables[i].destroy();
     }
     g_moveables = [];
 }

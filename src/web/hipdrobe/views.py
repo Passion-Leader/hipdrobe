@@ -1,8 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from .models import User
-import simplejson as json
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+
+from .models import User
+
+import simplejson as json
+
 
 # Create your views here.
 # -----------------------------------------------------------------------------
@@ -30,13 +35,13 @@ def stat(request):
 def regist(request):
         if request.method=="POST":
             
-            userid1=request.POST["userid"],
+            userid1=request.POST["userid"]
             
-            pw=request.POST["userpw1"],
+            pw=request.POST["userpw1"]
             
-            nickname=request.POST["nick"],
+            nickname=request.POST["nick"]
             
-            gender1=request.POST.get('gender'),
+            gender1=request.POST.get('gender')
             
             if gender1=='male':
                 gender1=1
@@ -51,5 +56,14 @@ def regist(request):
         else: 
             return render(request,'hipdrobe/regist.html')
         
-
-
+def check_id(request):
+    try:
+        user = User.objects.get(userid=request.GET['userid'])
+    except Exception as e:
+        user = None
+    result = {
+    'result':'success',
+    # 'data' : model_to_dict(user)  # console에서 확인
+    'data' : "not exist" if user is None else "exist"
+    }
+    return JsonResponse(result)

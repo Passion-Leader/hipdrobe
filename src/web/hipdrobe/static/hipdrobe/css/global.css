@@ -6,6 +6,7 @@
  * 폰트는 추후 다시 선택
  */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import "https://fonts.googleapis.com/css?family=Rock+Salt&display=swap";
 @import "https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap";
 
 
@@ -91,6 +92,23 @@ a, a:hover, a:focus {
  */
 
 
+/*
+ * loading
+ */
+#loading {
+    visibility: collapse;
+    position: absolute;
+    z-index: 10000;
+    width: 100%;
+    line-height: 100vh;
+    text-align: center;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+#loading img {
+    width: 15%;
+}
+
 /* 
  * carousel
  */
@@ -110,6 +128,14 @@ a, a:hover, a:focus {
 /* 
  * sidebar
  */
+
+ #brand-main, #brand-main-narrow {
+    font-family: 'Rock Salt', cursive;
+    font-size: 5em;
+    color: white;
+ }
+
+
 .brand-del {
     color: lightgray;
 }
@@ -129,7 +155,7 @@ a, a:hover, a:focus {
  * nav
  */
  .navbar-narrow {
-    margin-top: -140px;
+    margin-top: -150px;
     padding: 20px 0px 0px 0px;
     transition: all 0.3s;
  }
@@ -154,7 +180,11 @@ a, a:hover, a:focus {
 }
 
 #brand-main-hangeul-narrow {
+    font-family: 'Nanum Pen Script', cursive;
     display: block;
+    font-size: 3.5em;
+    line-height: 1;
+    color: white;
 }
 
 nav.navbar > div > div p {
@@ -266,18 +296,44 @@ nav.navbar > div > div p {
     height: auto;
 }
 
-
-#id-div-preview, 
-#id-div-thumbnail {
-    border: 1px dashed gray;
-    border-radius: 10px;
+#id-modal-additem .modal-title {
+    font-size: 1.75em;
+    line-height: 1;
 }
 
+#id-modal-additem .fa-asterisk {
+    color: orange;
+}
 
-#id-div-preview {
-    width: 215px;
-    height: 215px;
-  
+#id-modal-additem .legend {
+    font-size: 16px;
+}
+
+#id-modal-additem .alert {
+    margin-top: 10px;
+}
+
+label#image-select-error {
+    float: right;
+}
+
+#id-additem-color {
+    height: 40px !important;
+}
+
+.cls-div-preview {
+    border: 1px dashed gray;
+    border-radius: 10px;
+    text-align: center;
+    vertical-align: middle;
+    background-image: url('../img/fake-alpha.png');
+    background-repeat: repeat;
+}
+
+.cls-div-preview {
+    width: 100%;
+    height: auto;
+
 }
 
 #id-div-thumbnail {
@@ -285,20 +341,121 @@ nav.navbar > div > div p {
     height: 100px;
 }
 
-#id-additem-preview,
+#id-additem-preview1,
+#id-additem-preview2,
 #id-additem-thumbnail {
     max-width: 100%; 
     max-height: 100%;
     border-radius: 10px;
 }
-    
 
-#id-additem-preview {
-    
+.divider {
+    margin-bottom: 5px;
 }
 
-#id-additem-thumbnail {
+.divider span {
+    display: inline-block;
+    width: 8%;
+}
 
+.divider hr {
+    display: inline-block;
+    width: 92%;
+    margin: 6px 0px;
+    border: 0;
+    border-top: 1px dashed rgba(0,0,0, .2);
+}
+
+.cls-additem-firstrow .form-group {
+    margin-bottom: 0px;
+}
+
+#id-modal-additem label.error {
+    color: red;
+    margin-left: 5px;
+}
+
+
+/* base 모달 */
+.modal-dialog .modal-content .modal-header .modal-title {
+    color:black;
+    font-size:30px;
+    text-align:center;
+    margin-left:212px;
+}
+
+.modal-dialog .modal-content .modal-division {
+    float: none;
+    margin: 0 auto 18px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+.modal-dialog .modal-content .modal-division .line {
+    border-top: 1px solid #DFDFDF;
+    position: absolute;
+    top: 10px;
+    width: 34%;
+}
+.modal-dialog .modal-content .modal-division .line.l {
+    left: 0;
+}
+.modal-dialog .modal-content .modal-division .line.r {
+    right: 0;
+}
+.modal-dialog .modal-content .modal-division span {
+    color: #424242;
+    font-size: 28px;
+}
+
+.modal-dialog .modal-content .modal-body .box .social {
+    float: none;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.modal-dialog .modal-content .modal-body .social .circle{
+    background-color: #EEEEEE;
+    color: #FFFFFF;
+    border-radius: 100px;
+    display: inline-block;
+    margin: 0 17px;
+    padding: 15px;
+}
+.modal-dialog .modal-content .modal-body .social .circle .fa{
+    font-size: 16px;
+}
+.modal-dialog .modal-content .modal-body .social .facebook{
+    background-color: #455CA8;
+    color: #FFFFFF;
+}
+.modal-dialog .modal-content .modal-body .social .google{
+    background-color: #F74933;
+}
+.modal-dialog .modal-content .modal-body .social .github{
+    background-color: #403A3A;
+}
+.modal-dialog .modal-content .modal-body .facebook:hover{
+    background-color: #6E83CD;
+}
+.modal-dialog .modal-content .modal-body .google:hover{
+    background-color: #FF7566;
+}
+.modal-dialog .modal-content .modal-body .github:hover{
+    background-color: #4D4D4d;;
+}
+.modal-dialog .modal-content .modal-footer{
+    font-size: 15px;
+    color:black;
+}
+.modal-dialog .modal-content .modal-footer input{
+    font-size: 20px;
+    color:black;
+}
+.modal-dialog .modal-content .modal-footer span{
+    margin-right: 330px;
+    font-size: 20px;
 }
 
 /* 
@@ -393,6 +550,14 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
+.custom-control-label:before{
+    /* background-color:red; */
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::before{
+    /* background-color: orange; */
+}
+
 
 
 
@@ -429,8 +594,6 @@ a[data-toggle="collapse"] {
         padding-left: 30px;
     }
 }
-
- 
 
 
   

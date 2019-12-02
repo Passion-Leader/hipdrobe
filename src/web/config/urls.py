@@ -29,3 +29,4 @@ urlpatterns = [
 
 
 urlpatterns += static(settings.CLOTHES_URL, document_root=settings.CLOTHES_ROOT)
+urlpatterns += static(settings.CLOTHES_URL_TMP, document_root=settings.CLOTHES_ROOT_TMP)
