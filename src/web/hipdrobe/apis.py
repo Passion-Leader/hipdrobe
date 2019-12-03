@@ -213,13 +213,13 @@ def clothes(request):
         json_data = json.dumps({'url': url})
         print(json_data)
 
-    if name == '아우터':
+    elif name == '아우터':
         url = list(map(lambda clothes : clothes['url'], 
             Clothes.objects.filter(Q(userid = userid) & Q(cate1_name__endswith = name)).values('url')))
         json_data = json.dumps({'url': url})
         print(json_data)
 
-    if name == '하의':
+    elif name == '하의':
         url = list(map(lambda clothes : clothes['url'], 
             Clothes.objects.filter(Q(userid = userid) & Q(part = name)).values('url')))
         json_data = json.dumps({'url': url})
@@ -228,7 +228,8 @@ def clothes(request):
     else:
         url = list(map(lambda clothes : clothes['url'], 
             Clothes.objects.filter(Q(userid = userid) & Q(cate1_name = name)).values('url')))
-        json_data = json.dumps({'url': url})   
+        json_data = json.dumps({'url': url})
+        print(json_data)
 
     return HttpResponse(json_data, content_type="application/json")
 
