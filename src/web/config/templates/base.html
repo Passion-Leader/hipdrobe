@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 {% load static %}
-
+{%load socialaccount%}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
@@ -120,7 +120,15 @@
                     </div>
                     <div id="log-section">
                         <ul>
-                        <li class="login-info" style="font-size:2em;"><a data-toggle="modal" href="#exampleModal">로그인</a>
+                        <li class="login-info" style="font-size:2em;">
+                                {% if user.is_authenticated %} {# 유저가 로그인 중이면 #}
+                                <span>{{user.username}}님 환영합니다.</span><a href="{% url 'account_logout' %}" class="nav-link">Logout</a> 
+                                
+                                {% else %}
+                                <a data-toggle="modal" href="#exampleModal">로그인</a>
+                                <a href="{% url 'account_login' %}" class="nav-link">Login</a>
+                                {% endif %}
+                            
 
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -132,6 +140,7 @@
                                     <div class="modal-body" >
                                         <div class="box">
                                         <div class="social">
+                                                
                                                 <a class="kakao" href="#">
                                                 <img src="{% static 'hipdrobe/img/kakao.png'%}" >
                                                 </a>
@@ -147,11 +156,12 @@
                                                 <div class="line r"></div>
                                         </div>
                                         <div class="loginBox">
-                                                <form method="" action="" accept-charset="UTF-8">
-                                                <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                                <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                                <form method="POST" action="{% url 'hipdrobe:login'%}" accept-charset="UTF-8">
+                                                    {%csrf_token%}
+                                                <input id="email" class="form-control" type="text" placeholder="Email" name="userid">
+                                                <input id="password" class="form-control" type="password" placeholder="Password" name="userpwd">
                                                 
-                                                </form>
+                                                
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -160,9 +170,10 @@
                                             </span>
                                             <div class="login-footer">
                                                     
-                                                <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
+                                                <input class="btn btn-default btn-login" type="submit" value="Login"">
                                                 
-                                            </div>                                            
+                                            </div>                
+                                        </form>                            
                                         </div>
                                 </div>
                                 </div>

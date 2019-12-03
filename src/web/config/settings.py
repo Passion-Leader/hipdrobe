@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'imagekit',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account', 
+    'allauth.socialaccount', 
+    'allauth.socialaccount.providers.naver', 
+    'allauth.socialaccount.providers.kakao', 
     
 ]
 
@@ -132,3 +138,11 @@ CLOTHES_ROOT = os.path.join(BASE_DIR, 'data', 'user', 'clothes_images')
 
 CLOTHES_URL_TMP = '/clothes_tmp/'
 CLOTHES_ROOT_TMP = os.path.join(BASE_DIR, 'data', 'user', 'clothes_images', 'tmp')
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
