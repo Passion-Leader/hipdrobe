@@ -299,6 +299,7 @@ nav.navbar > div > div p {
 #id-modal-additem .modal-title {
     font-size: 1.75em;
     line-height: 1;
+    margin-left: 0px;
 }
 
 #id-modal-additem .fa-asterisk {

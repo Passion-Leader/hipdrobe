@@ -14,11 +14,24 @@
   <div class="container-fluid content-wrap ctnt-center">
     <!-- main content section -->
     <div class="content-main">
-      <button class="btn btn-primary" onclick="openAddItemDialog(event)">옷 추가 테스트</button>
-      <h3>content-main</h3>
-      <div>
-        {% include 'hipdrobe/include/_char-win-control.html' %}
-        {% include 'hipdrobe/include/_char-win.html' %}
+      <div class="row mb-3">
+        <div class="col-12">
+          <button class="btn btn-primary" onclick="openAddItemDialog(event)">옷 추가 테스트</button>
+        </div>
+      </div>
+      <div class="row mb-3">
+          <div class="col-12">
+          </div>
+      </div>
+
+
+      <!--test drag & drop-->
+      <div class="row mb-3">
+        <div class="col-12">
+
+          {% include 'hipdrobe/include/_char-win-control.html' %}
+          {% include 'hipdrobe/include/_char-win.html' %}
+        </div>
       </div>
     </div>
 
@@ -40,7 +53,7 @@
 {% endblock %}
 {% block local_body_resources %}
   <script src="{% static 'hipdrobe/js/apis-additem.js' %}"></script>
-  <script src="{% static 'hipdrobe/third-party-etc/displace.min.js' %}"></script>
+  <script src="{% static 'hipdrobe/third-party-etc/displace.js' %}"></script>
   <script src="{% static 'hipdrobe/js/char-win.js' %}"></script>
   <script src="{% static 'hipdrobe/js/wardrobe-coordi.js' %}"></script>
 {% endblock %}

@@ -1,4 +1,3 @@
-
 var g_elem = [];
 
 $(document).ready(function(){

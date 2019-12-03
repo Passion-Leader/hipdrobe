@@ -4,6 +4,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.http import HttpResponse
+from PIL import Image
+from pilkit.processors import Thumbnail
+from rest_framework import serializers
+from django.db.models import Q
+
+import os, json
 
 # Models
 from .models import *
@@ -84,10 +90,13 @@ def upload(request):
             os.makedirs(settings.CLOTHES_ROOT_TMP)
 
         # 임시 파일명 생성
-        infix = str(uuid.uuid4()).split('-')[4]
-        temp_file =  infix + '_' + filename
+        uuid_list = str(uuid.uuid4()).split('-')
+        print(uuid_list)
+        prefix = uuid_list[0] + '-' + uuid_list[4]
+        temp_file =  prefix + filename[filename.rindex('.')-1:]
+        print(temp_file)
         temp_file_png = \
-            infix + '_' +  filename[0:filename.rindex('.')] + '.png'
+            temp_file[0:temp_file.rindex('.')] + '-resized.png'
 
         # 원본 저장
         fp = open(
@@ -155,8 +164,7 @@ def additem(request):
         os.rename(srcfile, destFile)
 
         # 임시 파일 삭제
-        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, 
-            filename[:filename.index('_')])
+        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, filename[:22])
         
         # DB 저장 가즈아~
         clothes = Clothes()
@@ -168,10 +176,10 @@ def additem(request):
         clothes.solid = True if data['colortype'] == 'true' else False
         clothes.season = str(data.getlist('season'))[1:-1].replace("'", "")
         if data['pattern'] != ''    : clothes.pattern = data['pattern']
-        if data['texture'] != ''   : clothes.texture = data['texture']
+        if data['texture'] != ''    : clothes.texture = data['texture']
         if data['brand'] != ''      : clothes.brand = data['brand']
         if data['descript'] != ''   : clothes.descript = data['descript']
-        clothes.url = user.userid + '/' + filename
+        clothes.url = '/clothes/' + user.userid + '/' + filename
         clothes.save()
 
         json_data = json.dumps({
@@ -180,8 +188,7 @@ def additem(request):
 
     except:
         filename = data['url'][data['url'].rindex('/')+1:]
-        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, 
-            filename[:filename.index('_')])
+        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, filename[:22])
 
         json_data = json.dumps({
             'result': 'fail', 
@@ -193,14 +200,35 @@ def additem(request):
 # -----------------------------------------------------------------------------
 # clothes : userid에 해당되는 데이터 전부 불러오기
 # -----------------------------------------------------------------------------
-# def clothes(request):
-#     u_clothes = Clothes.objects.filter(userid=request.GET.get('userid'))
-#     json_data = {
-#         "clothes" : u_clothes
-#     }
-#     data = serializers.serialize('json', json_data)
-#     print(data)
-#     return HttpResponse(data, content_type="application/json")
+def clothes(request):
+    userid = request.GET.get('userid')
+    name = request.GET.get('name')
+    # print(name)
+
+    if name == '상의':
+        url = list(map(lambda clothes : clothes['url'], 
+            Clothes.objects.filter(Q(userid = userid) & Q(part = name) & ~Q(cate1_name__endswith = '아우터')).values('url')))
+        json_data = json.dumps({'url': url})
+        print(json_data)
+
+    if name == '아우터':
+        url = list(map(lambda clothes : clothes['url'], 
+            Clothes.objects.filter(Q(userid = userid) & Q(cate1_name__endswith = name)).values('url')))
+        json_data = json.dumps({'url': url})
+        print(json_data)
+
+    if name == '하의':
+        url = list(map(lambda clothes : clothes['url'], 
+            Clothes.objects.filter(Q(userid = userid) & Q(part = name)).values('url')))
+        json_data = json.dumps({'url': url})
+        print(json_data)
+
+    else:
+        url = list(map(lambda clothes : clothes['url'], 
+            Clothes.objects.filter(Q(userid = userid) & Q(cate1_name = name)).values('url')))
+        json_data = json.dumps({'url': url})   
+
+    return HttpResponse(json_data, content_type="application/json")
 
 
 
