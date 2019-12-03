@@ -1,3 +1,6 @@
+
+var g_data = null;
+
 $(document).ready(function(){
     // 로고 검은색
     changeLogColor('black')
@@ -29,9 +32,20 @@ $(document).ready(function(){
             url: "/apis/clothes/",
             contentType: "application/json",
             data: {userid: "user01@test.com", name: name},
-            success: function (data) {
-                console.log(data['url'])
-                _addOption('#img_list', data['url'])
+            success: function (data) { 
+                g_data = data['url'];
+                console.log(g_data)
+                console.log(typeof(g_data))
+                $('.carousel-inner').html('');
+                // for(var i=0; i <= Object.keys(g_data).length-1; i++) {
+                    $('.carousel-inner').append("<div class='carousel-item active'><img class='d-block w-100' width='40px' height='100px' src='"+ 
+                    g_data[0] + "' /><img class='d-block w-100' width='40px' height='100px' src='"+ 
+                    g_data[1] + "' /></div>" + "<div class='carousel-item'><img class='d-block w-100' src='"+
+                    g_data[2] + "' /><img class='d-block w-100' src='"+ 
+                    g_data[3] + "' /></div>" + "<div class='carousel-item'><img class='d-block w-100' src='"+
+                    g_data[4] + "' /><img class='d-block w-100' src='"+ 
+                    g_data[5] + "' /></div>")
+                
                 $('#myModal').modal();
             },
             error: function (e) {
@@ -39,7 +53,6 @@ $(document).ready(function(){
                 alert("fail");
             }
         });
-          
     })
 
 });
