@@ -5,8 +5,24 @@
   <div id="id-div-char-head" class="char-slot" draggable="true" ondragstart="itemDragStart(event)"></div>
 </div>
 -->
+{% load static %}
 
 <div id="id-div-char-win">
+  <div class="coord-part coord-part-main" id="id-coord-head">
+    <img class="coord-img" src={% static 'hipdrobe/img/bg_index01.jpg' %}/>
+  </div>
+  <div class="coord-part coord-part-main coord-part-top" id="id-coord-top1">
+    <img class="coord-img" src="https://simpleicon.com/wp-content/uploads/rocket.png">
+  </div>
+  <div class="coord-part coord-part-sub coord-part-top" id="id-coord-top2"></div>
+  <div class="coord-part coord-part-main" id="id-coord-pants1"></div>
+  <div class="coord-part coord-part-main" id="id-coord-pants2"></div>
+
+</div>
+
+<br><br>
+
+<div id="id-div-char-test">
     <div class="moveable" ></div>
     <div class="moveable" ></div>
     <div class="moveable" ></div>
