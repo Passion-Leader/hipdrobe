@@ -3,8 +3,9 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-
-from .models import User
+from django.contrib.auth.models import User
+from django.contrib import auth
+# from .models import User
 
 import simplejson as json
 
@@ -67,3 +68,24 @@ def check_id(request):
     'data' : "not exist" if user is None else "exist"
     }
     return JsonResponse(result)
+
+def login(request):
+    if request.method=="POST":
+        username=request.POST['userid']        
+        password=request.POST['userpwd']
+        user=auth.authenticate(request,userid=username,userpwd=password)
+        print(user)
+        if user is not None:
+            auth.login(request,username)
+            print(username)
+            return redirect('hipdrobe:index')
+        else:
+            print("!11")
+            return render(request,'hipdrobe/index.html',{'error':'로그인 오류'})
+    else:
+        print("22")
+        return render(request,'hipdrobe/index.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('hipdrobe:index')
