@@ -6,6 +6,7 @@
  */
 
 var g_moveables = []
+var g_clothes = []
 
 $(document).ready(function(){
     setPartsHeights();
@@ -29,7 +30,7 @@ function disableDnD() {
 
 
 /*-----------------------------------------------------------------------------
- * 개별 코딩 해 놓고 추후 결정되면 공통사항 묶어서 다시 코딩
+ * 브라우저 화면 사이즈에 따라 비율에 맞게 height 조절
  */
 function setPartsHeights() {
     // Container Div
@@ -53,9 +54,10 @@ function setPartsHeights() {
     // Acc
     _setPartHeight($('#id-coord-acc1'), 1);
     _setPartHeight($('#id-coord-acc2'), 1);
-    _setPartHeight($('#id-coord-acc3'), 1.2);
-    _setPartHeight($('#id-coord-acc4'), 1);
+    _setPartHeight($('#id-coord-acc3'), 4.4);
+    _setPartHeight($('#id-coord-acc4'), 1.3);
     _setPartHeight($('#id-coord-acc5'), 1);
+    _setPartHeight($('#id-coord-acc6'), 1);
 
     // Outer
     _setPartHeight($('#id-coord-outer'), 2);

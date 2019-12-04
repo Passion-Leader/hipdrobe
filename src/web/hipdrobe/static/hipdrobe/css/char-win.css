@@ -13,6 +13,27 @@
     border-radius: 10px;
 }
 
+#id-div-char-win .blank .add {
+    display: block;
+    opacity: 1;
+}
+
+#id-div-char-win .add {
+    display: none;
+    position: absolute;
+    width: 100%;
+    font-size: 1.1em;
+    z-index: 1;
+}
+
+#id-div-char-win svg {
+    color: black;
+}
+
+#id-div-char-win .clickable {
+    cursor: pointer;
+}
+
 .coord-part {
     position: absolute;
     display: inline-block;
@@ -61,6 +82,10 @@
     border-radius: 15px;
 }
 
+.blank img {
+    opacity: 0.3;
+}
+
 #id-coord-head {
     width: 12%;
     top: 5%;
@@ -68,7 +93,7 @@
 }
 
 #id-coord-top1 {
-    
+    padding: 4% 0% 4% 0%;
    
 }
 
@@ -88,31 +113,41 @@
     width: 14%;
     top: 81%;
     left: 30%;
+    padding: 1% 0% 1% 0%;
 }
 
 #id-coord-foot2 {
     width: 12%;
     top: 73%;
+    padding: 1% 0% 1% 0%;
 }
 
 #id-coord-acc1,
 #id-coord-acc2 {
     top: 13%;
+    padding: 1% 0% 1% 0%;
 }
 
-#id-coord-acc4,
-#id-coord-acc5 {
+#id-coord-acc5,
+#id-coord-acc6 {
     top: 47%;
+    padding: 1% 0% 1% 0%;
 }
 
 #id-coord-acc2,
-#id-coord-acc5 {
+#id-coord-acc6 {
     left: 59%;
 }
 
 #id-coord-acc3 {
-    width: 15%;
+    width: 4%;
     top: 25%;
+}
+
+#id-coord-acc4 {
+    width: 13%;
+    top: 25%;
+    left: 55%;
 }
 
 #id-coord-outer {
@@ -134,8 +169,5 @@
 
 
 .moveable {
-    width: 150px;
-    height: 150px;
-    background-color: red;
-    border-radius: 10px;
+    border: 0px;
 }

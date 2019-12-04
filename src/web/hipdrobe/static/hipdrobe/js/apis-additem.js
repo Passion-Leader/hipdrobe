@@ -287,7 +287,6 @@ function _makeValidator() {
           },
           submitHandler: function (frm) {
               //ToDo: 업로드 구현
-              console.log("업로드 구현 필요...");
               postAddItem();
           },
           success: function (e) {
