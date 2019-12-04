@@ -7,6 +7,11 @@
     color: white;
 }
 
+.carousel-item img {
+    min-width: 1200px;
+    min-height: 768px;
+}
+
 .content-bottom {
     font-family: 'Stylish', sans-serif;
     text-align: center;

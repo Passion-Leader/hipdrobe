@@ -119,6 +119,21 @@
     #item_shoe {
         margin-left: 71.5%;
     }
+
+    .img_size_set {
+      width: 100%;
+    }
+  
+    .carousel-item img {
+      max-width: 30%;
+      height: auto;
+      position: relative;
+      top: 0;
+      left: 3%;
+      right: 0;
+      bottom: 0;
+      float: left;
+    }
 /* button css end */
 
 
