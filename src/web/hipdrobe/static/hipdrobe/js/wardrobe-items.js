@@ -19,7 +19,6 @@ $(document).ready(function(){
           $(this).text('stop the fun') :
           $(this).text('start the fun');
       
-<<<<<<< HEAD
       });
     
     // 버튼 클릭 이벤트 start 
@@ -76,18 +75,16 @@ $(document).ready(function(){
         });
     }); // 버튼 클릭 이벤트 end
     
-    var url = null;
-    $('div.carousel-item img').click(function(){
-        url = $(this).attr('src');
-        console.log(url);
-    });
-=======
-    });
+    // var url = null;
+    // $('div.carousel-item img').click(function(){
+    //     url = $(this).attr('src');
+    //     console.log(url);
+    // });
+
 
     $('.fun-btn').click(function() {
         var name = $(this).val();
         getItemUrlsAndOpenList(name);
     });
 
->>>>>>> master
 });
