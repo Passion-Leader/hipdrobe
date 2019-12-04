@@ -10,4 +10,17 @@ $(document).ready(function(){
 
     // enable test Drag & Drop 
     enableDnD();
+
+    //Set Buttons
+    setButtons();
 });
+
+
+function setButtons() {
+    parts = $('.clickable');
+
+    parts.on('click', function(e) {
+        getItemUrlsAndOpenList($(this).attr('value'));
+    });
+
+}
