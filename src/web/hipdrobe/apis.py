@@ -164,8 +164,7 @@ def additem(request):
         os.rename(srcfile, destFile)
 
         # 임시 파일 삭제
-        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, 
-            filename[:filename.rindex('-')])
+        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, filename[:22])
         
         # DB 저장 가즈아~
         clothes = Clothes()
@@ -189,8 +188,7 @@ def additem(request):
 
     except:
         filename = data['url'][data['url'].rindex('/')+1:]
-        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, 
-            filename[:filename.rindex('-')])
+        _deleteTmpImage(settings.CLOTHES_ROOT_TMP, filename[:22])
 
         json_data = json.dumps({
             'result': 'fail', 
