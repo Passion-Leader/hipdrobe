@@ -1,5 +1,3 @@
-var g_data = null;
-
 $(document).ready(function(){
     // 로고 검은색
     changeLogColor('black')
@@ -21,6 +19,7 @@ $(document).ready(function(){
           $(this).text('stop the fun') :
           $(this).text('start the fun');
       
+<<<<<<< HEAD
       });
     
     // 버튼 클릭 이벤트 start 
@@ -82,4 +81,13 @@ $(document).ready(function(){
         url = $(this).attr('src');
         console.log(url);
     });
+=======
+    });
+
+    $('.fun-btn').click(function() {
+        var name = $(this).val();
+        getItemUrlsAndOpenList(name);
+    });
+
+>>>>>>> master
 });

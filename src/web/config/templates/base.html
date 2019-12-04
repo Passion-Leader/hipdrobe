@@ -121,21 +121,14 @@
                     <div id="log-section">
                         <ul>
                         <li class="login-info" style="font-size:2em;">
-                                {% if user.is_authenticated %} {# 유저가 로그인 중이면 #}
-                                <span>{{user.username}}님 환영합니다.</span><a href="{% url 'account_logout' %}" class="nav-link">Logout</a> 
-                                
-                                {% else %}
                                 <a data-toggle="modal" href="#exampleModal">로그인</a>
-                                <a href="{% url 'account_login' %}" class="nav-link">Login</a>
-                                {% endif %}
-                            
-
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                 <div class="modal-content" >
                                     <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel" >로그인</h5>
+                                        <div id="msg"></div>
                                     </div>
                                     <div class="modal-body" >
                                         <div class="box">
@@ -147,21 +140,20 @@
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <a class="kakao" href="#">
                                                         <img src="{% static 'hipdrobe/img/naver.png'%}" >
+                                                        
                                                 </a>
                                         </div>
                                         </div>
                                         <div class="modal-division">
-                                                <div class="line l"></div>
-                                                <span>or</span>
-                                                <div class="line r"></div>
+                                            <div class="line l"></div>
+                                            <span>or</span>
+                                            <div class="line r"></div>
                                         </div>
                                         <div class="loginBox">
-                                                <form method="POST" action="{% url 'hipdrobe:login'%}" accept-charset="UTF-8">
-                                                    {%csrf_token%}
-                                                <input id="email" class="form-control" type="text" placeholder="Email" name="userid">
-                                                <input id="password" class="form-control" type="password" placeholder="Password" name="userpwd">
-                                                
-                                                
+                                            <form id="frmLogin" method="POST" action="{% url 'hipdrobe:login'%}" accept-charset="UTF-8">
+                                                {%csrf_token%}
+                                            <input id="email" class="form-control" type="text" placeholder="Email" name="userid">
+                                            <input id="password" class="form-control" type="password" placeholder="Password" name="userpwd">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -170,7 +162,7 @@
                                             </span>
                                             <div class="login-footer">
                                                     
-                                                <input class="btn btn-default btn-login" type="submit" value="Login"">
+                                                <input class="btn btn-default btn-login" id="btnLogin" type='submit' value="Login"">
                                                 
                                             </div>                
                                         </form>                            

@@ -102,7 +102,6 @@ function openmodal(){
     $('.login-info').openmodal
 }
 
-
 /* ----------------------------------------------------------------------------
  * 로고 제네레이터 
  * https://danmarshall.github.io/google-font-to-svg-path/

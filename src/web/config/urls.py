@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include("hipdrobe.urls")),
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
+    
 
 ]
 

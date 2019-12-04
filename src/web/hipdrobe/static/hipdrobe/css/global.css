@@ -287,6 +287,11 @@ nav.navbar > div > div p {
 /*
  * modal-additem
  */
+
+#id-modal-additem {
+    z-index: 1051;
+}
+
 #id-modal-additem .form-control {
     height: auto;
 }
@@ -294,6 +299,7 @@ nav.navbar > div > div p {
 #id-modal-additem .modal-title {
     font-size: 1.75em;
     line-height: 1;
+    margin-left: 0px;
 }
 
 #id-modal-additem .fa-asterisk {
