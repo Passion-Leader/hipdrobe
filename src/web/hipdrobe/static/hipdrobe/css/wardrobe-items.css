@@ -134,6 +134,7 @@
       bottom: 0;
       float: left;
       border-right: solid 0.5px lightgray;
+      cursor: pointer;
     }
 
     .add_button_box {

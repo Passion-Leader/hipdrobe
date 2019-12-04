@@ -8,7 +8,7 @@ $(document).ready(function(){
     setTitle(["나만의 옷장 :", "내 옷장 보기"]);
     setActive(["main-ln-wardrobe", "ln-items"]);
 
-    // 아이템 버튼 onMouse & click 이벤트
+    // 아이템 버튼 onMouse 이벤트
     $('.fun-btn').on('click', function(event) {
         $(this).toggleClass('start-fun');
         var $page = $('.page');
@@ -22,7 +22,8 @@ $(document).ready(function(){
           $(this).text('start the fun');
       
       });
-
+    
+    // 버튼 클릭 이벤트 start 
     $('.fun-btn').click(function() {
         var name = $(this).val()
         // alert(name)
@@ -33,12 +34,9 @@ $(document).ready(function(){
             data: {userid: "user01@test.com", name: name},
             success: function (data) { 
                 g_data = data['url'];
-                console.log(g_data)
+                // console.log(g_data)
                 var g_data_len = Object.keys(g_data).length;
                 $('div.carousel-inner').html('');
-                
-                
-                console.log(g_data_len)
                 
                 // url 개수가 3보다 작은 경우
                 if(g_data_len<=3) {
@@ -77,6 +75,11 @@ $(document).ready(function(){
                 alert("fail");
             }
         });
-    })
-
+    }); // 버튼 클릭 이벤트 end
+    
+    var url = null;
+    $('div.carousel-item img').click(function(){
+        url = $(this).attr('src');
+        console.log(url);
+    });
 });
