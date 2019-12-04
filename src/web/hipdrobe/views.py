@@ -3,11 +3,12 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-from django.contrib.auth.models import User
+from .forms import LoginForm
 from django.contrib import auth
-# from .models import User
-
+from .models import User
 import simplejson as json
+from html.parser import HTMLParser
+
 
 
 # Create your views here.
@@ -71,21 +72,21 @@ def check_id(request):
 
 def login(request):
     if request.method=="POST":
-        username=request.POST['userid']        
-        password=request.POST['userpwd']
-        user=auth.authenticate(request,userid=username,userpwd=password)
-        print(user)
-        if user is not None:
-            auth.login(request,username)
-            print(username)
-            return redirect('hipdrobe:index')
-        else:
-            print("!11")
-            return render(request,'hipdrobe/index.html',{'error':'로그인 오류'})
+        form = LoginForm(request.POST)
+        # username=request.POST['userid']      
+        try:
+            userInfo=User.objects.get(userid=request.POST['userid'],userpwd=request.POST['userpwd'])
+            print(userInfo.userid)
+            print(userInfo. userpwd)
+            Check=User.objects.get(userpwd=userInfo.userpwd)            
+            print(Check)
+            print("로그인!")
+        except Exception as e:
+            return HttpResponse('로그인 실패. 다시 시도 해보세요.')
+        
+        return redirect("hipdrobe:index")
     else:
-        print("22")
-        return render(request,'hipdrobe/index.html')
+        return HttpResponse('통신 오류')
+ 
 
-def logout(request):
-    auth.logout(request)
-    return redirect('hipdrobe:index')
+
