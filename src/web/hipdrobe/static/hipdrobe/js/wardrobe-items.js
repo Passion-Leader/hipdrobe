@@ -1,4 +1,3 @@
-
 var g_data = null;
 
 $(document).ready(function(){
@@ -35,17 +34,34 @@ $(document).ready(function(){
             success: function (data) { 
                 g_data = data['url'];
                 console.log(g_data)
-                console.log(typeof(g_data))
-                $('.carousel-inner').html('');
-                // for(var i=0; i <= Object.keys(g_data).length-1; i++) {
-                    $('.carousel-inner').append("<div class='carousel-item active'><img class='d-block w-100' width='40px' height='100px' src='"+ 
-                    g_data[0] + "' /><img class='d-block w-100' width='40px' height='100px' src='"+ 
-                    g_data[1] + "' /></div>" + "<div class='carousel-item'><img class='d-block w-100' src='"+
-                    g_data[2] + "' /><img class='d-block w-100' src='"+ 
-                    g_data[3] + "' /></div>" + "<div class='carousel-item'><img class='d-block w-100' src='"+
-                    g_data[4] + "' /><img class='d-block w-100' src='"+ 
-                    g_data[5] + "' /></div>")
+                var g_data_len = Object.keys(g_data).length;
+                $('div.carousel-inner').html('');
                 
+                
+                console.log(g_data_len)
+                if(g_data_len<=3) {
+                    for(var i=0; i<=g_data_len-1; i++) {
+                        $('div.carousel-inner').append("<div class='carousel-item active'></div>")
+                        $('div.carousel-item.active').append("<img class='d-block w-100' src='" +
+                        g_data[i] + "' />")
+                    }
+                } // if end
+                else if(g_data_len>3) {
+                    $('div.carousel-inner').append("<div class='carousel-item active'></div>")
+                    $('div.carousel-inner').append("<div class='carousel-item></div>")
+                    for(var i=0; i<=g_data_len-1; i++) {
+                        if (i<=2) {
+                            $('div.carousel-item.active').append("<img class='d-block w-100' src='" +
+                            g_data[i] + "' />")                            
+                        } else if (i>2 && i%3==0) {
+                            $('div.carousel-inner').append("<div class='carousel-item'></div>")
+                            $('div.carousel-inner').children().eq((i/3)).append("<img class='d-block w-100' src='" + g_data[i] + "' />")
+                        } else if (i>2 && i%3!=0) {
+                            $('div.carousel-inner').children().eq(parseInt(i/3)).append("<img class='d-block w-100' src='" + g_data[i] + "' />")
+                        }    
+                    } //for end
+                } // else if1 end
+                    
                 $('#myModal').modal();
             },
             error: function (e) {
@@ -56,5 +72,3 @@ $(document).ready(function(){
     })
 
 });
-
-
