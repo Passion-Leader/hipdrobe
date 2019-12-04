@@ -126,13 +126,18 @@
   
     .carousel-item img {
       max-width: 30%;
-      height: auto;
+      height: 250px;
       position: relative;
       top: 0;
       left: 3%;
       right: 0;
       bottom: 0;
       float: left;
+      border-right: solid 0.5px lightgray;
+    }
+
+    .add_button_box {
+      text-align: center;
     }
 /* button css end */
 
