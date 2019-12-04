@@ -1,5 +1,3 @@
-var g_data = null;
-
 $(document).ready(function(){
     // 로고 검은색
     changeLogColor('black')

@@ -1,10 +1,12 @@
 /*
- * apis-getitem.js
+ * apis-cruditem.js
  */
+
+var g_data = null;
 
 
 /*-----------------------------------------------------------------------------
- * getItem
+ * getItemUrlsAndOpenList
  */
 function getItemUrlsAndOpenList(name) {
  
