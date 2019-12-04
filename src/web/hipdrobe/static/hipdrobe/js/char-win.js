@@ -8,7 +8,7 @@
 var g_moveables = []
 
 $(document).ready(function(){
-    _setPartsHeight();
+    setPartsHeights();
 });
 
 function enableDnD() {
@@ -31,35 +31,45 @@ function disableDnD() {
 /*-----------------------------------------------------------------------------
  * 개별 코딩 해 놓고 추후 결정되면 공통사항 묶어서 다시 코딩
  */
-function _setPartsHeight() {
-    // Div
-    const elemDiv = $('#id-div-char-win')
-    let divWidth = parseInt(elemDiv.css('width'));
-    elemDiv.css('height', `${divWidth}px`);
+function setPartsHeights() {
+    // Container Div
+    _setPartHeight($('#id-div-char-win'), 1);
 
     // Head
-    const elemHead = $('#id-coord-head')
-    let headWidth = parseInt(elemHead.css('width'));
-    elemHead.css('height', `${headWidth}px`);
+    _setPartHeight( $('#id-coord-head'), 1);
 
-    // Top-1
-    const elemTop1 = $('#id-coord-top1')
-    let top1Width = parseInt(elemTop1.css('width')) * 1.4;
-    elemTop1.css('height', `${top1Width}px`);
+    // Top
+    _setPartHeight($('#id-coord-top1'), 1.2);
+    _setPartHeight( $('#id-coord-top2'), 1.2);
 
-    // Top-2
-    const elemTop2 = $('#id-coord-top2')
-    let top2Width = parseInt(elemTop2.css('width')) * 1.4;
-    elemTop2.css('height', `${top2Width}px`);
+    // Bottom
+    _setPartHeight($('#id-coord-bottom1'), 1.4);
+    _setPartHeight($('#id-coord-bottom2'), 1.4);
 
-    // Pants-1
-    const elemPants1 = $('#id-coord-pants1')
-    let pants1Width = parseInt(elemPants1.css('width')) * 1.4;
-    elemPants1.css('height', `${pants1Width}px`);
+    // Bottom
+    _setPartHeight($('#id-coord-foot1'), 1);
+    _setPartHeight($('#id-coord-foot2'), 1);
+
+    // Acc
+    _setPartHeight($('#id-coord-acc1'), 1);
+    _setPartHeight($('#id-coord-acc2'), 1);
+    _setPartHeight($('#id-coord-acc3'), 1.2);
+    _setPartHeight($('#id-coord-acc4'), 1);
+    _setPartHeight($('#id-coord-acc5'), 1);
+
+    // Outer
+    _setPartHeight($('#id-coord-outer'), 2);
 }
 
+
+function _setPartHeight(target, ratio) {
+    let partheight = parseInt(target.css('width')) * ratio;
+    target.css('height', `${partheight}px`);
+}
+
+
 window.onresize = function(event) {
-    _setPartsHeight();
+    setPartsHeights();
 };
 
 

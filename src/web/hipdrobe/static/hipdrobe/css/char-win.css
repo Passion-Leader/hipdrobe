@@ -17,6 +17,7 @@
     position: absolute;
     display: inline-block;
     border: 1px dashed gray;
+    border-radius: 15px;
     /* padding-top: 12%; */
     display: flex;
     align-items: center;
@@ -25,27 +26,45 @@
 }
 
 .coord-part-main {
-    margin-left: -7%;
+    left: 27%;
 }
 
 .coord-part-sub {
-    margin-left: -30%;
+    left: 4%;
 }
+
+.coord-part-side {
+    left: 50%;
+}
+
 
 .coord-part-top {
     width: 20%;
-    top: 17%;
+    top: 21%;
 }
+
+.coord-part-bottom {
+    width: 20%;
+    top: 49%;
+}
+
+
+.coord-part-acc {
+    width: 8%;
+}
+
 
 .coord-img {
     max-width: 100%;
     max-height:100%;
     margin: auto;
+    border-radius: 15px;
 }
 
 #id-coord-head {
     width: 12%;
-    top: 2%;
+    top: 5%;
+    left: 31%;
 }
 
 #id-coord-top1 {
@@ -57,9 +76,49 @@
 
 }
 
-#id-coord-pants1 {
-    width: 20%;
-    top: 49%;
+#id-coord-bottom1 {
+
+}
+
+#id-coord-bottom1 {
+
+}
+
+#id-coord-foot1 {
+    width: 14%;
+    top: 81%;
+    left: 30%;
+}
+
+#id-coord-foot2 {
+    width: 12%;
+    top: 73%;
+}
+
+#id-coord-acc1,
+#id-coord-acc2 {
+    top: 13%;
+}
+
+#id-coord-acc4,
+#id-coord-acc5 {
+    top: 47%;
+}
+
+#id-coord-acc2,
+#id-coord-acc5 {
+    left: 59%;
+}
+
+#id-coord-acc3 {
+    width: 15%;
+    top: 25%;
+}
+
+#id-coord-outer {
+    width: 25%;
+    top: 21%;
+    left: 71%;
 }
 
  /* test code */
