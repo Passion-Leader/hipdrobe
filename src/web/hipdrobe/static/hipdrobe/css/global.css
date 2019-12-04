@@ -116,11 +116,6 @@ a, a:hover, a:focus {
     position: absolute;
 }
 
-.carousel-item img {
-    min-width: 1200px;
-    min-height: 768px;
-}
-
 .bg {
     z-index: -1;
 }
