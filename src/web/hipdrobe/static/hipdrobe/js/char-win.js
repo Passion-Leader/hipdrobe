@@ -5,8 +5,9 @@
  * - displace.js    https://catc.github.io/displace/#demo
  */
 
-var g_moveables = []
-var g_clothes = []
+var g_moveables = [];
+var g_moveables_set = [];
+var g_clothes = [];
 
 $(document).ready(function(){
     setPartsHeights();
@@ -20,19 +21,22 @@ $(document).ready(function(){
 });
 
 
-
-
-
+/* ----------------------------------------------------------------------------
+ * 코디하기 화면에서 아이템들을 이동시킬 수 있게 등록해주는 함수
+ */
 function enableDnD() {
     const elems = document.querySelectorAll('.moveable');
     const options = { constrain: true };
 
     for(i = 0; i < elems.length; i++) {
+        // 추후에 중복체크 구현해야함
         displacejs(elems[i], options);
     }
 }
 
-
+/* ----------------------------------------------------------------------------
+ * 부위 설정 / 코디 하기 모드 전환 함수
+ */
 function changeCoordMode(mode) {
     // 옷 설정 모드
     if (mode === 0) {
@@ -54,8 +58,6 @@ function changeCoordMode(mode) {
         
     }
 }
-
-
 
 
 /* ----------------------------------------------------------------------------
@@ -83,7 +85,10 @@ function setPartsButtons() {
     parts.each(function(i, part){
         $(part).on('click', function(e) {
             g_currentPart = part;
-            getItemUrlsAndOpenList($(this).attr('value'), 'setPartsImage(g_currentPart, this)');
+            getItemUrlsAndOpenList(
+                $(this).attr('value'), 
+                'setPartsImage(g_currentPart, this)'
+            );
         });
 
         $(part).find('.del').on('click', function(e) {
@@ -110,11 +115,14 @@ function setPartsButtons() {
         if (g_$currentCoortPart == null) 
             return;
 
+        let divWidth = parseFloat(g_$currentCoortPart.parent().css('width'));
         let width = parseFloat(g_$currentCoortPart.css('width'));
-        let height = parseFloat(g_$currentCoortPart.css('height'));
+        // let height = parseFloat(g_$currentCoortPart.css('height'));
         g_$currentCoortPart.css({
-            'width': `${width * 0.95}px`,
-            'height': `${height * 0.95}px`,
+            // 'width': `${width * 0.95}px`,
+            // 'height': `${height * 0.95}px`,
+            'width': (width/divWidth)*95 + '%',
+            'height': 'auto'
         });
     });
 
@@ -122,11 +130,14 @@ function setPartsButtons() {
         if (g_$currentCoortPart == null) 
             return;
 
+        let divWidth = parseFloat(g_$currentCoortPart.parent().css('width'));
         let width = parseFloat(g_$currentCoortPart.css('width'));
-        let height = parseFloat(g_$currentCoortPart.css('height'));
+        // let height = parseFloat(g_$currentCoortPart.css('height'));
         g_$currentCoortPart.css({
-            'width': `${width * 1.05}px`,
-            'height': `${height * 1.05}px`,
+            // 'width': `${width * 1.05}px`,
+            // 'height': `${height * 1.05}px`,
+            'width': (width/divWidth)*105 + '%',
+            'height': 'auto'
         });
     });
 
@@ -134,16 +145,16 @@ function setPartsButtons() {
         if (g_$currentCoortPart == null) 
             return;
 
-        let $parent = g_$currentCoortPart.parent();
-        $parent.css('z-index', parseInt($parent.css('z-index'))-1);
+        g_$currentCoortPart.css(
+            'z-index', parseInt(g_$currentCoortPart.css('z-index'))-1);
     });
 
     $('#id-btn-up').click(function() {
         if (g_$currentCoortPart == null) 
             return;
         
-        let $parent = g_$currentCoortPart.parent();
-        $parent.css('z-index', parseInt($parent.css('z-index'))+1);
+        g_$currentCoortPart.css(
+            'z-index', parseInt(g_$currentCoortPart.css('z-index'))+1);
     });
     
 
@@ -172,10 +183,11 @@ function  setPartsImage(part, imgTag) {
         let divWidth = parseFloat($('#id-div-char-win').css('width'));
         let divHeight = parseFloat($('#id-div-char-win').css('height'));
         let width = parseFloat($imgTag.parent().css('width'));
-        let height = parseFloat($imgTag.parent().css('height'));
+        // let height = parseFloat($imgTag.parent().css('height'));
         $div.css({
             'width': (width/divWidth)*100 + '%',
-            'height': (height/divHeight)*100 + '%',
+            // 'height': (height/divHeight)*100 + '%',
+            'height': 'auto'
         });
        
         let $img = $('<img>').attr('src',$imgUrl);
@@ -187,8 +199,8 @@ function  setPartsImage(part, imgTag) {
             if (g_$currentCoortPart != null) {
                 g_$currentCoortPart.removeClass('outline');
             }
-            g_$currentCoortPart = $img;
-            $img.addClass('outline');
+            g_$currentCoortPart = $img.parent();
+            g_$currentCoortPart.addClass('outline');
         });
 
         $div.append($img);
@@ -204,7 +216,6 @@ function  setPartsImage(part, imgTag) {
     }, 500);
    
 
-    
     $('#myModal').modal('toggle');
 }
 

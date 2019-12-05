@@ -344,6 +344,18 @@ return /******/ (function(modules) { // webpackBootstrap
 			opts.onMouseUp(el, e);
 		}
 
+		// 반응형 % 위치로 변경
+		setTimeout(function() {
+			let divWidth = parseFloat($(el).parent().css('width'));
+			let divHeight = parseFloat($(el).parent().css('height'));
+			let left = parseFloat($(el).css('left'));
+			let top = parseFloat($(el).css('top'));
+			$(el).css({
+				'left': (left/divWidth)*100 + '%',
+				'top': (top/divHeight)*100 + '%'
+			});
+		}, 30);
+
 		document.removeEventListener('mouseup', events.mouseup, false);
 		document.removeEventListener('mousemove', events.mousemove, false);
 	};

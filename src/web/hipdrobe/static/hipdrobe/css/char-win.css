@@ -97,7 +97,7 @@ div.control {
     border: 0;
 }
 
-#id-div-coord-win .coord-part .outline {
+#id-div-coord-win .coord-part.outline {
     border-radius: 10px;
     box-shadow: 0 0 0 0.5px lightgrey;
 }
