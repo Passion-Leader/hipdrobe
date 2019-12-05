@@ -26,8 +26,20 @@
     z-index: 1;
 }
 
-#id-div-char-win svg {
+
+
+#id-div-char-win .del {
+    position: absolute;
+    right: 3%;
+    top: 0;
+}
+
+#id-div-char-win .add svg {
     color: black;
+}
+
+#id-div-char-win .del svg {
+    color: gray;
 }
 
 #id-div-char-win .clickable {
@@ -86,6 +98,10 @@
     opacity: 0.3;
 }
 
+.blank .del {
+    display: none;
+}
+
 #id-coord-head {
     width: 12%;
     top: 5%;
@@ -93,7 +109,7 @@
 }
 
 #id-coord-top1 {
-    padding: 4% 0% 4% 0%;
+    /* padding: 4% 0% 4% 0%; */
    
 }
 

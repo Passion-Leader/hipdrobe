@@ -10,7 +10,16 @@ var g_clothes = []
 
 $(document).ready(function(){
     setPartsHeights();
+    setPartsDefaultImage();
+
+    // enable test Drag & Drop 
+    enableDnD();
+
+    //Set Buttons
+    setPartsButtons();
 });
+
+
 
 function enableDnD() {
     const elems = document.querySelectorAll('.moveable');
@@ -27,6 +36,71 @@ function disableDnD() {
     }
     g_moveables = [];
 }
+
+
+
+
+
+/* ----------------------------------------------------------------------------
+ * 성별에 맞게 각 부위의 기본 이미지를 설정 (성별기능 아직 없음)
+ * 
+ */
+function setPartsDefaultImage() {
+    let imgTags = $('.clickable').find('img');
+    
+    imgTags.each(function(i, tag) {
+        let dummyUrl = $(tag).attr('src');
+        $(tag).attr('value', dummyUrl);
+    });
+
+}
+
+/*-----------------------------------------------------------------------------
+ * 각 부위에 맞는 리스트창을 열도록 버튼을 설정
+ * 이미지 선택 취소 버튼도 같이 설정한다.
+ */
+let g_currentPart = null;
+function setPartsButtons() {
+    parts = $('.clickable');
+
+    parts.each(function(i, part){
+        $(part).on('click', function(e) {
+            g_currentPart = part;
+            getItemUrlsAndOpenList($(this).attr('value'), 'setPartsImage(g_currentPart, this)');
+        });
+
+        $(part).find('.del').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.cancelbubble = true;
+
+            unsetPartsImage(part);
+        });
+    });
+    
+
+}
+
+
+
+/*-----------------------------------------------------------------------------
+ * 각 파트에 선택한 이미지를 등록하거나 혹은 취소하여 원복시킴
+ */
+function  setPartsImage(part, imgTag) {
+    let imgUrl = $(imgTag).attr('src');
+    
+    $(part).find('img').attr('src', imgUrl);
+    $(part).removeClass('blank')
+    
+    $('#myModal').modal('toggle');
+}
+
+function unsetPartsImage(part) {
+    $(part).addClass('blank');
+    let imgTag = $(part).find('img');
+    imgTag.attr('src', imgTag.attr('value'));
+}
+
 
 
 /*-----------------------------------------------------------------------------
@@ -69,7 +143,9 @@ function _setPartHeight(target, ratio) {
     target.css('height', `${partheight}px`);
 }
 
-
+/*-----------------------------------------------------------------------------
+ * 브라우저 화면 사이즈가 바뀌면 그에 맞게 조정한다.
+ */
 window.onresize = function(event) {
     setPartsHeights();
 };
