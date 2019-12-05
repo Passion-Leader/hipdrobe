@@ -38,6 +38,10 @@ function changeCoordMode(mode) {
     if (mode === 0) {
         $('#id-div-char-win').css('display', 'flex');
         $('#id-div-coord-win').css('display', 'none')
+
+        setTimeout(function(){
+            setPartsHeights();
+        }, 100)
     }
     // 코디하기 모드
     else {
@@ -100,6 +104,47 @@ function setPartsButtons() {
         g_$currentCoortPart.removeClass('outline');
         g_$currentCoortPart = null;
     });
+
+    // 코디하기 모드에서 아이템들의 크기나 레이어를 조절하기 위한 버튼들
+    $('#id-btn-minus').click(function() {
+        if (g_$currentCoortPart == null) 
+            return;
+
+        let width = parseFloat(g_$currentCoortPart.css('width'));
+        let height = parseFloat(g_$currentCoortPart.css('height'));
+        g_$currentCoortPart.css({
+            'width': `${width * 0.95}px`,
+            'height': `${height * 0.95}px`,
+        });
+    });
+
+    $('#id-btn-plus').click(function() {
+        if (g_$currentCoortPart == null) 
+            return;
+
+        let width = parseFloat(g_$currentCoortPart.css('width'));
+        let height = parseFloat(g_$currentCoortPart.css('height'));
+        g_$currentCoortPart.css({
+            'width': `${width * 1.05}px`,
+            'height': `${height * 1.05}px`,
+        });
+    });
+
+    $('#id-btn-down').click(function() {
+        if (g_$currentCoortPart == null) 
+            return;
+
+        let $parent = g_$currentCoortPart.parent();
+        $parent.css('z-index', parseInt($parent.css('z-index'))-1);
+    });
+
+    $('#id-btn-up').click(function() {
+        if (g_$currentCoortPart == null) 
+            return;
+        
+        let $parent = g_$currentCoortPart.parent();
+        $parent.css('z-index', parseInt($parent.css('z-index'))+1);
+    });
     
 
 }
@@ -123,10 +168,17 @@ function  setPartsImage(part, imgTag) {
     setTimeout(function() {
         let $div = $('<div>').addClass('coord-part').addClass('moveable');
         $div.attr('pid', $(part).attr('id'));
-        let $img = $('<img>').css({
-            'width':  $imgTag.css('width'),
-            'height':  $imgTag.css('height'),
+        
+        let divWidth = parseFloat($('#id-div-char-win').css('width'));
+        let divHeight = parseFloat($('#id-div-char-win').css('height'));
+        let width = parseFloat($imgTag.parent().css('width'));
+        let height = parseFloat($imgTag.parent().css('height'));
+        $div.css({
+            'width': (width/divWidth)*100 + '%',
+            'height': (height/divHeight)*100 + '%',
         });
+       
+        let $img = $('<img>').attr('src',$imgUrl);
         $img.attr('src',$imgUrl);
 
         // 클릭되었을 경우 선택된 것으로 인식도록 outline을 설정한다.
@@ -143,8 +195,8 @@ function  setPartsImage(part, imgTag) {
 
         $('#id-div-coord-win').append($div);
         $div.css({
-            'left': $(part).css('left'),
-            'top': $(part).css('top')
+            'left': (parseFloat($(part).css('left'))/divWidth)*100 + '%',
+            'top': (parseFloat($(part).css('top'))/divHeight)*100 + '%'
         });
 
         // 등록되고나면 글로벌 변수 array에 넣어준다.
