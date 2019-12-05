@@ -13,6 +13,28 @@
     border-radius: 10px;
 }
 
+div.control {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 3px;
+}
+
+.cls-img-control ul {
+    float: right;
+    margin-top: 3px;
+    margin-bottom: 0px;
+}
+
+.cls-img-control li {
+    list-style-type: none;
+    display: inline-block;
+}
+
+.cls-img-control img {
+    width: 30px;
+    height: 30px;
+}
+
 #id-div-coord-win {
     display: none;
 }
