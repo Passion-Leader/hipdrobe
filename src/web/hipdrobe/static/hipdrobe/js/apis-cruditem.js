@@ -8,7 +8,7 @@ var g_data = null;
 /*-----------------------------------------------------------------------------
  * getItemUrlsAndOpenList
  */
-function getItemUrlsAndOpenList(name) {
+function getItemUrlsAndOpenList(name, fnStr) {
  
     $.ajax({
         type: "GET",
@@ -28,7 +28,7 @@ function getItemUrlsAndOpenList(name) {
             if(g_data_len<=3) {
                 for(var i=0; i<=g_data_len-1; i++) {
                     $('div.carousel-inner').append("<div class='carousel-item active'></div>")
-                    $('div.carousel-item.active').append("<img class='d-block w-100' onclick='openAddItemDialog(event)' src='" +
+                    $('div.carousel-item.active').append(`<img class='d-block w-100' onclick='${fnStr}' src='` +
                     g_data[i] + "' />")
                 }
             } // if end
@@ -41,13 +41,13 @@ function getItemUrlsAndOpenList(name) {
                 for(var i=0; i<=g_data_len-1; i++) {
                     // 처음 3개 item은 .active에 추가
                     if (i<=2) {
-                        $('div.carousel-item.active').append("<img class='d-block w-100' onclick='openAddItemDialog(event)' src='" +
+                        $('div.carousel-item.active').append(`<img class='d-block w-100' onclick='${fnStr}' src='` +
                         g_data[i] + "' />")                            
                     } else if (i>2 && i%3==0) { // 그 이후부터 아이템 3개 단위로 div 추가하고 이미지 추가
                         $('div.carousel-inner').append("<div class='carousel-item'></div>")
-                        $('div.carousel-inner').children().eq((i/3)).append("<img class='d-block w-100' onclick='openAddItemDialog(event)' src='" + g_data[i] + "' />")
+                        $('div.carousel-inner').children().eq((i/3)).append(`<img class='d-block w-100' onclick='${fnStr}' src='` + g_data[i] + "' />")
                     } else if (i>2 && i%3!=0) {
-                        $('div.carousel-inner').children().eq(parseInt(i/3)).append("<img class='d-block w-100' onclick='openAddItemDialog(event)' src='" + g_data[i] + "' />")
+                        $('div.carousel-inner').children().eq(parseInt(i/3)).append(`<img class='d-block w-100' onclick='${fnStr}' src='` + g_data[i] + "' />")
                     }    
                 } //for end
             } // else if1 end

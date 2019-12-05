@@ -20,7 +20,7 @@ function setButtons() {
     parts = $('.clickable');
 
     parts.on('click', function(e) {
-        getItemUrlsAndOpenList($(this).attr('value'));
+        getItemUrlsAndOpenList($(this).attr('value'), 'openAddItemDialog(event)');
     });
 
 }

@@ -84,7 +84,7 @@ $(document).ready(function(){
 
     $('.fun-btn').click(function() {
         var name = $(this).val();
-        getItemUrlsAndOpenList(name);
+        getItemUrlsAndOpenList(name, "openAddItemDialog(event)");
     });
 
 });
