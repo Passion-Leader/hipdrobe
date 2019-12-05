@@ -21,6 +21,8 @@ $(document).ready(function(){
 
 
 
+
+
 function enableDnD() {
     const elems = document.querySelectorAll('.moveable');
     const options = { constrain: true };
@@ -37,6 +39,17 @@ function disableDnD() {
     g_moveables = [];
 }
 
+
+function changeCoordMode(mode) {
+    // 옷 설정 모드
+    if (mode === 0) {
+  
+    }
+    // 코디하기 모드
+    else {
+
+    }
+}
 
 
 
@@ -87,10 +100,30 @@ function setPartsButtons() {
  * 각 파트에 선택한 이미지를 등록하거나 혹은 취소하여 원복시킴
  */
 function  setPartsImage(part, imgTag) {
-    let imgUrl = $(imgTag).attr('src');
+    let $imgUrl = $(imgTag).attr('src');
+    let $imgTag = $(part).find('img');
     
-    $(part).find('img').attr('src', imgUrl);
+    $imgTag.attr('src', $imgUrl);
     $(part).removeClass('blank')
+
+    // 선택한 이미지를 코디하기 창에도 넣어준다.
+    setTimeout(function(){
+        let $div = $('<div>').addClass('coord-part').addClass('moveable');
+        let $img = $('<img>').css({
+            'width':  $imgTag.css('width'),
+            'height':  $imgTag.css('height'),
+        });
+        $img.attr('src',$imgUrl);
+        $div.append($img);
+
+        $('#id-div-coord-win').append($div);
+        $div.css({
+            'left': $(part).css('left'),
+            'top': $(part).css('top')
+        });
+    }, 500);
+   
+
     
     $('#myModal').modal('toggle');
 }
@@ -109,7 +142,8 @@ function unsetPartsImage(part) {
 function setPartsHeights() {
     // Container Div
     _setPartHeight($('#id-div-char-win'), 1);
-
+    _setPartHeight($('#id-div-coord-win'), 1);
+    
     // Head
     _setPartHeight( $('#id-coord-head'), 1);
 
