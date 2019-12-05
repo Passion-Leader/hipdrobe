@@ -2,7 +2,7 @@
  * char-win.css
  */
 
- #id-div-char-win {
+ .coord-win {
     position: relative;
     display: flex;
     justify-content: center;
@@ -12,6 +12,11 @@
     border: 1px solid black;
     border-radius: 10px;
 }
+
+#id-div-coord-win {
+    display: none;
+}
+
 
 #id-div-char-win .blank .add {
     display: block;
@@ -56,6 +61,10 @@
     align-items: center;
     text-align: center;
     vertical-align: middle;
+}
+
+#id-div-coord-win .coord-part {
+    border: 0;
 }
 
 .coord-part-main {
@@ -106,6 +115,11 @@
     width: 12%;
     top: 5%;
     left: 31%;
+}
+
+.cls-icon-author {
+    position: absolute;
+    bottom: 0;
 }
 
 #id-coord-top1 {

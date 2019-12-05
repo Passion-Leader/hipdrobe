@@ -176,7 +176,7 @@ function uploadImage(event) {
 
 
 /*-----------------------------------------------------------------------------
- * Validator에서 모든 체크가 완려되면 실질적으로 AJAX POST를 진행한다. 
+ * Validator에서 모든 체크가 완료되면 실질적으로 AJAX POST를 진행한다. 
  * form에 있는 모든 정보를 서버로 전송한다.
  */
  function postAddItem() {
