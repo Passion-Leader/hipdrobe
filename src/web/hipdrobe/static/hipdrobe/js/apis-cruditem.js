@@ -54,43 +54,11 @@ function getItemUrlsAndOpenList(name, fnStr) {
 
             // setTimeout(function(){  
             // }, 500);
-
-<<<<<<< HEAD
-            var url = null;
-            // 이미지 클릭시 실행 함수 start
-            $('div.carousel-item img').click(function() {
-                url = $(this).attr('src');
-                $.ajax({
-                    type: "GET",
-                    url: "/apis/clothes_detail",
-                    contentType: "application/json",
-                    data: {userid: "user01@test.com", url: url},
-                    success: function(data) {
-                        console.log(data)
-                        $('.modal-title.detail').text('아이템 상세정보');
-                        $('#d_image_wrap').append("<img src='"+ data['url'] + "' />");
-                        $('#cate').text("종류 : " + data['cate1_name'] + " ▶ " + data['cate2_name']);
-                        $('#descript').text("옷 설명 : " + data['descript']);
-                        $('#brand').text("브랜드 : " + data['brand']);
-                        $('#texture').text("재질 : " + data['texture']);
-                        $('#season').text("계절 : " + data['season']);
-                        $('#count').text("입은 횟수 : " + data['worn'] + "회")
-                        $('#detail_modal').modal();
-                        
-                    },
-                    error: function (e) {
-                        console.log("ERROR : ", e);
-                        alert("fail");
-                    }
-                }); //ajax end
-            }); //클릭 함수 end
-=======
-            if (fnStr === "") {
+            if(fnStr==="") {
                 var url = null;
                 // 이미지 클릭시 실행 함수 start
                 $('div.carousel-item img').click(function() {
                     url = $(this).attr('src');
-                    console.log(url);
                     $.ajax({
                         type: "GET",
                         url: "/apis/clothes_detail",
@@ -98,6 +66,16 @@ function getItemUrlsAndOpenList(name, fnStr) {
                         data: {userid: "user01@test.com", url: url},
                         success: function(data) {
                             console.log(data)
+                            $('.modal-title.detail').text('아이템 상세정보');
+                            $('#d_image_wrap').append("<img src='"+ data['url'] + "' />");
+                            $('#cate').text("종류 : " + data['cate1_name'] + " ▶ " + data['cate2_name']);
+                            $('#descript').text("옷 설명 : " + data['descript']);
+                            $('#brand').text("브랜드 : " + data['brand']);
+                            $('#texture').text("재질 : " + data['texture']);
+                            $('#season').text("계절 : " + data['season']);
+                            $('#count').text("입은 횟수 : " + data['worn'] + "회")
+                            $('#detail_modal').modal();
+                            
                         },
                         error: function (e) {
                             console.log("ERROR : ", e);
@@ -106,7 +84,6 @@ function getItemUrlsAndOpenList(name, fnStr) {
                     }); //ajax end
                 }); //클릭 함수 end
             }
->>>>>>> master
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -114,6 +91,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
         }
 
     });
+    
 
 
 }
