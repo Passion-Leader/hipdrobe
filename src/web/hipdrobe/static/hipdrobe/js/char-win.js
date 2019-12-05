@@ -28,16 +28,8 @@ function enableDnD() {
     const options = { constrain: true };
 
     for(i = 0; i < elems.length; i++) {
-        // g_moveables.push(displacejs(elems[i], options));
         displacejs(elems[i], options);
     }
-}
-
-function disableDnD() {
-    for(i = 0; i < g_moveables.length; i++) {
-        // g_moveables[i].destroy();
-    }
-    // g_moveables = [];
 }
 
 
@@ -98,6 +90,16 @@ function setPartsButtons() {
             unsetPartsImage(part);
         });
     });
+
+    // 코디하기 div에 클릭 이벤트 등록
+    // 빈 공간을 클릭하면 기존에 선택된 파트가 있다면 선택을 해제시킨다.
+    $('#id-div-coord-win').click(function() {
+        if(g_$currentCoortPart == null)
+            return;
+        
+        g_$currentCoortPart.removeClass('outline');
+        g_$currentCoortPart = null;
+    });
     
 
 }
@@ -107,6 +109,7 @@ function setPartsButtons() {
 /*-----------------------------------------------------------------------------
  * 각 파트에 선택한 이미지를 등록하거나 혹은 취소하여 원복시킴
  */
+let g_$currentCoortPart = null;
 function  setPartsImage(part, imgTag) {
     unsetPartsImage(part);
 
@@ -125,6 +128,17 @@ function  setPartsImage(part, imgTag) {
             'height':  $imgTag.css('height'),
         });
         $img.attr('src',$imgUrl);
+
+        // 클릭되었을 경우 선택된 것으로 인식도록 outline을 설정한다.
+        $img.click(function(e) {
+            e.stopPropagation();
+            if (g_$currentCoortPart != null) {
+                g_$currentCoortPart.removeClass('outline');
+            }
+            g_$currentCoortPart = $img;
+            $img.addClass('outline');
+        });
+
         $div.append($img);
 
         $('#id-div-coord-win').append($div);
@@ -133,6 +147,7 @@ function  setPartsImage(part, imgTag) {
             'top': $(part).css('top')
         });
 
+        // 등록되고나면 글로벌 변수 array에 넣어준다.
         g_moveables.push($div);
     }, 500);
    
