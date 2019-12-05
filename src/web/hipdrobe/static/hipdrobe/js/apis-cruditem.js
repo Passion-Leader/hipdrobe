@@ -17,12 +17,8 @@ function getItemUrlsAndOpenList(name, fnStr) {
         data: {userid: "user01@test.com", name: name},
         success: function (data) { 
             g_data = data['url'];
-            console.log(g_data)
             var g_data_len = Object.keys(g_data).length;
             $('div.carousel-inner').html('');
-            
-            
-            console.log(g_data_len)
             
             // url 개수가 3보다 작은 경우
             if(g_data_len<=3) {
@@ -52,7 +48,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
                 } //for end
             } // else if1 end
 
-            $('.modal-title').text(name + ' 리스트')
+            $('.modal-title.item').text(name + ' 리스트')
                 
             $('#myModal').modal();
 
@@ -63,7 +59,6 @@ function getItemUrlsAndOpenList(name, fnStr) {
             // 이미지 클릭시 실행 함수 start
             $('div.carousel-item img').click(function() {
                 url = $(this).attr('src');
-                console.log(url);
                 $.ajax({
                     type: "GET",
                     url: "/apis/clothes_detail",
@@ -71,6 +66,16 @@ function getItemUrlsAndOpenList(name, fnStr) {
                     data: {userid: "user01@test.com", url: url},
                     success: function(data) {
                         console.log(data)
+                        $('.modal-title.detail').text('아이템 상세정보');
+                        $('#d_image_wrap').append("<img src='"+ data['url'] + "' />");
+                        $('#cate').text("종류 : " + data['cate1_name'] + " ▶ " + data['cate2_name']);
+                        $('#descript').text("옷 설명 : " + data['descript']);
+                        $('#brand').text("브랜드 : " + data['brand']);
+                        $('#texture').text("재질 : " + data['texture']);
+                        $('#season').text("계절 : " + data['season']);
+                        $('#count').text("입은 횟수 : " + data['worn'] + "회")
+                        $('#detail_modal').modal();
+                        
                     },
                     error: function (e) {
                         console.log("ERROR : ", e);
