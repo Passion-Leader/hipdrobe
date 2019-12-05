@@ -26,13 +26,21 @@ div.control {
 }
 
 .cls-img-control li {
+    width: 30px;
+    height: 30px;
     list-style-type: none;
     display: inline-block;
 }
 
+.cls-img-control li:active {
+    border: 0;
+    padding: 1.5px
+
+}
+
 .cls-img-control img {
-    width: 30px;
-    height: 30px;
+    width: 100%;
+    height: 100%;
 }
 
 #id-div-coord-win {
@@ -90,11 +98,14 @@ div.control {
 }
 
 #id-div-coord-win .coord-part .outline {
-    border: solid 0.5px lightgray !important;
     border-radius: 10px;
+    box-shadow: 0 0 0 0.5px lightgrey;
 }
 
-
+#id-div-coord-win img {
+    width: 100%;
+    height: auto;
+}
 
 .coord-part-main {
     left: 27%;
@@ -133,7 +144,7 @@ div.control {
 }
 
 .blank img {
-    opacity: 0.3;
+    opacity: 0.2;
 }
 
 .blank .del {
@@ -229,4 +240,5 @@ div.control {
 
 .moveable {
     border: 0px;
+    z-index: 5;
 }
