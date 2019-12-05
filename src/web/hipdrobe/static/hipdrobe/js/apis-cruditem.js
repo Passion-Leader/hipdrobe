@@ -54,6 +54,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
 
             // setTimeout(function(){  
             // }, 500);
+            
             if(fnStr==="") {
                 var url = null;
                 // 이미지 클릭시 실행 함수 start
@@ -71,10 +72,23 @@ function getItemUrlsAndOpenList(name, fnStr) {
                             $('#cate').text("종류 : " + data['cate1_name'] + " ▶ " + data['cate2_name']);
                             $('#descript').text("옷 설명 : " + data['descript']);
                             $('#brand').text("브랜드 : " + data['brand']);
+                            $('#color').append("색깔 : " + "<input type='color' onclick='' value='" + data['color'] + "' />");
+                            $('#pattern').append("무늬 : " + data['pattern']);
                             $('#texture').text("재질 : " + data['texture']);
                             $('#season').text("계절 : " + data['season']);
                             $('#count').text("입은 횟수 : " + data['worn'] + "회")
+                            
+                            // 모달 닫을 때 입력값 초기화 되는 세팅 추가로 해야 함
                             $('#detail_modal').modal();
+                            
+                            // 수정 창 start
+                            // $('#update_item').click(function() {
+                            //     $('.modal-title.add').text('아이템 정보 수정')
+                            //     console.log($('#id-additem-cate1 option:selected').val())
+                            //     $('#id-modal-additem').modal('toggle');
+                            // });
+
+                            
                             
                         },
                         error: function (e) {
