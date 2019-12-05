@@ -14,7 +14,7 @@
 }
 
 #id-div-coord-win {
-
+    display: none;
 }
 
 
@@ -115,6 +115,11 @@
     width: 12%;
     top: 5%;
     left: 31%;
+}
+
+.cls-icon-author {
+    position: absolute;
+    bottom: 0;
 }
 
 #id-coord-top1 {

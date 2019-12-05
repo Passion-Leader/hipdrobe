@@ -13,7 +13,7 @@ $(document).ready(function(){
     setPartsDefaultImage();
 
     // enable test Drag & Drop 
-    enableDnD();
+    // enableDnD();
 
     //Set Buttons
     setPartsButtons();
@@ -28,26 +28,34 @@ function enableDnD() {
     const options = { constrain: true };
 
     for(i = 0; i < elems.length; i++) {
-        g_moveables.push(displacejs(elems[i], options));
+        // g_moveables.push(displacejs(elems[i], options));
+        displacejs(elems[i], options);
     }
 }
 
 function disableDnD() {
     for(i = 0; i < g_moveables.length; i++) {
-        g_moveables[i].destroy();
+        // g_moveables[i].destroy();
     }
-    g_moveables = [];
+    // g_moveables = [];
 }
 
 
 function changeCoordMode(mode) {
     // 옷 설정 모드
     if (mode === 0) {
-  
+        $('#id-div-char-win').css('display', 'flex');
+        $('#id-div-coord-win').css('display', 'none')
     }
     // 코디하기 모드
     else {
+        $('#id-div-char-win').css('display', 'none');
+        $('#id-div-coord-win').css('display', 'flex');
 
+        setTimeout(function(){
+            enableDnD();
+        }, 500);
+        
     }
 }
 
@@ -107,8 +115,9 @@ function  setPartsImage(part, imgTag) {
     $(part).removeClass('blank')
 
     // 선택한 이미지를 코디하기 창에도 넣어준다.
-    setTimeout(function(){
+    setTimeout(function() {
         let $div = $('<div>').addClass('coord-part').addClass('moveable');
+        $div.attr('pid', $(part).attr('id'));
         let $img = $('<img>').css({
             'width':  $imgTag.css('width'),
             'height':  $imgTag.css('height'),
@@ -121,6 +130,8 @@ function  setPartsImage(part, imgTag) {
             'left': $(part).css('left'),
             'top': $(part).css('top')
         });
+
+        g_moveables.push($div);
     }, 500);
    
 
@@ -129,6 +140,15 @@ function  setPartsImage(part, imgTag) {
 }
 
 function unsetPartsImage(part) {
+    let pid = $(part).attr('id');
+    g_moveables.forEach(function(elem, i) {
+        let $elem = $(elem);
+        if ($elem.attr('pid') == pid) {
+            $elem.remove();
+            delete g_moveables[i];
+        }
+    });
+
     $(part).addClass('blank');
     let imgTag = $(part).find('img');
     imgTag.attr('src', imgTag.attr('value'));
