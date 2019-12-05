@@ -122,19 +122,23 @@
 
     .img_size_set {
       width: 100%;
+      height: auto;
+      line-height: auto;
+      text-align: center;
     }
   
     .carousel-item img {
       max-width: 30%;
-      height: 250px;
+      height: auto;
       position: relative;
-      top: 0;
+      top: 5%;
       left: 3%;
       right: 0;
       bottom: 0;
-      float: left;
       border-right: solid 0.5px lightgray;
       cursor: pointer;
+      float: left;
+      vertical-align:middle;
     }
 
     .add_button_box {

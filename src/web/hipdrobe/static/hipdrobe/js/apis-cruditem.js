@@ -55,11 +55,36 @@ function getItemUrlsAndOpenList(name, fnStr) {
             $('.modal-title').text(name + ' 리스트')
                 
             $('#myModal').modal();
+
+            // setTimeout(function(){  
+            // }, 500);
+
+            var url = null;
+            // 이미지 클릭시 실행 함수 start
+            $('div.carousel-item img').click(function() {
+                url = $(this).attr('src');
+                console.log(url);
+                $.ajax({
+                    type: "GET",
+                    url: "/apis/clothes_detail",
+                    contentType: "application/json",
+                    data: {userid: "user01@test.com", url: url},
+                    success: function(data) {
+                        console.log(data)
+                    },
+                    error: function (e) {
+                        console.log("ERROR : ", e);
+                        alert("fail");
+                    }
+                }); //ajax end
+            }); //클릭 함수 end
         },
         error: function (e) {
             console.log("ERROR : ", e);
             alert("fail");
         }
-    });
-}
 
+    });
+
+
+}

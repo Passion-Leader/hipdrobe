@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.http import HttpResponse
+from django.forms.models import model_to_dict
 from PIL import Image
 from pilkit.processors import Thumbnail
 from rest_framework import serializers
@@ -198,7 +199,7 @@ def additem(request):
 
 
 # -----------------------------------------------------------------------------
-# clothes : userid에 해당되는 데이터 전부 불러오기
+# clothes : userid와 클릭한 name을 기준으로 옷 url 리스트 넘기기
 # -----------------------------------------------------------------------------
 def clothes(request):
     userid = request.GET.get('userid')
@@ -246,3 +247,20 @@ def _deleteTmpImage(path, infix):
 
     except Exception as e:
         print(e)
+
+
+
+# -----------------------------------------------------------------------------
+# clothes_detail : 클릭한 옷의 url로 옷 전체 데이터 받아서 detail 구현
+# -----------------------------------------------------------------------------
+def clothes_detail(request):
+    userid = request.GET.get('userid')
+    url = request.GET.get('url')
+    print(url)
+
+    u_clothes = Clothes.objects.get(url = url)
+    clothe = model_to_dict(u_clothes)
+    json_data = json.dumps(clothe)
+    print(json_data)
+
+    return HttpResponse(json_data, content_type="application/json")
