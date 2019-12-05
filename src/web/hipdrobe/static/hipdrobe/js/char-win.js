@@ -54,7 +54,7 @@ function changeCoordMode(mode) {
 
         setTimeout(function(){
             enableDnD();
-        }, 500);
+        }, 300);
         
     }
 }
@@ -108,6 +108,8 @@ function setPartsButtons() {
  * 각 파트에 선택한 이미지를 등록하거나 혹은 취소하여 원복시킴
  */
 function  setPartsImage(part, imgTag) {
+    unsetPartsImage(part);
+
     let $imgUrl = $(imgTag).attr('src');
     let $imgTag = $(part).find('img');
     
