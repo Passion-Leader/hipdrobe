@@ -129,10 +129,7 @@ function setPartsButtons() {
 
         let divWidth = parseFloat(g_$currentCoortPart.parent().css('width'));
         let width = parseFloat(g_$currentCoortPart.css('width'));
-        // let height = parseFloat(g_$currentCoortPart.css('height'));
         g_$currentCoortPart.css({
-            // 'width': `${width * 0.95}px`,
-            // 'height': `${height * 0.95}px`,
             'width': (width/divWidth)*95 + '%',
             'height': 'auto'
         });
@@ -146,10 +143,7 @@ function setPartsButtons() {
 
         let divWidth = parseFloat(g_$currentCoortPart.parent().css('width'));
         let width = parseFloat(g_$currentCoortPart.css('width'));
-        // let height = parseFloat(g_$currentCoortPart.css('height'));
         g_$currentCoortPart.css({
-            // 'width': `${width * 1.05}px`,
-            // 'height': `${height * 1.05}px`,
             'width': (width/divWidth)*105 + '%',
             'height': 'auto'
         });
@@ -175,11 +169,13 @@ function setPartsButtons() {
             'z-index', parseInt(g_$currentCoortPart.css('z-index'))+1);
     });
 
+    // 모드 변경 버튼 (부위 설정/ 코디하기)
     $("div.row.control .btn-group > .btn").click(function(){
         $("div.row.control .btn-group > .btn").removeClass("active");
         $(this).addClass("active");
     });
 
+    // 배경 선택 버튼
     $("#id-div-coord-win .btn-group > .btn").click(function(){
         $("#id-div-coord-win .btn-group > .btn").removeClass("active");
         $(this).addClass("active");
@@ -213,10 +209,8 @@ function  setPartsImage(part, imgTag) {
         let divWidth = parseFloat($('#id-div-char-win').css('width'));
         let divHeight = parseFloat($('#id-div-char-win').css('height'));
         let width = parseFloat($imgTag.parent().css('width'));
-        // let height = parseFloat($imgTag.parent().css('height'));
         $div.css({
             'width': (width/divWidth)*130 + '%',
-            // 'height': (height/divHeight)*100 + '%',
             'height': 'auto'
         });
        
