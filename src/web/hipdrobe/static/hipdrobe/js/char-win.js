@@ -167,15 +167,27 @@ function setPartsButtons() {
 
     $('#id-btn-up').click(function(e) {
         e.stopPropagation();
-        
+
         if (g_$currentCoortPart == null) 
             return;
         
         g_$currentCoortPart.css(
             'z-index', parseInt(g_$currentCoortPart.css('z-index'))+1);
     });
-    
 
+    $("div.row.control .btn-group > .btn").click(function(){
+        $("div.row.control .btn-group > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    $("#id-div-coord-win .btn-group > .btn").click(function(){
+        $("#id-div-coord-win .btn-group > .btn").removeClass("active");
+        $(this).addClass("active");
+
+        let imgtype = $(this).attr('imgtype');
+        $('#id-div-coord-win').attr('class', "coord-win mb-3");
+        $('#id-div-coord-win').addClass(imgtype);
+    });
 }
 
 
