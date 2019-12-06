@@ -73,7 +73,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
                             $('#descript').text("옷 설명 : " + data['descript']);
                             $('#brand').text("브랜드 : " + data['brand']);
                             $('#color').append("색깔 : " + "<input type='color' onclick='' value='" + data['color'] + "' />");
-                            $('#pattern').append("무늬 : " + data['pattern']);
+                            $('#pattern').append(data['pattern']);
                             $('#texture').text("재질 : " + data['texture']);
                             $('#season').text("계절 : " + data['season']);
                             $('#count').text("입은 횟수 : " + data['worn'] + "회")
@@ -83,9 +83,91 @@ function getItemUrlsAndOpenList(name, fnStr) {
                             
                             // 수정 창 start
                             $('#update_item').click(function() {
-                                $('.modal-title.add').text('아이템 정보 수정')
-                                $("#id-additem-part option span").text("상의");
-                                openAddItemDialog(event);
+                                // 모달 실행
+                                openUpdateItem(event);
+
+                                // part selected 처리
+                                setTimeout(function() {
+                                    var options = $('#id-updateitem-part option');
+                                    options.each(function(i, elem) { 
+                                       if ($(elem).val() == data['part']) {
+                                        $(elem).attr("selected", true);
+                                       }
+                                    });
+                                    $('#id-updateitem-part').trigger('change');
+                                    
+                                    // cate1 selected 처리
+                                    setTimeout(function() {
+                                        var options = $('#id-updateitem-cate1 option');
+                                        options.each(function(i, elem) { 
+                                           if ($(elem).val() == data['cate1_name']) {
+                                            $(elem).attr("selected", true);
+                                           }
+                                        });
+                                        $('#id-updateitem-cate1').trigger('change');
+                                        
+                                        // cate2 selected 처리
+                                        setTimeout(function() {
+                                            var options = $('#id-updateitem-cate2 option');
+                                            options.each(function(i, elem) { 
+                                               if ($(elem).val() == data['cate2_name']) {
+                                                $(elem).attr("selected", true);
+                                               }
+                                            });
+                                            $('#id-updateitem-cate2').trigger('change');
+                                        }, 100); 
+                                    }, 100);
+                                    
+                                    // color default 처리
+                                    $('#id-updateitem-color').attr("value", data['color']);
+                                    
+                                    // season checked 처리
+                                    console.log(data['season'])
+                                    for(var i=1; i<=4; i++) {
+                                        $("input:checkbox[id='id-updateitem-season"+i+"']").prop("checked", false);
+                                        if (data['season'].includes($('#id-updateitem-season' + i).val())) {
+                                            $("input:checkbox[id='id-updateitem-season"+i+"']").prop("checked", true);
+                                        }
+                                    }
+
+                                    // pattern checked 처리
+                                    console.log(data['pattern'])
+                                    for(var i=1; i<=4; i++) {
+                                        if ($('#id-updateitem-pattern' + i).val() == data['pattern']) {
+                                            $("input:radio[id='id-updateitem-pattern"+i+"']").attr("checked", true);
+                                        }
+                                    }
+
+                                    // solid 여부 checked 처리
+                                    for(var i=1; i<=2; i++) {
+                                        console.log($('#id-updateitem-colortype' + i).val())
+                                        if ($('#id-updateitem-colortype' + i).val() == data['solid']) {
+                                            $("input:radio[id='id-updateitem-colortype"+i+"']").attr("checked", true);
+                                        }
+                                    }
+
+                                    // 재질 default 처리
+                                    $('#id-updateitem-texture').val(data['texture']);
+
+                                    // 브랜드 default 처리
+                                    $('#id-updateitem-brand').val(data['brand']);
+
+                                    // descript default 처리
+                                    $('#id-updateitem-desc').val(data['descript']);
+
+                                    // // 현재 사진 추가
+                                    // $('#add_item_pic').append("<br><label for='id-input-image'><i class='fas fa-asterisk'></i> 현재 사진 </label>"
+                                    // + "<img width='100%' height='auto' src='" + data['url'] + "' />");
+
+                                    
+                                }, 100);                                  
+
+                                 
+
+
+
+
+
                             });
 
                             
