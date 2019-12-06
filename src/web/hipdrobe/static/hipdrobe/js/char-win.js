@@ -28,9 +28,22 @@ function enableDnD() {
     const elems = document.querySelectorAll('.moveable');
     const options = { constrain: true };
 
-    for(i = 0; i < elems.length; i++) {
-        // 추후에 중복체크 구현해야함
-        displacejs(elems[i], options);
+    for(let i = 0; i < elems.length; i++) {
+        let isNew = true;
+        for (let j = 0; j < g_moveables_set.length; j++) {
+            console.log('---');
+            console.log(elems[i]);
+            console.log(g_moveables_set[j]);
+            if (elems[i] == g_moveables_set[j]) {
+                isNew = false;
+                break;
+            }
+        }
+
+        if (isNew) {
+            displacejs(elems[i], options);
+            g_moveables_set.push(elems[i]);
+        }
     }
 }
 
@@ -222,6 +235,14 @@ function  setPartsImage(part, imgTag) {
 function unsetPartsImage(part) {
     let pid = $(part).attr('id');
     g_moveables.forEach(function(elem, i) {
+        let $elem = $(elem);
+        if ($elem.attr('pid') == pid) {
+            $elem.remove();
+            delete g_moveables[i];
+        }
+    });
+
+    g_moveables_set.forEach(function(elem, i) {
         let $elem = $(elem);
         if ($elem.attr('pid') == pid) {
             $elem.remove();
