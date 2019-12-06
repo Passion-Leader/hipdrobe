@@ -197,6 +197,20 @@ def additem(request):
 
     return HttpResponse(json_data, content_type="application/json")
 
+# -----------------------------------------------------------------------------
+# coordi_new 작성한 코디 업로드
+# -----------------------------------------------------------------------------
+# @require_POST
+def coordi_new(request):
+    items = json.loads(request.body)['data']
+    print(items)
+
+    json_data = json.dumps({
+        'result': True,
+    })
+
+    return HttpResponse(json_data, content_type="application/json")
+
 
 # -----------------------------------------------------------------------------
 # clothes : userid와 클릭한 name을 기준으로 옷 url 리스트 넘기기

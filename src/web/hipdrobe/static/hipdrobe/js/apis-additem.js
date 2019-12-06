@@ -35,7 +35,7 @@ function openAddItemDialog(event) {
             console.log("ERROR : ", e);
             alert("fail");
         }
-   });
+    });
 }
 
 
