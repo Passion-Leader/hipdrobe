@@ -31,9 +31,6 @@ function enableDnD() {
     for(let i = 0; i < elems.length; i++) {
         let isNew = true;
         for (let j = 0; j < g_moveables_set.length; j++) {
-            console.log('---');
-            console.log(elems[i]);
-            console.log(g_moveables_set[j]);
             if (elems[i] == g_moveables_set[j]) {
                 isNew = false;
                 break;
