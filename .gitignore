@@ -4,6 +4,8 @@
 
 ### Custom ###
 venv/
+**/clothes_images/tmp/
+
 
 ### Django ###
 *.log
