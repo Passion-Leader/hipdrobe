@@ -181,7 +181,7 @@ function setPartsButtons() {
         $(this).addClass("active");
 
         let imgtype = $(this).attr('imgtype');
-        $('#id-div-coord-win').attr('class', "coord-win mb-3");
+        $('#id-div-coord-win').attr('class', "coord-win coord-post mb-3");
         $('#id-div-coord-win').addClass(imgtype);
     });
 }
@@ -213,7 +213,7 @@ function  setPartsImage(part, imgTag) {
             'width': (width/divWidth)*130 + '%',
             'height': 'auto'
         });
-       
+        
         let $img = $('<img>').attr('src',$imgUrl);
         $img.attr('src',$imgUrl);
 
@@ -238,7 +238,7 @@ function  setPartsImage(part, imgTag) {
         // 등록되고나면 글로벌 변수 array에 넣어준다.
         g_moveables.push($div);
     }, 500);
-   
+
 
     $('#myModal').modal('toggle');
 }
@@ -309,12 +309,79 @@ function _setPartHeight(target, ratio) {
     target.css('height', `${partheight}px`);
 }
 
+
+/*-----------------------------------------------------------------------------
+ * 데일리룩 / 코디 저장 구현중
+ */
+function saveCoordi(e, bDaily) {
+    e.stopPropagation();
+
+    const arrItem = [];
+    g_moveables.forEach(function($elem, i) {
+        const obj = _divToObject($elem);
+        arrItem.push(obj);
+    });
+
+    axios.defaults.xsrfCookieName = 'csrftoken';
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    axios.post(
+        '/apis/coordi/new/', 
+        JSON.stringify(
+            { data : arrItem }
+        )
+    )
+    .then(response =>{
+        console.log(response.data)
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+
+
+
+
+
+    // {
+    //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    // }
+}
+
+function _divToObject($elem) {
+    const divWidth = parseFloat($('#id-div-coord-win').css('width'));
+    const divHeight = parseFloat($('#id-div-coord-win').css('height'));
+
+    const width = parseFloat($elem.css('width'));
+    const left = parseFloat($elem.css('left'));
+    const top = parseFloat($elem.css('top'));
+    const zindex = $elem.css('z-index');
+    const imgurl = $elem.find('img').attr('src');
+
+    const item = {
+        'width': (width/divWidth)*100 + '%',
+        'left': (left/divWidth)*100 + '%',
+        'top': (top/divHeight)*100 + '%',
+        'zindex': zindex,
+        'imgurl': imgurl
+    };
+
+    return item;
+}
+
+
+
+
+
 /*-----------------------------------------------------------------------------
  * 브라우저 화면 사이즈가 바뀌면 그에 맞게 조정한다.
  */
 window.onresize = function(event) {
     setPartsHeights();
 };
+
+
+
+
 
 
 /* test code

@@ -23,6 +23,7 @@ urlpatterns = [
     path('apis/upload/', apis.upload, name="upload"),
     path('apis/clothes/', apis.clothes, name="clothes"),
     path('apis/additem/', apis.additem, name="additem"),
+    path('apis/coordi/new/', apis.coordi_new, name="coordi_new"),
     path('check_id/',views.check_id,name="check_id"),
     path('apis/clothes_detail/', apis.clothes_detail, name="clothes_detail"),
 ]
