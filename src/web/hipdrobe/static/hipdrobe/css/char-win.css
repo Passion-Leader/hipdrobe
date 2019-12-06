@@ -47,7 +47,7 @@ div.control {
 }
 
 .coord-post > * {
-    z-index: 1;
+    z-index: 16;
 }
 
 .coord-post.spring::after {

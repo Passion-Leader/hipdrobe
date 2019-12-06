@@ -128,6 +128,17 @@ function setDefaultValidMessage() {
     });
 }
 
+
+/*-----------------------------------------------------------------------------
+ * 기존에 작동된 validation 결과를 삭제함
+ */
+function eraseErrorLabel($target) {
+    let error_labels =  $target.find('label.error');
+    for(let i = 0; i < error_labels.length; i++) {
+        $(error_labels[i]).remove();
+    }
+}
+
 /* ----------------------------------------------------------------------------
  * 로고 제네레이터 
  * https://danmarshall.github.io/google-font-to-svg-path/

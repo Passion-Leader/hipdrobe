@@ -156,8 +156,9 @@ function setPartsButtons() {
         if (g_$currentCoortPart == null) 
             return;
 
-        g_$currentCoortPart.css(
-            'z-index', parseInt(g_$currentCoortPart.css('z-index'))-1);
+        const curIndex = parseInt(g_$currentCoortPart.css('z-index'));
+        if (curIndex > 1)
+            g_$currentCoortPart.css('z-index', curIndex - 1);
     });
 
     $('#id-btn-up').click(function(e) {
@@ -165,9 +166,10 @@ function setPartsButtons() {
 
         if (g_$currentCoortPart == null) 
             return;
-        
-        g_$currentCoortPart.css(
-            'z-index', parseInt(g_$currentCoortPart.css('z-index'))+1);
+
+        const curIndex = parseInt(g_$currentCoortPart.css('z-index'));
+        if (curIndex < 15)
+            g_$currentCoortPart.css('z-index', curIndex + 1);
     });
 
     // 모드 변경 버튼 (부위 설정/ 코디하기)
@@ -204,18 +206,19 @@ function  setPartsImage(part, imgTag) {
 
     // 선택한 이미지를 코디하기 창에도 넣어준다. (좀 크게 넣어준다.)
     setTimeout(function() {
-        let $div = $('<div>').addClass('coord-part').addClass('moveable');
+        const $div = $('<div>').addClass('coord-part').addClass('moveable');
         $div.attr('pid', $(part).attr('id'));
         
-        let divWidth = parseFloat($('#id-div-char-win').css('width'));
-        let divHeight = parseFloat($('#id-div-char-win').css('height'));
-        let width = parseFloat($imgTag.parent().css('width'));
+        const $parent = $('#id-div-char-win');
+        const divWidth = parseFloat($parent.css('width'));
+        const divHeight = parseFloat($parent.css('height'));
+        const width = parseFloat($imgTag.parent().css('width'));
         $div.css({
             'width': (width/divWidth)*130 + '%',
             'height': 'auto'
         });
         
-        let $img = $('<img>').attr('src',$imgUrl);
+        const $img = $('<img>').attr('src',$imgUrl);
         $img.attr('src',$imgUrl);
 
         // 클릭되었을 경우 선택된 것으로 인식도록 outline을 설정한다.
@@ -238,6 +241,7 @@ function  setPartsImage(part, imgTag) {
 
         // 등록되고나면 글로벌 변수 array에 넣어준다.
         g_moveables.push($div);
+        $('.save-group .btn').attr('disabled', false);
     }, 500);
 
 
@@ -253,14 +257,19 @@ function unsetPartsImage(part) {
             delete g_moveables[i];
         }
     });
+    g_moveables = g_moveables.filter(el => el != null);
 
     g_moveables_set.forEach(function(elem, i) {
         let $elem = $(elem);
         if ($elem.attr('pid') == pid) {
             $elem.remove();
-            delete g_moveables[i];
+            delete g_moveables_set[i];
         }
     });
+    g_moveables_set = g_moveables_set.filter(el => el != null);
+
+    if (g_moveables.length == 0) 
+        $('.save-group .btn').attr('disabled', true);
 
     $(part).addClass('blank');
     let imgTag = $(part).find('img');
@@ -309,7 +318,7 @@ function setPartsHeights() {
 
 
 function _setPartHeight(target, ratio) {
-    let partheight = parseInt(target.css('width')) * ratio;
+    const partheight = parseInt(target.css('width')) * ratio;
     target.css('height', `${partheight}px`);
 }
 
@@ -317,10 +326,15 @@ function _setPartHeight(target, ratio) {
 /*-----------------------------------------------------------------------------
  * 데일리룩 / 코디 저장 구현중
  */
+var g_coordiData = null;
 function openPostModal(e, bDaily) {
     e.stopPropagation();
 
-    $('#id-modal-post').modal('toggle');
+    const $modal = $('#id-modal-post');
+    $modal.find('input').val('');
+    $modal.find('textarea').val('');
+    eraseErrorLabel($modal);
+    $modal.modal('toggle');
 
     const arrItem = [];
     g_moveables.forEach(function($elem, i) {
@@ -328,15 +342,16 @@ function openPostModal(e, bDaily) {
         arrItem.push(obj);
     });
 
-    const data = {
+    g_coordiData = {
+        daily: bDaily,
         list : arrItem,
         bg : $('#id-div-coord-win .btn.active').attr('imgtype')
     }
 
-    const $coordWin = _objToCoordWind( '100%', 'auto', data );
-    $('#id-modal-post .coord-post').remove();
+    const $coordWin = _objToCoordWind( '100%', 'auto', g_coordiData );
     $coordWin.attr('id', 'id-div-post-win');
-    $('#id-modal-post .win-wrapper').append($coordWin);
+    $modal.find('.coord-post').remove();
+    $modal.find('.win-wrapper').append($coordWin);
     const fn = _ => { 
         setTimeout(_ => {
             if( $('#id-div-post-win').css('width') == "100%" ) 
@@ -346,22 +361,6 @@ function openPostModal(e, bDaily) {
         }, 10);
     };
     fn();
-    
-    // axios.defaults.xsrfCookieName = 'csrftoken';
-    // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-    // axios.post(
-    //     '/apis/coordi/new/', 
-    //     JSON.stringify(
-    //         { data : arrItem }
-    //     )
-    // )
-    // .then(response =>{
-    //     console.log(response.data)
-
-    // })
-    // .catch(function (error) {
-    //     console.log(error);
-    // })
 }
 
 function _divToObject($elem) {
@@ -411,27 +410,60 @@ function _objToCoordWind(width, height, obj) {
 }
 
 
-function coord_post(e, bDaily) {
+/*-----------------------------------------------------------------------------
+ * Form Submit 동작을 취하여 validator로 제어권을 넘긴다.
+ */
+function coordSubmit(e, bDaily) {
     event.stopPropagation();
     event.preventDefault();
 
     $('#id-modal-post form').submit();
 }
 
+
+/*-----------------------------------------------------------------------------
+ * validation 만족할 경우 서버로 포스트하는 함수를 실행한다.
+ */
 function _makeValidator_post() {
     $("#id-modal-post form").validate({
         rules: {
             title: {required: true },
             content: {required: true },
-          },
-          submitHandler: function (frm) {
-              //ToDo: 업로드 구현
-              //작업중
-          },
-          success: function (e) {
-              //ToDo: Nonthing To Do...
-          }
+        },
+        submitHandler: function (frm) {
+            //ToDo: 코디 저장 구현
+            postCoordi(g_coordiData)
+        },
+        success: function (e) {
+            //ToDo: Nonthing To Do...
+        }
     });
+}
+
+
+/*-----------------------------------------------------------------------------
+ * 저장할 코디 데이터를 서버로 보낸다
+ */
+function postCoordi(coordiData) {
+
+    coordiData['title'] = $('#id-modal-post [name=title]').val();
+    coordiData['content'] = $('#id-modal-post [name=content]').val();
+
+    axios.defaults.xsrfCookieName = 'csrftoken';
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    axios.post(
+        '/apis/coordi/new/', 
+        JSON.stringify(
+            { data : coordiData }
+        )
+    )
+    .then(response =>{
+        console.log(response.data)
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
 }
 
 

@@ -21,7 +21,7 @@ $('document').ready(function(){
 function openAddItemDialog(event) {
     _eraseOption('#id-additem-cate1')
     _eraseOption('#id-additem-cate2')
-    _eraseErrorLabel();
+    eraseErrorLabel($('#id-modal-additem'));
     
     $.ajax({
         type: "GET",
@@ -226,17 +226,6 @@ function _addOption(target, data) {
 function _eraseOption(target) {
     let select = $(target).html("");
     select.append("<option selected>선택하세요</option>");
-}
-
-
-/*-----------------------------------------------------------------------------
- * 기존에 작동된 validation 결과를 삭제함
- */
-function _eraseErrorLabel() {
-    let error_labels =  $('#id-modal-additem').find('label.error');
-    for(let i = 0; i < error_labels.length; i++) {
-        $(error_labels[i]).remove();
-    }
 }
 
 
