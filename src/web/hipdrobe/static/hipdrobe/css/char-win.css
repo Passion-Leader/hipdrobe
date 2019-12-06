@@ -19,32 +19,57 @@ div.control {
     margin-bottom: 3px;
 }
 
-.cls-img-control ul {
-    float: right;
-    margin-top: 3px;
-    margin-bottom: 0px;
+#id-div-coord-win {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.cls-img-control li {
-    width: 30px;
-    height: 30px;
+#id-div-coord-win::after {
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('/static/hipdrobe/img/no-image.png'); 
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+    opacity : 0.3;
+    z-index: -1;
+}
+
+#id-div-coord-win.spring::after {
+    background-image: url('/static/hipdrobe/img/bg-spring.jpg'); 
+}
+
+#id-div-coord-win ul {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+
+}
+
+#id-div-coord-win li {
+    width: 28px;
+    height: 28px;
     list-style-type: none;
     display: inline-block;
+    border: 2px solid transparent;
 }
 
-.cls-img-control li:active {
+#id-div-coord-win li:active {
     border: 0;
-    padding: 1.5px
-
 }
 
-.cls-img-control img {
+#id-div-coord-win img {
     width: 100%;
     height: 100%;
 }
 
-#id-div-coord-win {
-    display: none;
+#id-div-coord-win .btn-group {
+    position: absolute;
+    top: 1%;
+    left: 1%;
 }
 
 

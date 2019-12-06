@@ -121,7 +121,9 @@ function setPartsButtons() {
     });
 
     // 코디하기 모드에서 아이템들의 크기나 레이어를 조절하기 위한 버튼들
-    $('#id-btn-minus').click(function() {
+    $('#id-btn-minus').click(function(e) {
+        e.stopPropagation();
+
         if (g_$currentCoortPart == null) 
             return;
 
@@ -136,7 +138,9 @@ function setPartsButtons() {
         });
     });
 
-    $('#id-btn-plus').click(function() {
+    $('#id-btn-plus').click(function(e) {
+        e.stopPropagation();
+
         if (g_$currentCoortPart == null) 
             return;
 
@@ -151,7 +155,9 @@ function setPartsButtons() {
         });
     });
 
-    $('#id-btn-down').click(function() {
+    $('#id-btn-down').click(function(e) {
+        e.stopPropagation();
+
         if (g_$currentCoortPart == null) 
             return;
 
@@ -159,15 +165,29 @@ function setPartsButtons() {
             'z-index', parseInt(g_$currentCoortPart.css('z-index'))-1);
     });
 
-    $('#id-btn-up').click(function() {
+    $('#id-btn-up').click(function(e) {
+        e.stopPropagation();
+
         if (g_$currentCoortPart == null) 
             return;
         
         g_$currentCoortPart.css(
             'z-index', parseInt(g_$currentCoortPart.css('z-index'))+1);
     });
-    
 
+    $("div.row.control .btn-group > .btn").click(function(){
+        $("div.row.control .btn-group > .btn").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    $("#id-div-coord-win .btn-group > .btn").click(function(){
+        $("#id-div-coord-win .btn-group > .btn").removeClass("active");
+        $(this).addClass("active");
+
+        let imgtype = $(this).attr('imgtype');
+        $('#id-div-coord-win').attr('class', "coord-win mb-3");
+        $('#id-div-coord-win').addClass(imgtype);
+    });
 }
 
 
@@ -185,7 +205,7 @@ function  setPartsImage(part, imgTag) {
     $imgTag.attr('src', $imgUrl);
     $(part).removeClass('blank')
 
-    // 선택한 이미지를 코디하기 창에도 넣어준다.
+    // 선택한 이미지를 코디하기 창에도 넣어준다. (좀 크게 넣어준다.)
     setTimeout(function() {
         let $div = $('<div>').addClass('coord-part').addClass('moveable');
         $div.attr('pid', $(part).attr('id'));
@@ -195,7 +215,7 @@ function  setPartsImage(part, imgTag) {
         let width = parseFloat($imgTag.parent().css('width'));
         // let height = parseFloat($imgTag.parent().css('height'));
         $div.css({
-            'width': (width/divWidth)*100 + '%',
+            'width': (width/divWidth)*130 + '%',
             // 'height': (height/divHeight)*100 + '%',
             'height': 'auto'
         });
