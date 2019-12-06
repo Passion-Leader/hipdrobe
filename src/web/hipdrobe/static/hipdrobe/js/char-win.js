@@ -18,6 +18,7 @@ $(document).ready(function(){
 
     //Set Buttons
     setPartsButtons();
+    _makeValidator_post();
 });
 
 
@@ -301,6 +302,9 @@ function setPartsHeights() {
 
     // Outer
     _setPartHeight($('#id-coord-outer'), 2);
+
+    // Post Modal
+    _setPartHeight($('#id-div-post-win'), 1);
 }
 
 
@@ -313,8 +317,10 @@ function _setPartHeight(target, ratio) {
 /*-----------------------------------------------------------------------------
  * 데일리룩 / 코디 저장 구현중
  */
-function saveCoordi(e, bDaily) {
+function openPostModal(e, bDaily) {
     e.stopPropagation();
+
+    $('#id-modal-post').modal('toggle');
 
     const arrItem = [];
     g_moveables.forEach(function($elem, i) {
@@ -322,21 +328,40 @@ function saveCoordi(e, bDaily) {
         arrItem.push(obj);
     });
 
-    axios.defaults.xsrfCookieName = 'csrftoken';
-    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-    axios.post(
-        '/apis/coordi/new/', 
-        JSON.stringify(
-            { data : arrItem }
-        )
-    )
-    .then(response =>{
-        console.log(response.data)
+    const data = {
+        list : arrItem,
+        bg : $('#id-div-coord-win .btn.active').attr('imgtype')
+    }
 
-    })
-    .catch(function (error) {
-        console.log(error);
-    })
+    const $coordWin = _objToCoordWind( '100%', 'auto', data );
+    $('#id-modal-post .coord-post').remove();
+    $coordWin.attr('id', 'id-div-post-win');
+    $('#id-modal-post .win-wrapper').append($coordWin);
+    const fn = _ => { 
+        setTimeout(_ => {
+            if( $('#id-div-post-win').css('width') == "100%" ) 
+                fn();
+            else
+                _setPartHeight($('#id-div-post-win'), 1);
+        }, 10);
+    };
+    fn();
+    
+    // axios.defaults.xsrfCookieName = 'csrftoken';
+    // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    // axios.post(
+    //     '/apis/coordi/new/', 
+    //     JSON.stringify(
+    //         { data : arrItem }
+    //     )
+    // )
+    // .then(response =>{
+    //     console.log(response.data)
+
+    // })
+    // .catch(function (error) {
+    //     console.log(error);
+    // })
 }
 
 function _divToObject($elem) {
@@ -348,7 +373,6 @@ function _divToObject($elem) {
     const top = parseFloat($elem.css('top'));
     const zindex = $elem.css('z-index');
     const imgurl = $elem.find('img').attr('src');
-    const imgtype =  $('#id-div-coord-win .btn.active').attr('imgtype');
 
     const item = {
         'width': (width/divWidth)*100 + '%',
@@ -356,11 +380,60 @@ function _divToObject($elem) {
         'top': (top/divHeight)*100 + '%',
         'zindex': zindex,
         'imgurl': imgurl,
-        'bg': imgtype
     };
 
     return item;
 }
+
+function _objToCoordWind(width, height, obj) {
+    const list = obj['list'];
+    const bg = obj['bg'];
+
+    const $coordWin = $('<div>').attr('class', `coord-win coord-post mb-4 ${bg}`)
+        .css('display', 'flex').css('width', width).css('height', 'auto');
+
+    const arrDiv = [];
+    list.forEach( elem => {
+        const $div = $('<div>').attr('class', "coord-part");
+        $div.css({
+            'width': elem['width'],
+            'height': 'auto',
+            'left': elem['left'],
+            'top': elem['top'],
+            'z-index': elem['zindex']
+        });
+        const $img = $('<img>').attr('src', elem['imgurl']);
+        $div.append($img);
+        $coordWin.append($div);
+    });
+
+    return $coordWin;
+}
+
+
+function coord_post(e, bDaily) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    $('#id-modal-post form').submit();
+}
+
+function _makeValidator_post() {
+    $("#id-modal-post form").validate({
+        rules: {
+            title: {required: true },
+            content: {required: true },
+          },
+          submitHandler: function (frm) {
+              //ToDo: 업로드 구현
+              //작업중
+          },
+          success: function (e) {
+              //ToDo: Nonthing To Do...
+          }
+    });
+}
+
 
 
 

@@ -371,7 +371,7 @@ label#image-select-error {
     margin-bottom: 0px;
 }
 
-#id-modal-additem label.error {
+label.error {
     color: red;
     margin-left: 5px;
 }
