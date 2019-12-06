@@ -337,14 +337,6 @@ function saveCoordi(e, bDaily) {
     .catch(function (error) {
         console.log(error);
     })
-
-
-
-
-
-    // {
-    //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    // }
 }
 
 function _divToObject($elem) {
@@ -356,13 +348,15 @@ function _divToObject($elem) {
     const top = parseFloat($elem.css('top'));
     const zindex = $elem.css('z-index');
     const imgurl = $elem.find('img').attr('src');
+    const imgtype =  $('#id-div-coord-win .btn.active').attr('imgtype');
 
     const item = {
         'width': (width/divWidth)*100 + '%',
         'left': (left/divWidth)*100 + '%',
         'top': (top/divHeight)*100 + '%',
         'zindex': zindex,
-        'imgurl': imgurl
+        'imgurl': imgurl,
+        'bg': imgtype
     };
 
     return item;
