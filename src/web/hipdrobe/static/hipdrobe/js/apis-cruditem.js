@@ -82,11 +82,11 @@ function getItemUrlsAndOpenList(name, fnStr) {
                             $('#detail_modal').modal();
                             
                             // 수정 창 start
-                            // $('#update_item').click(function() {
-                            //     $('.modal-title.add').text('아이템 정보 수정')
-                            //     console.log($('#id-additem-cate1 option:selected').val())
-                            //     $('#id-modal-additem').modal('toggle');
-                            // });
+                            $('#update_item').click(function() {
+                                $('.modal-title.add').text('아이템 정보 수정')
+                                $("#id-additem-part option span").text("상의");
+                                openAddItemDialog(event);
+                            });
 
                             
                             
