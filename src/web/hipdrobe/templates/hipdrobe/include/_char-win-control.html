@@ -1,20 +1,10 @@
 <!-- character window control -->
 {% load static %}
 <div class="row control">
-  <div class="col-4">
+  <div class="col-12">
     <div class="btn-group" role="group" aria-label="모드 선택">
       <button type="button" class="btn btn-info" onclick="changeCoordMode(0)">부위 설정</button>
       <button type="button" class="btn btn-warning" onclick="changeCoordMode(1)">코디하기</button>
-    </div>
-  </div>
-  <div class="col-8">
-    <div class="cls-img-control" role="group">
-      <ul>
-        <li id="id-btn-minus"><img src="{% static 'hipdrobe/img/minus.svg'%}" alt="축소"></li>
-        <li id="id-btn-plus"><img src="{% static 'hipdrobe/img/plus.svg'%}" alt="확대"></li>
-        <li id="id-btn-down"><img src="{% static 'hipdrobe/img/down-arrow.svg'%}" alt="아래로"></li>
-        <li id="id-btn-up"><img src="{% static 'hipdrobe/img/up-arrow.svg'%}" alt="위로"></li>
-      </ul>
     </div>
   </div>
 </div>

@@ -19,26 +19,26 @@ div.control {
     margin-bottom: 3px;
 }
 
-.cls-img-control ul {
-    float: right;
-    margin-top: 3px;
-    margin-bottom: 0px;
+#id-div-coord-win ul {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+
 }
 
-.cls-img-control li {
-    width: 30px;
-    height: 30px;
+#id-div-coord-win li {
+    width: 28px;
+    height: 28px;
     list-style-type: none;
     display: inline-block;
+    border: 2px solid transparent;
 }
 
-.cls-img-control li:active {
+#id-div-coord-win li:active {
     border: 0;
-    padding: 1.5px
-
 }
 
-.cls-img-control img {
+#id-div-coord-win img {
     width: 100%;
     height: 100%;
 }
