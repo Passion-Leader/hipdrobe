@@ -42,6 +42,22 @@ div.control {
     background-image: url('/static/hipdrobe/img/bg-spring.jpg'); 
 }
 
+#id-div-coord-win.summer::after {
+    background-image: url('/static/hipdrobe/img/bg-summer.png'); 
+}
+
+#id-div-coord-win.autumn::after {
+    background-image: url('/static/hipdrobe/img/bg-autumn.png'); 
+}
+
+#id-div-coord-win.winter::after {
+    background-image: url('/static/hipdrobe/img/bg-winter.png'); 
+}
+
+#id-div-coord-win.inside::after {
+    background-image: url('/static/hipdrobe/img/bg-inside1.png'); 
+}
+
 #id-div-coord-win ul {
     position: absolute;
     top: 1%;
