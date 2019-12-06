@@ -1,16 +1,10 @@
 # django 
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
-from PIL import Image
-from pilkit.processors import Thumbnail
-from rest_framework import serializers
 from django.db.models import Q
-
-import os, json
 
 # Models
 from .models import *
@@ -21,7 +15,7 @@ from PIL import Image, ExifTags
 from pilkit.processors import Thumbnail, ResizeToFit
 import uuid
 from .removebg import removebg
-from rest_framework import serializers
+
 
 
 
