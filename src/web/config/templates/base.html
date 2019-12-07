@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 {% load static %}
-{%load socialaccount%}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
@@ -121,57 +121,18 @@
                     <div id="log-section">
                         <ul>
                         <li class="login-info" style="font-size:2em;">
-                                <a data-toggle="modal" href="#exampleModal">로그인</a>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                <div class="modal-content" >
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel" >로그인</h5>
-                                        <div id="msg"></div>
-                                    </div>
-                                    <div class="modal-body" >
-                                        <div class="box">
-                                        <div class="social">
-                                                
-                                                <a class="kakao" href="#">
-                                                <img src="{% static 'hipdrobe/img/kakao.png'%}" >
-                                                </a>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <a class="kakao" href="#">
-                                                        <img src="{% static 'hipdrobe/img/naver.png'%}" >
-                                                        
-                                                </a>
-                                        </div>
-                                        </div>
-                                        <div class="modal-division">
-                                            <div class="line l"></div>
-                                            <span>or</span>
-                                            <div class="line r"></div>
-                                        </div>
-                                        <div class="loginBox">
-                                            <form id="frmLogin" method="POST" action="{% url 'hipdrobe:login'%}" accept-charset="UTF-8">
-                                                {%csrf_token%}
-                                            <input id="email" class="form-control" type="text" placeholder="Email" name="userid">
-                                            <input id="password" class="form-control" type="password" placeholder="Password" name="userpwd">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                            <span>
-                                                    <a href="{% url 'hipdrobe:regist'%}">회원가입</a>
-                                            </span>
-                                            <div class="login-footer">
-                                                    
-                                                <input class="btn btn-default btn-login" id="btnLogin" type='submit' value="Login">
-                                                
-                                            </div>                
-                                        </form>                            
-                                        </div>
-                                </div>
-                                </div>
-                            </div>
+                                <!-- <a data-toggle="modal" href="#exampleModal">로그인</a> -->
+                                {% if user.is_active %}
+                                <li><a href="{%url 'login' %}"> <span class="glyphicon glyphicon-heart"></span></a></li>
+                                <span>{{user.username}}님 환영합니다</span>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                                    
+                                {% else %}
+                                <li><a href="{%url 'login' %}"> <span class="glyphicon glyphicon-user"></span> Login</a></li>
+                                <li><a class="nav-link" href="{%url 'hipdrobe:signup' %}">Sign Up</a></li>
+                                {% endif %}
                             </li>
-                            <li class="login-info" style="font-size:2em;"><a href="{% url 'hipdrobe:regist' %}">회원가입</a>
+                            
                                 
                             </li>
 
@@ -212,6 +173,8 @@
             </div>
         </div>
     </footer>
+
+    {% include 'hipdrobe/include/_success_modal.html' %}
 
     <!-- global body resources -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

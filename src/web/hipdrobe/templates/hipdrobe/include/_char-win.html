@@ -86,13 +86,13 @@
     <img class="coord-img" src="{% static 'hipdrobe/img/clothes-icon/outer-f.svg'%}" alt="아우터"/>
   </div>
   <div class="cls-icon-author">
-    <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons" target="_blank">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a></div>
   </div>
 </div>
 
 <div id="id-div-coord-win" class="coord-win coord-post mb-3">
   <div class="btn-group" role="group" aria-label="배경 선택">
-    <button type="button" class="btn btn-outline-danger btn-sm active">없음</button>
+    <button type="button" class="btn btn-outline-danger btn-sm active" imgtype="">없음</button>
     <button type="button" class="btn btn-outline-success btn-sm" imgtype="spring">봄</button>
     <button type="button" class="btn btn-outline-primary btn-sm" imgtype="summer">여름</button>
     <button type="button" class="btn btn-outline-warning btn-sm" imgtype="autumn">가을</button>
@@ -106,7 +106,9 @@
     <li id="id-btn-up"><img src="{% static 'hipdrobe/img/up-arrow.svg'%}" alt="위로"></li>
   </ul>
   <div class="save-group">
-    <button type="button" class="btn btn-primary btn-sm" onclick="saveCoordi(event, true)">데일리룩 저장</button>
-    <button type="button" class="btn btn-success btn-sm" onclick="saveCoordi(event, false)">코디 저장</button>
+    <button type="button" class="btn btn-primary btn-sm" onclick="openPostModal(event, true)" disabled>데일리룩 저장</button>
+    <button type="button" class="btn btn-success btn-sm" onclick="openPostModal(event, false)" disabled>코디 저장</button>
   </div>
 </div>
+
+{% include 'hipdrobe/include/_post_modal.html' %}

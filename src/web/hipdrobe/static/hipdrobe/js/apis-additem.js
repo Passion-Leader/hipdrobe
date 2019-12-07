@@ -21,7 +21,7 @@ $('document').ready(function(){
 function openAddItemDialog(event) {
     _eraseOption('#id-additem-cate1')
     _eraseOption('#id-additem-cate2')
-    _eraseErrorLabel();
+    eraseErrorLabel($('#id-modal-additem'));
     
     $.ajax({
         type: "GET",
@@ -185,7 +185,6 @@ function uploadImage(event) {
     $('#id-btn-additem').prop("disabled", true);
     
     var data = $('#id-form-additem').serialize();
-    console.log(data);
     $.ajax({
         type: "POST",
         url: "/apis/additem/",
@@ -194,7 +193,12 @@ function uploadImage(event) {
         success: function (data) {
             disableLoading();
             $('#id-btn-additem').prop("disabled", false);
-            $('#id-modal-additem').modal('hide');            
+
+            $('#id-modal-success').modal('show');
+            setTimeout(_ => {
+                $('#id-modal-success').modal('hide')
+                $('#id-modal-additem').modal('hide');
+            }, 1000);         
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -226,17 +230,6 @@ function _addOption(target, data) {
 function _eraseOption(target) {
     let select = $(target).html("");
     select.append("<option selected>선택하세요</option>");
-}
-
-
-/*-----------------------------------------------------------------------------
- * 기존에 작동된 validation 결과를 삭제함
- */
-function _eraseErrorLabel() {
-    let error_labels =  $('#id-modal-additem').find('label.error');
-    for(let i = 0; i < error_labels.length; i++) {
-        $(error_labels[i]).remove();
-    }
 }
 
 
@@ -309,25 +302,5 @@ function _makeValidator() {
         success: function (e) {
             //ToDo: Nonthing To Do...
         }
-    });
-
-    $.extend( $.validator.messages, { 
-        required: "필수 항목입니다.", 
-        remote: "항목을 수정하세요.", 
-        email: "유효하지 않은 E-Mail주소입니다.", 
-        url: "유효하지 않은 URL입니다.", 
-        date: "올바른 날짜를 입력하세요.", 
-        dateISO: "올바른 날짜(ISO)를 입력하세요.", 
-        number: "유효한 숫자가 아닙니다.", 
-        digits: "숫자만 입력 가능합니다.", 
-        creditcard: "신용카드 번호가 바르지 않습니다.", 
-        equalTo: "같은 값을 다시 입력하세요.", 
-        extension: "올바른 확장자가 아닙니다.", 
-        maxlength: $.validator.format( "{0}자를 넘을 수 없습니다. " ), 
-        minlength: $.validator.format( "{0}자 이상 입력하세요." ), 
-        rangelength: $.validator.format( "문자 길이가 {0} 에서 {1} 사이의 값을 입력하세요." ), 
-        range: $.validator.format( "{0} 에서 {1} 사이의 값을 입력하세요." ),
-        max: $.validator.format( "{0} 이하의 값을 입력하세요." ), 
-        min: $.validator.format( "{0} 이상의 값을 입력하세요." ) 
     });
 }

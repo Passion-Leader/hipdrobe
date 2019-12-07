@@ -7,4 +7,5 @@ admin.site.register(Part)
 admin.site.register(Cate1)
 admin.site.register(Cate2)
 admin.site.register(Clothes)
+admin.site.register(Coordi)
 

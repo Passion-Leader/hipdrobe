@@ -1,16 +1,10 @@
 # django 
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
-from PIL import Image
-from pilkit.processors import Thumbnail
-from rest_framework import serializers
 from django.db.models import Q
-
-import os, json
 
 # Models
 from .models import *
@@ -21,7 +15,8 @@ from PIL import Image, ExifTags
 from pilkit.processors import Thumbnail, ResizeToFit
 import uuid
 from .removebg import removebg
-from rest_framework import serializers
+
+
 
 
 
@@ -70,10 +65,10 @@ def cate2(request):
     return HttpResponse(json_data, content_type="application/json")
 
 
-
 # -----------------------------------------------------------------------------
 # upload image
 # -----------------------------------------------------------------------------
+# 나중에 로그인 필수 넣기
 @require_POST
 def upload(request):
     """
@@ -92,10 +87,8 @@ def upload(request):
 
         # 임시 파일명 생성
         uuid_list = str(uuid.uuid4()).split('-')
-        print(uuid_list)
         prefix = uuid_list[0] + '-' + uuid_list[4]
         temp_file =  prefix + filename[filename.rindex('.')-1:]
-        print(temp_file)
         temp_file_png = \
             temp_file[0:temp_file.rindex('.')] + '-resized.png'
 
@@ -121,7 +114,6 @@ def upload(request):
         processor = ResizeToFit(width=250, height=250)
         target = processor.process(source)
         target.save(os.path.join(settings.CLOTHES_ROOT_TMP, temp_file_png))
-
 
         # 초보적 배경 제거
         if source.mode == "RGBA" or "transparency" in source.info:
@@ -197,17 +189,44 @@ def additem(request):
 
     return HttpResponse(json_data, content_type="application/json")
 
+
 # -----------------------------------------------------------------------------
 # coordi_new 작성한 코디 업로드
 # -----------------------------------------------------------------------------
-# @require_POST
+# 나중에 로그인 필수 넣기
+@require_POST
 def coordi_new(request):
-    items = json.loads(request.body)['data']
-    print(items)
+    coordi_obj = json.loads(request.body)['data']
+ 
+    try:
+        coordi = Coordi()
+        coordi.title = coordi_obj['title']
+        coordi.content = coordi_obj['content']
+        coordi.elem_list = str(coordi_obj['elem_list'])
+        coordi.is_daily = coordi_obj['is_daily']
+        coordi.bg_type = coordi_obj['bg_type']
+        coordi.user = User.objects.get(userid='user01@test.com')
 
-    json_data = json.dumps({
-        'result': True,
-    })
+        if coordi.is_daily:
+            # 데일리 저장은 조건 체크를 해야함
+            # 입은 옷들 worn + 1 도 해야함
+            # 변경시 기존 값 -1 도 해야함
+            # 미구현
+
+            # 임시 테스트 코드
+            import time
+            time.sleep(1)
+
+        else:
+            coordi.save()
+            
+    except Exception as e:
+        print(e)
+        json_data = json.dumps({'result': False})
+
+    else:
+        json_data = json.dumps({'result': True})
+
 
     return HttpResponse(json_data, content_type="application/json")
 
@@ -247,23 +266,6 @@ def clothes(request):
     return HttpResponse(json_data, content_type="application/json")
 
 
-
-# -----------------------------------------------------------------------------
-# Temporary Image File 삭제
-# -----------------------------------------------------------------------------
-def _deleteTmpImage(path, infix):
-    try:
-        filenames = os.listdir(path)
-        for filename in filenames:
-            full_filename = os.path.join(path, filename)
-            if not os.path.isdir(full_filename) and infix in filename:
-                os.remove(full_filename)
-
-    except Exception as e:
-        print(e)
-
-
-
 # -----------------------------------------------------------------------------
 # clothes_detail : 클릭한 옷의 url로 옷 전체 데이터 받아서 detail 구현
 # -----------------------------------------------------------------------------
@@ -278,3 +280,25 @@ def clothes_detail(request):
     print(json_data)
 
     return HttpResponse(json_data, content_type="application/json")
+
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------
+# Temporary Image File 삭제
+# -----------------------------------------------------------------------------
+def _deleteTmpImage(path, infix):
+    try:
+        filenames = os.listdir(path)
+        for filename in filenames:
+            full_filename = os.path.join(path, filename)
+            if not os.path.isdir(full_filename) and infix in filename:
+                os.remove(full_filename)
+
+    except Exception as e:
+        print(e)

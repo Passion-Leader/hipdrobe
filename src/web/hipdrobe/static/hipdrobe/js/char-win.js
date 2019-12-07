@@ -18,6 +18,7 @@ $(document).ready(function(){
 
     //Set Buttons
     setPartsButtons();
+    _makeValidator_post();
 });
 
 
@@ -155,8 +156,9 @@ function setPartsButtons() {
         if (g_$currentCoortPart == null) 
             return;
 
-        g_$currentCoortPart.css(
-            'z-index', parseInt(g_$currentCoortPart.css('z-index'))-1);
+        const curIndex = parseInt(g_$currentCoortPart.css('z-index'));
+        if (curIndex > 1)
+            g_$currentCoortPart.css('z-index', curIndex - 1);
     });
 
     $('#id-btn-up').click(function(e) {
@@ -164,9 +166,10 @@ function setPartsButtons() {
 
         if (g_$currentCoortPart == null) 
             return;
-        
-        g_$currentCoortPart.css(
-            'z-index', parseInt(g_$currentCoortPart.css('z-index'))+1);
+
+        const curIndex = parseInt(g_$currentCoortPart.css('z-index'));
+        if (curIndex < 15)
+            g_$currentCoortPart.css('z-index', curIndex + 1);
     });
 
     // 모드 변경 버튼 (부위 설정/ 코디하기)
@@ -203,18 +206,19 @@ function  setPartsImage(part, imgTag) {
 
     // 선택한 이미지를 코디하기 창에도 넣어준다. (좀 크게 넣어준다.)
     setTimeout(function() {
-        let $div = $('<div>').addClass('coord-part').addClass('moveable');
+        const $div = $('<div>').addClass('coord-part').addClass('moveable');
         $div.attr('pid', $(part).attr('id'));
         
-        let divWidth = parseFloat($('#id-div-char-win').css('width'));
-        let divHeight = parseFloat($('#id-div-char-win').css('height'));
-        let width = parseFloat($imgTag.parent().css('width'));
+        const $parent = $('#id-div-char-win');
+        const divWidth = parseFloat($parent.css('width'));
+        const divHeight = parseFloat($parent.css('height'));
+        const width = parseFloat($imgTag.parent().css('width'));
         $div.css({
             'width': (width/divWidth)*130 + '%',
             'height': 'auto'
         });
         
-        let $img = $('<img>').attr('src',$imgUrl);
+        const $img = $('<img>').attr('src',$imgUrl);
         $img.attr('src',$imgUrl);
 
         // 클릭되었을 경우 선택된 것으로 인식도록 outline을 설정한다.
@@ -237,6 +241,7 @@ function  setPartsImage(part, imgTag) {
 
         // 등록되고나면 글로벌 변수 array에 넣어준다.
         g_moveables.push($div);
+        $('.save-group .btn').attr('disabled', false);
     }, 500);
 
 
@@ -252,14 +257,19 @@ function unsetPartsImage(part) {
             delete g_moveables[i];
         }
     });
+    g_moveables = g_moveables.filter(el => el != null);
 
     g_moveables_set.forEach(function(elem, i) {
         let $elem = $(elem);
         if ($elem.attr('pid') == pid) {
             $elem.remove();
-            delete g_moveables[i];
+            delete g_moveables_set[i];
         }
     });
+    g_moveables_set = g_moveables_set.filter(el => el != null);
+
+    if (g_moveables.length == 0) 
+        $('.save-group .btn').attr('disabled', true);
 
     $(part).addClass('blank');
     let imgTag = $(part).find('img');
@@ -274,7 +284,6 @@ function unsetPartsImage(part) {
 function setPartsHeights() {
     // Container Div
     _setPartHeight($('#id-div-char-win'), 1);
-    _setPartHeight($('#id-div-coord-win'), 1);
     
     // Head
     _setPartHeight( $('#id-coord-head'), 1);
@@ -301,20 +310,45 @@ function setPartsHeights() {
 
     // Outer
     _setPartHeight($('#id-coord-outer'), 2);
+
+    // Post Modal
+    _setPartHeight($('#id-div-post-win'), 1);
 }
 
 
 function _setPartHeight(target, ratio) {
-    let partheight = parseInt(target.css('width')) * ratio;
+    const partheight = parseInt(target.css('width')) * ratio;
     target.css('height', `${partheight}px`);
+
+    if (target.attr('id') == $('#id-div-char-win').attr('id')) {
+        $('#id-div-coord-win').css('height', target.css('height'));
+    }
 }
 
 
 /*-----------------------------------------------------------------------------
  * 데일리룩 / 코디 저장 구현중
  */
-function saveCoordi(e, bDaily) {
+var g_coordiData = null;
+function openPostModal(e, bDaily) {
     e.stopPropagation();
+
+    const $modal = $('#id-modal-post');
+    $modal.find('input').val('');
+    $modal.find('textarea').val('');
+    eraseErrorLabel($modal);
+    $modal.modal('toggle');
+
+    // 제목/버튼 변경
+    if (bDaily) {
+        $('#id-coordi-save-title').html('데일리룩 저장하기');
+        $('#id-btn-coord-post').html('데일리룩 저장하기')
+            .attr('class', 'btn btn-primary');
+    } else {
+        $('#id-coordi-save-title').html('코디 저장하기');
+        $('#id-btn-coord-post').html('코디 저장하기')
+            .attr('class', 'btn btn-success');
+    }
 
     const arrItem = [];
     g_moveables.forEach(function($elem, i) {
@@ -322,31 +356,30 @@ function saveCoordi(e, bDaily) {
         arrItem.push(obj);
     });
 
-    axios.defaults.xsrfCookieName = 'csrftoken';
-    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-    axios.post(
-        '/apis/coordi/new/', 
-        JSON.stringify(
-            { data : arrItem }
-        )
-    )
-    .then(response =>{
-        console.log(response.data)
+    g_coordiData = {
+        is_daily: bDaily,
+        elem_list : arrItem,
+        bg_type : $('#id-div-coord-win .btn.active').attr('imgtype')
+    }
 
-    })
-    .catch(function (error) {
-        console.log(error);
-    })
-
-
-
-
-
-    // {
-    //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    // }
+    const $coordWin = _objToCoordWind( '100%', 'auto', g_coordiData );
+    $coordWin.attr('id', 'id-div-post-win');
+    $modal.find('.coord-post').remove();
+    $modal.find('.win-wrapper').append($coordWin);
+    const fn = _ => { 
+        setTimeout(_ => {
+            if( $('#id-div-post-win').css('width') == "100%" ) 
+                fn();
+            else
+                _setPartHeight($('#id-div-post-win'), 1);
+        }, 10);
+    };
+    fn();
 }
 
+/*-----------------------------------------------------------------------------
+ * 단일 아이템 Jqeury DOM Element를 Ojbect로 전환
+ */
 function _divToObject($elem) {
     const divWidth = parseFloat($('#id-div-coord-win').css('width'));
     const divHeight = parseFloat($('#id-div-coord-win').css('height'));
@@ -362,11 +395,115 @@ function _divToObject($elem) {
         'left': (left/divWidth)*100 + '%',
         'top': (top/divHeight)*100 + '%',
         'zindex': zindex,
-        'imgurl': imgurl
+        'imgurl': imgurl,
     };
 
     return item;
 }
+
+
+/*-----------------------------------------------------------------------------
+ * 코디 전체 Object 를 Jqeury DOM Element로 복원하여 생성
+ */
+function _objToCoordWind(width, height, obj) {
+    const list = obj['elem_list'];
+    const bg = obj['bg_type'];
+
+    const $coordWin = $('<div>').attr('class', `coord-win coord-post mb-4 ${bg}`)
+        .css('display', 'flex').css('width', width).css('height', 'auto');
+
+    const arrDiv = [];
+    list.forEach( elem => {
+        const $div = $('<div>').attr('class', "coord-part");
+        $div.css({
+            'width': elem['width'],
+            'height': 'auto',
+            'left': elem['left'],
+            'top': elem['top'],
+            'z-index': elem['zindex']
+        });
+        const $img = $('<img>').attr('src', elem['imgurl']);
+        $div.append($img);
+        $coordWin.append($div);
+    });
+
+    return $coordWin;
+}
+
+
+/*-----------------------------------------------------------------------------
+ * Form Submit 동작을 취하여 validator로 제어권을 넘긴다.
+ */
+function coordSubmit(e, bDaily) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    $('#id-modal-post form').submit();
+}
+
+
+/*-----------------------------------------------------------------------------
+ * validation 만족할 경우 서버로 포스트하는 함수를 실행한다.
+ */
+function _makeValidator_post() {
+    $("#id-modal-post form").validate({
+        rules: {
+            title: {required: true },
+            content: {required: true },
+        },
+        submitHandler: function (frm) {
+            //ToDo: 코디 저장 구현
+            postCoordi(g_coordiData)
+        },
+        success: function (e) {
+            //ToDo: Nonthing To Do...
+        }
+    });
+}
+
+
+/*-----------------------------------------------------------------------------
+ * 저장할 코디 데이터를 서버로 보낸다
+ */
+function postCoordi(coordiData) {
+
+    // Spinner 활성화 및 버튼 비활성화
+    $('#id-modal-post .btn').attr('disabled', true);
+    $('#id-modal-post .spinner-border').css('display', 'inherit');
+
+    coordiData['title'] = $('#id-modal-post [name=title]').val();
+    coordiData['content'] = $('#id-modal-post [name=content]').val();
+
+    axios.defaults.xsrfCookieName = 'csrftoken';
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    axios.post(
+        '/apis/coordi/new/', 
+        JSON.stringify(
+            { data : coordiData }
+        )
+    )
+    .then(response =>{
+        $('#id-modal-success').modal('show');
+        setTimeout(_ => {
+            $('#id-modal-success').modal('hide')
+            $('#id-modal-post').modal('hide');
+        }, 1000);
+        console.log(response.data)
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+    .finally(function(){
+        // Spinner 비활성화 및 버튼 활성화
+        $('#id-modal-post .btn').attr('disabled', false);
+        $('#id-modal-post .spinner-border').css('display', 'none');
+    });
+}
+
+
+
+
 
 
 

@@ -7,10 +7,19 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 600px;
+    /* max-width: 600px; */
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
+}
+
+.coord-post {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.coord-post img {
+    width: 100%;
+    height: auto;
 }
 
 div.control {
@@ -21,7 +30,6 @@ div.control {
 
 #id-div-coord-win {
     display: none;
-    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .coord-post::after {
@@ -30,12 +38,17 @@ div.control {
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url('/static/hipdrobe/img/no-image.png'); 
-    background-size: 100%;
+    background-image: url('/static/hipdrobe/img/no-image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 100%;
     height: 100%;
     opacity : 0.6;
-    z-index: -1;
+    z-index: 0;
+}
+
+.coord-post > * {
+    z-index: 16;
 }
 
 .coord-post.spring::after {
@@ -62,7 +75,10 @@ div.control {
     position: absolute;
     top: 1%;
     right: 1%;
-
+    padding: 0;
+    border-radius: 10px;
+    padding: 0 5px 2px;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 #id-div-coord-win li {
@@ -77,15 +93,12 @@ div.control {
     border: 0;
 }
 
-#id-div-coord-win img {
-    width: 100%;
-    height: 100%;
-}
 
 #id-div-coord-win .btn-group {
     position: absolute;
     top: 1%;
     left: 1%;
+    background-color: rgba(255,255,255, 0.7);
 }
 
 #id-div-coord-win .save-group {
@@ -128,12 +141,14 @@ div.control {
     cursor: pointer;
 }
 
+#id-div-char-win .coord-part {
+    border: 1px dashed gray;
+}
+
 .coord-part {
     position: absolute;
     display: inline-block;
-    border: 1px dashed gray;
     border-radius: 15px;
-    /* padding-top: 12%; */
     display: flex;
     align-items: center;
     text-align: center;
@@ -149,10 +164,7 @@ div.control {
     box-shadow: 0 0 0 0.5px lightgrey;
 }
 
-#id-div-coord-win img {
-    width: 100%;
-    height: auto;
-}
+
 
 .coord-part-main {
     left: 27%;
@@ -207,6 +219,7 @@ div.control {
 .cls-icon-author {
     position: absolute;
     bottom: 0;
+    right: 14px;
 }
 
 #id-coord-top1 {
@@ -282,6 +295,26 @@ div.control {
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
+}
+
+
+
+#id-div-post-win {
+    width: 100%;
+    max-width: 360px;
+    margin: auto;
+}
+
+#id-modal-post .modal-title {
+    margin-left: 0px;
+}
+
+#id-modal-post .form-group {
+    padding: 0 11% 0;
+}
+
+#id-modal-post .spinner-border {
+    display: none;
 }
 
 
