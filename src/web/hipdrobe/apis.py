@@ -193,6 +193,59 @@ def additem(request):
     return HttpResponse(json_data, content_type="application/json")
 
 
+
+# -----------------------------------------------------------------------------
+# updateitem
+# -----------------------------------------------------------------------------
+# 나중에 로그인 필수 넣기
+@require_POST
+def updateitem(request):
+    data = request.POST
+    print('11111111111111111111111111111111111111111111111'+ data + '11111111111111111111111111111111111111111111111')
+
+    try:
+        # DB 저장 가즈아~
+        clothes = Clothes.objects.get(id=data['id'])
+        clothes.userid = user
+        clothes.part = data['part']
+        clothes.cate1_name = data['cate1']
+        clothes.cate2_name = data['cate2']
+        clothes.color = data['color']
+        clothes.solid = True if data['colortype'] == 'true' else False
+        clothes.season = str(data.getlist('season'))[1:-1].replace("'", "")
+        if data['pattern'] != ''    : clothes.pattern = data['pattern']
+        if data['texture'] != ''    : clothes.texture = data['texture']
+        if data['brand'] != ''      : clothes.brand = data['brand']
+        if data['descript'] != ''   : clothes.descript = data['descript']
+        clothes.save()
+
+        json_data = json.dumps({
+            'result': 'success', 
+        })
+
+    except:
+        json_data = json.dumps({
+            'result': 'fail', 
+        })
+
+    return HttpResponse(json_data, content_type="application/json")
+
+# -----------------------------------------------------------------------------
+# delete_clothes
+# -----------------------------------------------------------------------------
+# 나중에 로그인 필수 넣기
+@require_POST
+def delete_clothes(request):
+    data = request.POST
+    print('11111111111111111111111111111111111111111111111'+ data + '11111111111111111111111111111111111111111111111')
+
+    clothes = Clothes.objects.get(id=data['id'])
+    clothes.delete()
+
+    json_data = model_to_dict(clothes)
+
+    return HttpResponse(json_data, content_type="application/json")
+
 # -----------------------------------------------------------------------------
 # coordi_new : 작성한 코디 업로드
 # -----------------------------------------------------------------------------
@@ -335,12 +388,6 @@ def clothes_detail(request):
     print(json_data)
 
     return HttpResponse(json_data, content_type="application/json")
-
-
-
-
-
-
 
 
 
