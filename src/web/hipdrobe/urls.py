@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views, apis
-# from django.contrib.auth import views as auth_views
 from django.contrib.auth import views as auth_views
 
 
@@ -10,15 +9,9 @@ urlpatterns = [
     path('wardrobe/items/', views.items, name="items" ),
     path('wardrobe/coordi/', views.coordi, name="coordi"),
     path('wardrobe/stat/', views.stat, name="stat" ),
-    
-    path('signup/',views.signup, name="signup"),
-    path('login/' ,views.signin, name="signin"),
-    path('logout/' ,views.logout, name="logout"),
-
-    # auth_views 이용
-    # path('signup/', views.UserCreateView.as_view(), name='signup'),
-    # path('login/', auth_views.LoginView.as_view(), name='login'),
-    # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('signup/', views.UserCreateView.as_view(), name='signup'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     
     
 

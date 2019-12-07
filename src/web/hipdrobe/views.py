@@ -5,9 +5,9 @@ from django.http import HttpResponse
 # from django.views.decorators.http import require_POST
 from django.contrib import auth
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
 import simplejson as json
-from .forms import UserForm, LoginForm
+from django.views.generic import CreateView 
+from .forms import UserForm
 
 
 
@@ -35,43 +35,23 @@ def stat(request):
     # 여기에 로그인 세션 체크 등 코드가 들어가야 함
     return render(request, 'hipdrobe/wardrobe-stat.html')
 
-
+class UserCreateView(CreateView): 
+    form_class = UserForm   
+    template_name = 'hipdrobe/signup.html'
+    success_url = "/" 
 
 def signup(request):
     if request.method == "POST":
-        print("11")
         form = UserForm(request.POST)
-        print("12")
         if form.is_valid():
-            print("13")
             new_user = User.objects.create_user(**form.cleaned_data)
-            login(request, new_user, backend='django.contrib.auth.backends.ModelBackend')
-
-            return redirect('hipdrobe:index')
+            login(request, new_user)
+            return redirect('index')
         else:
-            return HttpResponse('이미 존재하는 계정입니다.')
+            return HttpResponse('사용자명이 이미 존재합니다.')
     else:
-        print("33")
         form = UserForm()
-        return render(request, 'hipdrobe/signup.html', {'form': form})
-
-def signin(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        email = request.POST['email']
-        print(email)
-        password = request.POST['password']
-        print(password)
-        user = authenticate(username = email, password = password)
-        print(user)
-        if user is not None:
-            login(request, user)
-            return redirect('hipdrobe:index')
-        else:
-            return HttpResponse('로그인 실패. 다시 시도 해보세요.')
-    else:
-        form = LoginForm()
-        return render(request, 'hipdrobe/login.html', {'form': form})
+        return render(request, 'memo_app/adduser.html', {'form': form})
 
 def logout(request):
     auth.logout(request)

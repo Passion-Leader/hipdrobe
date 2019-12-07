@@ -15,8 +15,6 @@ class User(models.Model):
     count_shoes=models.IntegerField(default=0) # 신발 보유 개수
     gender = models.IntegerField()
 
-    
-
     def __str__(self):
         return self.userid
 

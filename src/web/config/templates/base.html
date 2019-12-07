@@ -124,7 +124,7 @@
                                 <!-- <a data-toggle="modal" href="#exampleModal">로그인</a> -->
                                 {% if user.is_active %}
                                 <li><a href="{%url 'login' %}"> <span class="glyphicon glyphicon-heart"></span></a></li>
-                                <span>{{user.email}}님 환영합니다</span>
+                                <span>{{user.username}}님 환영합니다</span>
                                 <li><a href="{% url 'logout' %}">Logout</a></li>
                                     
                                 {% else %}
