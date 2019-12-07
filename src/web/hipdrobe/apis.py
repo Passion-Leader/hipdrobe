@@ -69,6 +69,7 @@ def cate2(request):
 # -----------------------------------------------------------------------------
 # upload image
 # -----------------------------------------------------------------------------
+# 나중에 로그인 필수 넣기
 @require_POST
 def upload(request):
     """
@@ -87,10 +88,8 @@ def upload(request):
 
         # 임시 파일명 생성
         uuid_list = str(uuid.uuid4()).split('-')
-        print(uuid_list)
         prefix = uuid_list[0] + '-' + uuid_list[4]
         temp_file =  prefix + filename[filename.rindex('.')-1:]
-        print(temp_file)
         temp_file_png = \
             temp_file[0:temp_file.rindex('.')] + '-resized.png'
 
@@ -116,7 +115,6 @@ def upload(request):
         processor = ResizeToFit(width=250, height=250)
         target = processor.process(source)
         target.save(os.path.join(settings.CLOTHES_ROOT_TMP, temp_file_png))
-
 
         # 초보적 배경 제거
         if source.mode == "RGBA" or "transparency" in source.info:
@@ -195,6 +193,7 @@ def additem(request):
 # -----------------------------------------------------------------------------
 # coordi_new 작성한 코디 업로드
 # -----------------------------------------------------------------------------
+# 나중에 로그인 필수 넣기
 @require_POST
 def coordi_new(request):
     coordi_obj = json.loads(request.body)['data']
@@ -210,6 +209,8 @@ def coordi_new(request):
 
         if coordi.is_daily:
             # 데일리 저장은 조건 체크를 해야함
+            # 입은 옷들 worn + 1 도 해야함
+            # 변경시 기존 값 -1 도 해야함
             # 미구현
             None
         else:
@@ -261,23 +262,6 @@ def clothes(request):
     return HttpResponse(json_data, content_type="application/json")
 
 
-
-# -----------------------------------------------------------------------------
-# Temporary Image File 삭제
-# -----------------------------------------------------------------------------
-def _deleteTmpImage(path, infix):
-    try:
-        filenames = os.listdir(path)
-        for filename in filenames:
-            full_filename = os.path.join(path, filename)
-            if not os.path.isdir(full_filename) and infix in filename:
-                os.remove(full_filename)
-
-    except Exception as e:
-        print(e)
-
-
-
 # -----------------------------------------------------------------------------
 # clothes_detail : 클릭한 옷의 url로 옷 전체 데이터 받아서 detail 구현
 # -----------------------------------------------------------------------------
@@ -292,3 +276,25 @@ def clothes_detail(request):
     print(json_data)
 
     return HttpResponse(json_data, content_type="application/json")
+
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------
+# Temporary Image File 삭제
+# -----------------------------------------------------------------------------
+def _deleteTmpImage(path, infix):
+    try:
+        filenames = os.listdir(path)
+        for filename in filenames:
+            full_filename = os.path.join(path, filename)
+            if not os.path.isdir(full_filename) and infix in filename:
+                os.remove(full_filename)
+
+    except Exception as e:
+        print(e)
