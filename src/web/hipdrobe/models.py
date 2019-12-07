@@ -62,7 +62,22 @@ class Clothes(models.Model):
     texture = models.CharField(max_length=15, null=True)
 
     def __str__(self):
-        return f"{self.part}|{self.cate1_name}|{self.cate2_name}"
+        return f"{self.part} | {self.cate1_name} | {self.cate2_name}"
+
+
+class Coordi(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    elem_list = models.TextField()
+    is_daily = models.BooleanField()
+    bg_type = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.id} | {self.user.userid} | {self.title}"
+
 
 
 

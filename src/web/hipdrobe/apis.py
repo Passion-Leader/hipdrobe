@@ -20,6 +20,7 @@ from .removebg import removebg
 
 
 
+
 # -----------------------------------------------------------------------------
 # parts
 # -----------------------------------------------------------------------------
@@ -194,14 +195,33 @@ def additem(request):
 # -----------------------------------------------------------------------------
 # coordi_new 작성한 코디 업로드
 # -----------------------------------------------------------------------------
-# @require_POST
+@require_POST
 def coordi_new(request):
-    items = json.loads(request.body)['data']
-    print(items)
+    coordi_obj = json.loads(request.body)['data']
+ 
+    try:
+        coordi = Coordi()
+        coordi.title = coordi_obj['title']
+        coordi.content = coordi_obj['content']
+        coordi.elem_list = str(coordi_obj['elem_list'])
+        coordi.is_daily = coordi_obj['is_daily']
+        coordi.bg_type = coordi_obj['bg_type']
+        coordi.user = User.objects.get(userid='user01@test.com')
 
-    json_data = json.dumps({
-        'result': True,
-    })
+        if coordi.is_daily:
+            # 데일리 저장은 조건 체크를 해야함
+            # 미구현
+            None
+        else:
+            coordi.save()
+            
+    except Exception as e:
+        print(e)
+        json_data = json.dumps({'result': False})
+
+    else:
+        json_data = json.dumps({'result': True})
+
 
     return HttpResponse(json_data, content_type="application/json")
 

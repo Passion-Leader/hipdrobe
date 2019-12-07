@@ -346,9 +346,9 @@ function openPostModal(e, bDaily) {
     });
 
     g_coordiData = {
-        daily: bDaily,
-        list : arrItem,
-        bg : $('#id-div-coord-win .btn.active').attr('imgtype')
+        is_daily: bDaily,
+        elem_list : arrItem,
+        bg_type : $('#id-div-coord-win .btn.active').attr('imgtype')
     }
 
     const $coordWin = _objToCoordWind( '100%', 'auto', g_coordiData );
@@ -388,8 +388,8 @@ function _divToObject($elem) {
 }
 
 function _objToCoordWind(width, height, obj) {
-    const list = obj['list'];
-    const bg = obj['bg'];
+    const list = obj['elem_list'];
+    const bg = obj['bg_type'];
 
     const $coordWin = $('<div>').attr('class', `coord-win coord-post mb-4 ${bg}`)
         .css('display', 'flex').css('width', width).css('height', 'auto');
