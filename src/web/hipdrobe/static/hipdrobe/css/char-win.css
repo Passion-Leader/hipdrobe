@@ -313,6 +313,10 @@ div.control {
     padding: 0 11% 0;
 }
 
+#id-modal-post .spinner-border {
+    display: none;
+}
+
 
 .moveable {
     border: 0px;

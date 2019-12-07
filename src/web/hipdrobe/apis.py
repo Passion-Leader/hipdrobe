@@ -65,7 +65,6 @@ def cate2(request):
     return HttpResponse(json_data, content_type="application/json")
 
 
-
 # -----------------------------------------------------------------------------
 # upload image
 # -----------------------------------------------------------------------------
@@ -190,6 +189,7 @@ def additem(request):
 
     return HttpResponse(json_data, content_type="application/json")
 
+
 # -----------------------------------------------------------------------------
 # coordi_new 작성한 코디 업로드
 # -----------------------------------------------------------------------------
@@ -212,7 +212,11 @@ def coordi_new(request):
             # 입은 옷들 worn + 1 도 해야함
             # 변경시 기존 값 -1 도 해야함
             # 미구현
-            None
+
+            # 임시 테스트 코드
+            import time
+            time.sleep(1)
+
         else:
             coordi.save()
             

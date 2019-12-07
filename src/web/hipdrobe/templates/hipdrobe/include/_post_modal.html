@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="id-post-title">코디 저장하기</h5>
+        <h5 class="modal-title" id="id-coordi-save-title">코디 저장하기</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -17,7 +17,7 @@
         </div> 
         <form>
           <div class="form-group">
-              <label for="id-post-title-input">제목</label>
+              <label for="id-post-input-title">제목</label>
               <input type="text" class="form-control" placeholder="제목을 입력하세요." 
                 name="title" id="id-post-input-title"/>
             </div>
@@ -30,8 +30,11 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="coordSubmit(event, true)" 
-          id="id-btn-coord-post">저장하기</button>
+        <div class="spinner-border text-dark" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <button type="button" class="btn btn-success" onclick="coordSubmit(event, true)" 
+          id="id-btn-coord-post">코디 저장하기</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
       </div>
     </div>

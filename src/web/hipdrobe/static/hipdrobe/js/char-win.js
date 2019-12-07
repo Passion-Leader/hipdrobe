@@ -339,6 +339,17 @@ function openPostModal(e, bDaily) {
     eraseErrorLabel($modal);
     $modal.modal('toggle');
 
+    // 제목/버튼 변경
+    if (bDaily) {
+        $('#id-coordi-save-title').html('데일리룩 저장하기');
+        $('#id-btn-coord-post').html('데일리룩 저장하기')
+            .attr('class', 'btn btn-primary');
+    } else {
+        $('#id-coordi-save-title').html('코디 저장하기');
+        $('#id-btn-coord-post').html('코디 저장하기')
+            .attr('class', 'btn btn-success');
+    }
+
     const arrItem = [];
     g_moveables.forEach(function($elem, i) {
         const obj = _divToObject($elem);
@@ -366,6 +377,9 @@ function openPostModal(e, bDaily) {
     fn();
 }
 
+/*-----------------------------------------------------------------------------
+ * 단일 아이템 Jqeury DOM Element를 Ojbect로 전환
+ */
 function _divToObject($elem) {
     const divWidth = parseFloat($('#id-div-coord-win').css('width'));
     const divHeight = parseFloat($('#id-div-coord-win').css('height'));
@@ -387,6 +401,10 @@ function _divToObject($elem) {
     return item;
 }
 
+
+/*-----------------------------------------------------------------------------
+ * 코디 전체 Object 를 Jqeury DOM Element로 복원하여 생성
+ */
 function _objToCoordWind(width, height, obj) {
     const list = obj['elem_list'];
     const bg = obj['bg_type'];
@@ -449,6 +467,10 @@ function _makeValidator_post() {
  */
 function postCoordi(coordiData) {
 
+    // Spinner 활성화 및 버튼 비활성화
+    $('#id-modal-post .btn').attr('disabled', true);
+    $('#id-modal-post .spinner-border').css('display', 'inherit');
+
     coordiData['title'] = $('#id-modal-post [name=title]').val();
     coordiData['content'] = $('#id-modal-post [name=content]').val();
 
@@ -461,13 +483,26 @@ function postCoordi(coordiData) {
         )
     )
     .then(response =>{
+        $('#id-modal-success').modal('show');
+        setTimeout(_ => {
+            $('#id-modal-success').modal('hide')
+            $('#id-modal-post').modal('hide');
+        }, 1000);
         console.log(response.data)
 
     })
     .catch(function (error) {
         console.log(error);
     })
+    .finally(function(){
+        // Spinner 비활성화 및 버튼 활성화
+        $('#id-modal-post .btn').attr('disabled', false);
+        $('#id-modal-post .spinner-border').css('display', 'none');
+    });
 }
+
+
+
 
 
 

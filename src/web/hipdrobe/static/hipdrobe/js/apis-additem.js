@@ -185,7 +185,6 @@ function uploadImage(event) {
     $('#id-btn-additem').prop("disabled", true);
     
     var data = $('#id-form-additem').serialize();
-    console.log(data);
     $.ajax({
         type: "POST",
         url: "/apis/additem/",
@@ -194,7 +193,12 @@ function uploadImage(event) {
         success: function (data) {
             disableLoading();
             $('#id-btn-additem').prop("disabled", false);
-            $('#id-modal-additem').modal('hide');            
+
+            $('#id-modal-success').modal('show');
+            setTimeout(_ => {
+                $('#id-modal-success').modal('hide')
+                $('#id-modal-additem').modal('hide');
+            }, 1000);         
         },
         error: function (e) {
             console.log("ERROR : ", e);
