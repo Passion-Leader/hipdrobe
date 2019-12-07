@@ -284,7 +284,6 @@ function unsetPartsImage(part) {
 function setPartsHeights() {
     // Container Div
     _setPartHeight($('#id-div-char-win'), 1);
-    _setPartHeight($('#id-div-coord-win'), 1);
     
     // Head
     _setPartHeight( $('#id-coord-head'), 1);
@@ -320,6 +319,10 @@ function setPartsHeights() {
 function _setPartHeight(target, ratio) {
     const partheight = parseInt(target.css('width')) * ratio;
     target.css('height', `${partheight}px`);
+
+    if (target.attr('id') == $('#id-div-char-win').attr('id')) {
+        $('#id-div-coord-win').css('height', target.css('height'));
+    }
 }
 
 
