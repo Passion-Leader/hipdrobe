@@ -24,3 +24,31 @@
     text-align: center;
 }
 
+#id-coordi-timeline a.nav-link {
+    color: #28a745;
+}
+
+#id-coordi-timeline a.nav-link.daily {
+    color: #007bff;
+}
+
+.card {
+    /* font-family: 'NanumGothic', sans-serif; */
+}
+
+.card .coord-post {
+    border: 0;
+    border-radius: 0;
+}
+
+.card .coord-post::after {
+    border-radius: 0;
+}
+
+.spin-page-bottom {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    visibility: collapse;
+    transition: all 1s;
+}

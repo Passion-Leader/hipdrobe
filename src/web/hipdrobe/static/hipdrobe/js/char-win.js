@@ -13,10 +13,6 @@ $(document).ready(function(){
     setPartsHeights();
     setPartsDefaultImage();
 
-    // enable test Drag & Drop 
-    // enableDnD();
-
-    //Set Buttons
     setPartsButtons();
     _makeValidator_post();
 });
@@ -56,7 +52,7 @@ function changeCoordMode(mode) {
 
         setTimeout(function(){
             setPartsHeights();
-        }, 100)
+        }, 20)
     }
     // 코디하기 모드
     else {
@@ -66,7 +62,10 @@ function changeCoordMode(mode) {
         setTimeout(function(){
             enableDnD();
         }, 300);
-        
+
+        setTimeout(function(){
+            setPartsHeights();
+        }, 20)  
     }
 }
 
@@ -284,6 +283,7 @@ function unsetPartsImage(part) {
 function setPartsHeights() {
     // Container Div
     _setPartHeight($('#id-div-char-win'), 1);
+    _setPartHeight($('#id-div-coord-win'), 1);
     
     // Head
     _setPartHeight( $('#id-coord-head'), 1);
@@ -319,15 +319,11 @@ function setPartsHeights() {
 function _setPartHeight(target, ratio) {
     const partheight = parseInt(target.css('width')) * ratio;
     target.css('height', `${partheight}px`);
-
-    if (target.attr('id') == $('#id-div-char-win').attr('id')) {
-        $('#id-div-coord-win').css('height', target.css('height'));
-    }
 }
 
 
 /*-----------------------------------------------------------------------------
- * 데일리룩 / 코디 저장 구현중
+ * 데일리룩 / 코디 저장 (데일리 룩은 기획을 더 해야해서 미완)
  */
 var g_coordiData = null;
 function openPostModal(e, bDaily) {
@@ -366,15 +362,6 @@ function openPostModal(e, bDaily) {
     $coordWin.attr('id', 'id-div-post-win');
     $modal.find('.coord-post').remove();
     $modal.find('.win-wrapper').append($coordWin);
-    const fn = _ => { 
-        setTimeout(_ => {
-            if( $('#id-div-post-win').css('width') == "100%" ) 
-                fn();
-            else
-                _setPartHeight($('#id-div-post-win'), 1);
-        }, 10);
-    };
-    fn();
 }
 
 /*-----------------------------------------------------------------------------
@@ -409,8 +396,8 @@ function _objToCoordWind(width, height, obj) {
     const list = obj['elem_list'];
     const bg = obj['bg_type'];
 
-    const $coordWin = $('<div>').attr('class', `coord-win coord-post mb-4 ${bg}`)
-        .css('display', 'flex').css('width', width).css('height', 'auto');
+    const $coordWin = $('<div>').attr('class', `coord-win coord-post ${bg}`)
+        .css('display', 'flex').css('width', width).css(height, 'auto');
 
     const arrDiv = [];
     list.forEach( elem => {
@@ -425,6 +412,16 @@ function _objToCoordWind(width, height, obj) {
         const $img = $('<img>').attr('src', elem['imgurl']);
         $div.append($img);
         $coordWin.append($div);
+
+        const fn = _ => { 
+            setTimeout(_ => {
+                if(  $coordWin.css('width') == "100%" ) 
+                    fn();
+                else
+                    _setPartHeight( $coordWin, 1);
+            }, 100);
+        };
+        fn();
     });
 
     return $coordWin;
@@ -435,8 +432,8 @@ function _objToCoordWind(width, height, obj) {
  * Form Submit 동작을 취하여 validator로 제어권을 넘긴다.
  */
 function coordSubmit(e, bDaily) {
-    event.stopPropagation();
-    event.preventDefault();
+    e.stopPropagation();
+    e.preventDefault();
 
     $('#id-modal-post form').submit();
 }
@@ -452,7 +449,7 @@ function _makeValidator_post() {
             content: {required: true },
         },
         submitHandler: function (frm) {
-            //ToDo: 코디 저장 구현
+            //ToDo: 코디 저장 구현 (데일리룩 미완)
             postCoordi(g_coordiData)
         },
         success: function (e) {
@@ -482,13 +479,27 @@ function postCoordi(coordiData) {
             { data : coordiData }
         )
     )
-    .then(response =>{
-        $('#id-modal-success').modal('show');
-        setTimeout(_ => {
-            $('#id-modal-success').modal('hide')
-            $('#id-modal-post').modal('hide');
-        }, 1000);
-        console.log(response.data)
+    .then(response => {
+        result = response.data['result'];
+        
+        if (result) {
+            $('#id-modal-success').modal('show');
+            setTimeout(_ => {
+                $('#id-modal-success').modal('hide')
+                $('#id-modal-post').modal('hide');
+            }, 1000);
+
+            if(coordiData['is_daily']) {
+                g_coordiDailyPage = 0;
+                $('#id-coordi-timeline-daily').html('')
+            } else {
+                g_coordiNormalPage = 0;
+                $('#id-coordi-timeline-normal').html('')
+            }
+        } else {
+            // ToDo: 실패할 경우 사용자에게 알림 구현...
+            console.log("코디 업로드 실패...");
+        }
 
     })
     .catch(function (error) {
@@ -512,43 +523,6 @@ function postCoordi(coordiData) {
 /*-----------------------------------------------------------------------------
  * 브라우저 화면 사이즈가 바뀌면 그에 맞게 조정한다.
  */
-window.onresize = function(event) {
+$(window).resize(function() {
     setPartsHeights();
-};
-
-
-
-
-
-
-/* test code
-var g_dragOn = true;
-
-let g_distX;
-let g_distY;
-let g_posX;
-let g_posY;
-
-function itemDrop(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    posX = event.pageX;
-    posY = event.pageY;
-    console.log(posX, posY, distX, distY);
-    $('#id-div-char-head').css('margin-left', posX + distX + 'px')
-        .css('margin-top', posY + distY + 'px');
-}
-
-function itemDragStart(event) {
-    posX = event.pageX;
-    posY = event.pageY;
-    distX = event.srcElement.offsetLeft - posX;
-    distY = event.srcElement.offsetTop - posY;
-}
-
-function itemDragOver(evnet) {
-    event.stopPropagation();
-    event.preventDefault();
-}
-*/
-
+});
