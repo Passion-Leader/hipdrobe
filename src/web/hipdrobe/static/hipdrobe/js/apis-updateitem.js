@@ -95,27 +95,28 @@ function onCate1Change() {
  * Validator에서 모든 체크가 완료되면 실질적으로 AJAX POST를 진행한다. 
  * form에 있는 모든 정보를 서버로 전송한다.
  */
- function postAddItem() {
+ function postUpdateItem() {
     enableLoading();
 
-    $('#id-btn-additem').prop("disabled", true);
+    $('#id-btn-updateitem').prop("disabled", true);
     
-    var data = $('#id-form-additem').serialize();
+    var data = $('#id-form-updateitem').serialize();
     console.log(data);
+    
     $.ajax({
         type: "POST",
-        url: "/apis/additem/",
+        url: "/apis/updateitem/",
         data: data,
         // contentType: false,
         success: function (data) {
             disableLoading();
-            $('#id-btn-additem').prop("disabled", false);
-            $('#id-modal-additem').modal('hide');            
+            $('#id-btn-updateitem').prop("disabled", false);
+            $('#id-modal-updateitem').modal('hide');            
         },
         error: function (e) {
             console.log("ERROR : ", e);
             alert("fail");
-            $('#id-btn-additem').prop("disabled", false);
+            $('#id-btn-updateitem').prop("disabled", false);
             disableLoading();
         }
    });
@@ -196,21 +197,7 @@ function _setUploadTrigger() {
  *      
  */
 function _makeValidator() {
-    $("#id-form-image").validate({
-        rules: {
-            image: {required: true },
-            'image-select': {required: true },
-          },
-          submitHandler: function (frm) {
-              //ToDo: 업로드 구현
-              postAddItem();
-          },
-          success: function (e) {
-              //ToDo: Nonthing To Do...
-          }
-    });
-    
-    $("#id-form-additem").validate({
+    $("#id-form-updateitem").validate({
         rules: {
           part: {required: true },
           cate1: {required: true },

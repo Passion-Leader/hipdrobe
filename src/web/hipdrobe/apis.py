@@ -5,16 +5,19 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
 from django.db.models import Q
+from django.core.paginator import Paginator
+from django.utils import timezone
 
 # Models
 from .models import *
 
 # other python packages
-import os, json
+import os, json, re
 from PIL import Image, ExifTags
 from pilkit.processors import Thumbnail, ResizeToFit
 import uuid
 from .removebg import removebg
+import pytz
 
 
 
@@ -190,8 +193,61 @@ def additem(request):
     return HttpResponse(json_data, content_type="application/json")
 
 
+
 # -----------------------------------------------------------------------------
-# coordi_new 작성한 코디 업로드
+# updateitem
+# -----------------------------------------------------------------------------
+# 나중에 로그인 필수 넣기
+@require_POST
+def updateitem(request):
+    data = request.POST
+    print('11111111111111111111111111111111111111111111111'+ data + '11111111111111111111111111111111111111111111111')
+
+    try:
+        # DB 저장 가즈아~
+        clothes = Clothes.objects.get(id=data['id'])
+        clothes.userid = user
+        clothes.part = data['part']
+        clothes.cate1_name = data['cate1']
+        clothes.cate2_name = data['cate2']
+        clothes.color = data['color']
+        clothes.solid = True if data['colortype'] == 'true' else False
+        clothes.season = str(data.getlist('season'))[1:-1].replace("'", "")
+        if data['pattern'] != ''    : clothes.pattern = data['pattern']
+        if data['texture'] != ''    : clothes.texture = data['texture']
+        if data['brand'] != ''      : clothes.brand = data['brand']
+        if data['descript'] != ''   : clothes.descript = data['descript']
+        clothes.save()
+
+        json_data = json.dumps({
+            'result': 'success', 
+        })
+
+    except:
+        json_data = json.dumps({
+            'result': 'fail', 
+        })
+
+    return HttpResponse(json_data, content_type="application/json")
+
+# -----------------------------------------------------------------------------
+# delete_clothes
+# -----------------------------------------------------------------------------
+# 나중에 로그인 필수 넣기
+@require_POST
+def delete_clothes(request):
+    data = request.POST
+    print('11111111111111111111111111111111111111111111111'+ data + '11111111111111111111111111111111111111111111111')
+
+    clothes = Clothes.objects.get(id=data['id'])
+    clothes.delete()
+
+    json_data = model_to_dict(clothes)
+
+    return HttpResponse(json_data, content_type="application/json")
+
+# -----------------------------------------------------------------------------
+# coordi_new : 작성한 코디 업로드
 # -----------------------------------------------------------------------------
 # 나중에 로그인 필수 넣기
 @require_POST
@@ -229,6 +285,58 @@ def coordi_new(request):
 
 
     return HttpResponse(json_data, content_type="application/json")
+
+
+# -----------------------------------------------------------------------------
+# coordi : 작성한 코디 불러오기
+# -----------------------------------------------------------------------------
+def coordi(request):
+    is_daily = request.GET.get('is_daily') == 'true'
+    page_num = int(request.GET.get('page_num'))
+
+    user = User.objects.get(userid='user01@test.com')
+    coordis = user.coordi_set.filter(is_daily=is_daily).order_by('-created_at')
+
+    # Paginator(전체리스트, 페이지당 보여지는 개수)
+    paging = Paginator(coordis, 4)
+    if page_num > paging.num_pages:
+        json_data = json.dumps({'result': False})
+    else :
+        page = paging.get_page(page_num)
+
+        # coordi_dicts = [ model_to_dict(coordi) for coordi in page.object_list ]
+   
+        # for dict_ in coordi_dicts:
+        #     dict_['elem_list'] = json.loads(re.sub("'", '"', dict_['elem_list']))
+
+        # json_data = json.dumps({
+        #     'result': True,
+        #     'page_num': page_num,
+        #     'coordis': coordi_dicts,
+        # })
+        
+
+        coordi_dicts = []
+        for coordi in page.object_list:
+            print(coordi.created_at)
+            coordi_dict = model_to_dict(coordi)
+            coordi_dict['elem_list'] = json.loads(
+                    re.sub("'", '"', coordi_dict['elem_list']))
+            coordi_dict['created_at'] = \
+                    str(_convert_to_localtime(coordi.created_at))
+            coordi_dict['updated_at'] = \
+                    str(_convert_to_localtime(coordi.updated_at))
+            coordi_dicts.append(coordi_dict)
+
+        json_data = json.dumps({
+            'result': True,
+            'page_num': page_num,
+            'coordis': coordi_dicts,
+        })
+
+
+    return HttpResponse(json_data, content_type="application/json")
+
 
 
 # -----------------------------------------------------------------------------
@@ -283,12 +391,6 @@ def clothes_detail(request):
 
 
 
-
-
-
-
-
-
 # -----------------------------------------------------------------------------
 # Temporary Image File 삭제
 # -----------------------------------------------------------------------------
@@ -302,3 +404,10 @@ def _deleteTmpImage(path, infix):
 
     except Exception as e:
         print(e)
+
+
+def _convert_to_localtime(utctime):
+    fmt = '%Y-%m-%d %H:%M:%S.%f'
+    utc = utctime.replace(tzinfo=pytz.UTC)
+    localtz = utc.astimezone(timezone.get_current_timezone())
+    return localtz.strftime(fmt)

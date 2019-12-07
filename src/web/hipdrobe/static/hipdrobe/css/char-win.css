@@ -41,6 +41,7 @@ div.control {
     background-image: url('/static/hipdrobe/img/no-image.png');
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 10px;
     width: 100%;
     height: 100%;
     opacity : 0.6;
@@ -49,6 +50,10 @@ div.control {
 
 .coord-post > * {
     z-index: 16;
+}
+
+#id-post-textarea-error {
+    position: absolute;
 }
 
 .coord-post.spring::after {

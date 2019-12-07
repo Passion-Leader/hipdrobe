@@ -148,24 +148,20 @@
     #detail_body {
       width : 100%;
       height : 485px;
+      background-size : 100% 100%;
+      background-image : url('../img/detail_bg.png');
     }
     
-    /* #detail_body:before {
+    /* #detail_body::after {
       background-size : 100% 100%;
       background-image : url('../img/fountain.png');
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
       opacity : 0.3;
     } */
 
     .d_wrapper1 {
       width : 95%;
       height : 85%;
-      margin-left : 2.5%;
-      border : solid 1px black;
+      margin-left : 0.5%;
     }
 
     #d_image_wrap {
@@ -173,7 +169,6 @@
       height : 100%;
       margin-left : 1%;
       float : left;
-      border : solid 1px red;
     }
 
     #d_image_wrap img {
@@ -184,23 +179,30 @@
     }
 
     #d_info_wrap {
-      width : 63%;
+      width : 54%;
       height : 100%;
-      margin-left : 1%;
+      margin-left : 4%;
       float : left;
-      border : solid 1px blue;
+      padding-top : 11%;
+    }
+
+    .d_info_p {
+      list-style: none;
+    }
+
+    .d_info_p li:before {
+      content: '✓';
     }
 
     .d_info {
-      font-size : 25px;
-      margin-top : 1%;
+      font-size : 22px;
+      margin-top : 0.5%;
     }
 
     .d_wrapper2 {
       width : 95%;
-      height : 18%;
+      height : 14%;
       margin-left : 2.5%;
-      border : solid 1px black;
       text-align : center;
     }
 
@@ -208,8 +210,25 @@
       width : 100%;
       height : auto;
       text-align : center;
-      border : solid 1px green;
       margin-top : 2%;
+    }
+
+    #update_item {
+      background : none;
+      border : none;
+      color : black;
+      font-size : 22px;
+    }
+
+    #delete_btn {
+      font-size: 22px;
+      margin-left: 9%;
+      margin-right: 0.7%;
+      border: solid 0.4px #6a6f74;
+      border-radius: 16px;
+      background: #d2cebe;
+      height: 47px;
+      width: 51px;
     }
 
 

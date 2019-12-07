@@ -69,17 +69,36 @@ function getItemUrlsAndOpenList(name, fnStr) {
                             console.log(data)
                             $('.modal-title.detail').text('아이템 상세정보');
                             $('#d_image_wrap').append("<img src='"+ data['url'] + "' />");
-                            $('#cate').text("종류 : " + data['cate1_name'] + " ▶ " + data['cate2_name']);
-                            $('#descript').text("옷 설명 : " + data['descript']);
-                            $('#brand').text("브랜드 : " + data['brand']);
+                            $('#cate').text(" 종류 : " + data['cate1_name'] + " ▶ " + data['cate2_name']);
+                            $('#descript').text(" 옷 설명 : " + data['descript']);
+                            $('#brand').text(" 브랜드 : " + data['brand']);
                             $('#color').append("색깔 : " + "<input type='color' onclick='' value='" + data['color'] + "' />");
                             $('#pattern').append(data['pattern']);
-                            $('#texture').text("재질 : " + data['texture']);
-                            $('#season').text("계절 : " + data['season']);
-                            $('#count').text("입은 횟수 : " + data['worn'] + "회")
+                            $('#texture').text(" 재질 : " + data['texture']);
+                            $('#season').text(" 계절 : " + data['season']);
+                            $('#count').text(" 입은 횟수 : " + data['worn'] + "회")
                             
                             // 모달 닫을 때 입력값 초기화 되는 세팅 추가로 해야 함
                             $('#detail_modal').modal();
+
+                            // 삭제 버튼 누를 시 이벤트
+                            $('#delete_btn').click(function() {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/apis/delete_clothes",
+                                    contentType: "application/json",
+                                    data: data,
+                                    success: function(data) {
+                                        // 모달 닫고 리스트 갱신하는 함수 추가
+                                        alert("success")
+                                    },
+                                    error: function (e) {
+                                        console.log("ERROR : ", e);
+                                        alert("fail");
+                                    }
+                                });
+
+                            });
                             
                             // 수정 창 start
                             $('#update_item').click(function() {
@@ -155,12 +174,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
                                     // descript default 처리
                                     $('#id-updateitem-desc').val(data['descript']);
 
-                                    // // 현재 사진 추가
-                                    // $('#add_item_pic').append("<br><label for='id-input-image'><i class='fas fa-asterisk'></i> 현재 사진 </label>"
-                                    // + "<img width='100%' height='auto' src='" + data['url'] + "' />");
-
-                                    
-                                }, 100);                                  
+                                }, 100);                          
 
                                  
 

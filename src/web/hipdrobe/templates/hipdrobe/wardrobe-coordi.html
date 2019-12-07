@@ -24,14 +24,69 @@
       </div>
 
 
-      <!--test drag & drop-->
+      <!-- 부위 설정 / 코디하기 -->
       <div class="row mb-3">
         <div class="col-12">
           {% include 'hipdrobe/include/_char-win-control.html' %}
           {% include 'hipdrobe/include/_char-win.html' %}
         </div>
       </div>
+
+      <!-- 내 저장된 코디 타임라인 -->
+      <br>
+      <h3>My Coordi Timeline</h3>
+      <ul class="nav nav-tabs" id="id-coordi-timeline">
+        <li class="nav-item">
+          <a class="nav-link active daily" data-toggle="tab" href="#id-coordi-timeline-daily">데일리룩 타임라인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#id-coordi-timeline-normal">코디 타임라인</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <!-- 데일리룩 타임라인 -->
+        <div class="tab-pane fade show active" id="id-coordi-timeline-daily">
+          
+          <!-- row  test-->
+          <div class="card-group">
+            <div class="card">
+              <img src="{% static 'hipdrobe/img/bg_index01.jpg' %}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </div>
+            </div>
+            <div class="card">
+              <img src="{% static 'hipdrobe/img/bg_index02.jpg' %}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 그냥 코디 타임라인 -->
+        <div class="tab-pane fade" id="id-coordi-timeline-normal">
+        </div>
+      </div>
+      <div class="spin-page-bottom">
+        <div class="spinner-border text-dark" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
     </div>
+
+
+    
 
     <!-- info section -->
     <div class="content-info">
