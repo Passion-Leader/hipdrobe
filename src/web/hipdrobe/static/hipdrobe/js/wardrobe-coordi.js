@@ -6,6 +6,15 @@ $(document).ready(function(){
     setTitle(["나만의 옷장 :", "코디 작성"]);
     setActive(["main-ln-wardrobe", "ln-coordi"]);
 
+    $('#id-coordi-timeline .nav-link').click(function() {
+        if (g_windowResized) {
+            g_windowResized = false;
+            setTimeout(_ => _setTimelineCoordHeight(), 300);
+        }
+    });
+
+   
+
     getCoordi(true, 1);
     getCoordi(false, 1);
 });
@@ -126,11 +135,18 @@ function pushCoordisToBottom(data, $parent) {
 }
 
 
-$(window).resize(function() {
-    const targetList = $('.card .coord-post');
+function _setTimelineCoordHeight() {
+    const targetList = $('.tab-pane.active .card .coord-post');
     targetList.each(function(i, target) {
         _setPartHeight($(target), 1);
     });
+}
+
+
+var g_windowResized = false;
+$(window).resize(function() {
+    _setTimelineCoordHeight()
+    g_windowResized = true;
 });
 
 
