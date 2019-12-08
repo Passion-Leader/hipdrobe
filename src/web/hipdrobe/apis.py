@@ -304,18 +304,6 @@ def coordi(request):
     else :
         page = paging.get_page(page_num)
 
-        # coordi_dicts = [ model_to_dict(coordi) for coordi in page.object_list ]
-   
-        # for dict_ in coordi_dicts:
-        #     dict_['elem_list'] = json.loads(re.sub("'", '"', dict_['elem_list']))
-
-        # json_data = json.dumps({
-        #     'result': True,
-        #     'page_num': page_num,
-        #     'coordis': coordi_dicts,
-        # })
-        
-
         coordi_dicts = []
         for coordi in page.object_list:
             print(coordi.created_at)
@@ -406,6 +394,9 @@ def _deleteTmpImage(path, infix):
         print(e)
 
 
+# -----------------------------------------------------------------------------
+# 서버 로컬 타임으로 변경
+# -----------------------------------------------------------------------------
 def _convert_to_localtime(utctime):
     fmt = '%Y-%m-%d %H:%M:%S.%f'
     utc = utctime.replace(tzinfo=pytz.UTC)

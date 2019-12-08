@@ -86,7 +86,8 @@ function pushCoordisToBottom(data) {
         
         let slotRemained = CARDS_IN_ROW;
         for (let j = 0; j < slotRemained; j++) {
-            const $card = $('<div>').attr('class', 'card');
+            const $card = $('<div>').attr('class', 'card')
+                .css('visibility', 'collapse');
             $card.appendTo($cardGroup);
 
             if (cardsIndex >= length)  
@@ -114,6 +115,8 @@ function pushCoordisToBottom(data) {
             const $small = $('<small>').attr('class', 'text-muted').html(
                     data[cardsIndex]['created_at']);
             $small.appendTo($cardFooter);
+
+            setTimeout(_ => $card.css('visibility', 'visible'), 300);
 
             cardsIndex++;
         }
