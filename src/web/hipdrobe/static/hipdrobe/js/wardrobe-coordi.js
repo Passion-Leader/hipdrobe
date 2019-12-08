@@ -6,6 +6,7 @@ $(document).ready(function(){
     setTitle(["나만의 옷장 :", "코디 작성"]);
     setActive(["main-ln-wardrobe", "ln-coordi"]);
 
+    getCoordi(true, 1);
     getCoordi(false, 1);
 });
 
@@ -38,7 +39,7 @@ function getCoordi(is_daily, page_num) {
     $('.spin-page-bottom').css('visibility', 'visible');
     axios.get('/apis/coordi/', {
         params: {
-            is_daily: false,
+            is_daily: is_daily,
             'page_num': page_num
         }
     })
@@ -48,10 +49,12 @@ function getCoordi(is_daily, page_num) {
             return;
 
         if (is_daily) {
+            g_coordiDailyPage = data['page_num']
+            pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-daily'));
             
         } else {
             g_coordiNormalPage = data['page_num']
-            pushCoordisToBottom(data['coordis']);
+            pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-normal'));
         }
 
     })
@@ -72,8 +75,7 @@ function getCoordi(is_daily, page_num) {
 /* ----------------------------------------------------------------------------
  * 서버에서 날아온 Coordi Object를 DOM Element로 복원하여 화면에 심어준다.
  */
-function pushCoordisToBottom(data) {
-    const $parent = $('#id-coordi-timeline-normal')
+function pushCoordisToBottom(data, $parent) {
     
     const length = data.length;
     const rowToGo = Math.ceil(parseFloat(length)/CARDS_IN_ROW);

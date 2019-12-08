@@ -364,15 +364,19 @@ function openPostModal(e, bDaily) {
     eraseErrorLabel($modal);
     $modal.modal('toggle');
 
-    // 제목/버튼 변경
+    // 제목/버튼 변경 및 개별 동작
     if (bDaily) {
         $('#id-coordi-save-title').html('데일리룩 저장하기');
         $('#id-btn-coord-post').html('데일리룩 저장하기')
             .attr('class', 'btn btn-primary');
+        $modal.find('.daily').css('display', 'block');
+
+        getAndSetDailyStatus();
     } else {
         $('#id-coordi-save-title').html('코디 저장하기');
         $('#id-btn-coord-post').html('코디 저장하기')
             .attr('class', 'btn btn-success');
+        $modal.find('.daily').css('display', 'none');
     }
 
     const arrItem = [];
@@ -500,6 +504,11 @@ function postCoordi(coordiData) {
     coordiData['title'] = $('#id-modal-post [name=title]').val();
     coordiData['content'] = $('#id-modal-post [name=content]').val();
 
+    if(coordiData['is_daily']) {
+        coordiData['daywhen'] = 
+            $('#id-modal-post').find('[name=daywhen]:checked').attr('data');
+    }
+
     axios.defaults.xsrfCookieName = 'csrftoken';
     axios.defaults.xsrfHeaderName = 'X-CSRFToken';
     axios.post(
@@ -542,6 +551,38 @@ function postCoordi(coordiData) {
 }
 
 
+/*-----------------------------------------------------------------------------
+ * 오늘과 내일의 데일리룩이 이미 설정되었는지 확인한다.
+ */
+function getAndSetDailyStatus() {
+    axios.get(
+        '/apis/daily-status/', {
+            params: {
+                // 보낼 정보가 없네...
+            }
+        }
+    )
+    .then(response => {
+        data = response.data    
+        if (data['result']) {
+            if(data['today'])
+                $('#id-sm-today').html(
+                    '(이미 저장된 데일리 룩이 있습니다 > 덮어쓰기)');
+            if(data['tomorrow']) 
+                $('#id-sm-tomorrow').html(
+                    '(이미 저장된 데일리 룩이 있습니다 > 덮어쓰기)');
+        } else {
+            // ToDo: 
+            console.log(data['reason']);
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+    .finally(function(){
+        // ToDo: 
+    });
+}
 
 
 

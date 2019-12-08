@@ -5,6 +5,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
 from django.db.models import Q
+from django.db import transaction
 from django.core.paginator import Paginator
 from django.utils import timezone
 
@@ -18,6 +19,11 @@ from pilkit.processors import Thumbnail, ResizeToFit
 import uuid
 from .removebg import removebg
 import pytz
+from datetime import datetime, timedelta
+
+
+# dev
+from .dev import *
 
 
 
@@ -251,8 +257,10 @@ def delete_clothes(request):
 # -----------------------------------------------------------------------------
 # 나중에 로그인 필수 넣기
 @require_POST
+@transaction.atomic
 def coordi_new(request):
     coordi_obj = json.loads(request.body)['data']
+    user = User.objects.get(userid='user01@test.com')
  
     try:
         coordi = Coordi()
@@ -261,20 +269,31 @@ def coordi_new(request):
         coordi.elem_list = str(coordi_obj['elem_list'])
         coordi.is_daily = coordi_obj['is_daily']
         coordi.bg_type = coordi_obj['bg_type']
-        coordi.user = User.objects.get(userid='user01@test.com')
+        coordi.user = user
 
         if coordi.is_daily:
-            # 데일리 저장은 조건 체크를 해야함
-            # 입은 옷들 worn + 1 도 해야함
-            # 변경시 기존 값 -1 도 해야함
-            # 미구현
+            now = datetime.now(timezone.utc)
+            today = now.strftime('%Y-%m-%d')
+            tomorrow = (now + timedelta(days=1)).strftime('%Y-%m-%d')
 
-            # 임시 테스트 코드
+            coordi.wear_at = today if coordi_obj['daywhen'] == '0' \
+                    else tomorrow
+
+            # 변경 시 기존 옷들 worn 값 -1 
+            if len(user.coordi_set.filter(wear_at=coordi.wear_at)) > 0:
+                oldCoordi = user.coordi_set.get(wear_at=coordi.wear_at)
+                _change_worn_count(user, oldCoordi, -1)
+                # 옷 worn 값을 초기화 했으면 oldCoordi를 삭제한다.
+                oldCoordi.delete()
+
+            # 새로 설정 되는 옷들 worn 값 +1
+            _change_worn_count(user, coordi, 1)
+
+            # 너무 빨라서 UI 시각적 효과가 다이나믹 하지 않으므로 추가ㅋㅋ
             import time
             time.sleep(1)
 
-        else:
-            coordi.save()
+        coordi.save()
             
     except Exception as e:
         print(e)
@@ -295,7 +314,12 @@ def coordi(request):
     page_num = int(request.GET.get('page_num'))
 
     user = User.objects.get(userid='user01@test.com')
-    coordis = user.coordi_set.filter(is_daily=is_daily).order_by('-created_at')
+    if is_daily:
+        coordis = user.coordi_set.filter(
+                is_daily=is_daily).order_by('-wear_at')
+    else:
+        coordis = user.coordi_set.filter(
+                is_daily=is_daily).order_by('-created_at')
 
     # Paginator(전체리스트, 페이지당 보여지는 개수)
     paging = Paginator(coordis, 4)
@@ -306,7 +330,6 @@ def coordi(request):
 
         coordi_dicts = []
         for coordi in page.object_list:
-            print(coordi.created_at)
             coordi_dict = model_to_dict(coordi)
             coordi_dict['elem_list'] = json.loads(
                     re.sub("'", '"', coordi_dict['elem_list']))
@@ -322,6 +345,27 @@ def coordi(request):
             'coordis': coordi_dicts,
         })
 
+    return HttpResponse(json_data, content_type="application/json")
+
+# -----------------------------------------------------------------------------
+# daily_status : 오늘과 내일의 데일리룩 기저장 여부 확인
+# -----------------------------------------------------------------------------
+def daily_status(request):
+    now = datetime.now(timezone.utc)
+    today = now.strftime('%Y-%m-%d')
+    tomorrow = (now + timedelta(days=1)).strftime('%Y-%m-%d')
+
+    user = User.objects.get(userid='user01@test.com')
+    bToday = True if len(user.coordi_set.filter(wear_at=today)) > 0 \
+        else False
+    bTomorrow = True if len(user.coordi_set.filter(wear_at=tomorrow)) > 0 \
+        else False
+
+    json_data = json.dumps({
+        'result': True,
+        'today' : bToday,
+        'tomorrow': bTomorrow
+    })
 
     return HttpResponse(json_data, content_type="application/json")
 
@@ -402,3 +446,21 @@ def _convert_to_localtime(utctime):
     utc = utctime.replace(tzinfo=pytz.UTC)
     localtz = utc.astimezone(timezone.get_current_timezone())
     return localtz.strftime(fmt)
+
+
+def _convert_to_utcday(localtime):
+    fmt = '%Y-%m-%d'
+
+
+# -----------------------------------------------------------------------------
+# 데일리룩을 작성하거나 교체할 때 입을 옷 들의 worn 값을 +- 해준다.
+# -----------------------------------------------------------------------------
+def _change_worn_count(user, coordi, val):
+    coordi_dict = model_to_dict(coordi)
+    elemList = json.loads(re.sub("'", '"', coordi_dict['elem_list']))
+    for elem in elemList:
+        imgUrl = elem['imgurl']
+        item = user.clothes_set.get(url=imgUrl)
+        item.worn += val
+        item.save()
+    

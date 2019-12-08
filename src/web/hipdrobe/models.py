@@ -74,11 +74,12 @@ class Coordi(models.Model):
     elem_list = models.TextField()
     is_daily = models.BooleanField()
     bg_type = models.CharField(max_length=20)
+    wear_at = models.CharField(max_length=10, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.id} | {self.user.userid} | {self.title}"
+        return f"{self.id} | {'데일리룩' if self.is_daily else '일반코디'} | {self.user.userid} | {self.title}"
 
 
 

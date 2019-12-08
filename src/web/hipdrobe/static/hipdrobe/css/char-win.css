@@ -322,6 +322,14 @@ div.control {
     display: none;
 }
 
+#id-modal-post small {
+    color: orangered;
+}
+
+#id-modal-post .daily .custom-control {
+    margin-left: 5%;
+}
+
 
 .moveable {
     border: 0px;

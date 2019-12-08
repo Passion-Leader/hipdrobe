@@ -35,6 +35,7 @@ urlpatterns = [
     path('apis/additem/', apis.additem, name="additem"),
     path('apis/coordi/', apis.coordi, name="coordi_list"),
     path('apis/coordi/new/', apis.coordi_new, name="coordi_new"),
+    path('apis/daily-status/', apis.daily_status, name="daily_status"),
     # path('check_id/',views.check_id,name="check_id"),
     path('apis/clothes_detail/', apis.clothes_detail, name="clothes_detail"),
     path('apis/updateitem/', apis.updateitem, name="updateitem"),
