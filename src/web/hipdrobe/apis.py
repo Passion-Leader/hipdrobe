@@ -280,7 +280,7 @@ def coordi_new(request):
                     else tomorrow
 
             # 변경 시 기존 옷들 worn 값 -1 
-            if len(user.coordi_set.filter(wear_at=coordi.wear_at)) > 0:
+            if user.coordi_set.filter(wear_at=coordi.wear_at).exists():
                 oldCoordi = user.coordi_set.get(wear_at=coordi.wear_at)
                 _change_worn_count(user, oldCoordi, -1)
                 # 옷 worn 값을 초기화 했으면 oldCoordi를 삭제한다.
