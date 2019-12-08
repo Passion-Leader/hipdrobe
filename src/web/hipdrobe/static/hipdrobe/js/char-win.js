@@ -106,7 +106,7 @@ function setPartsButtons() {
             e.stopPropagation();
             e.cancelbubble = true;
 
-            unsetPartsImage(part);
+            unsetPartsImage(part, 'id');
         });
     });
 
@@ -133,6 +133,8 @@ function setPartsButtons() {
             'width': (width/divWidth)*95 + '%',
             'height': 'auto'
         });
+
+        _reInitCoordPart();
     });
 
     $('#id-btn-plus').click(function(e) {
@@ -147,6 +149,8 @@ function setPartsButtons() {
             'width': (width/divWidth)*105 + '%',
             'height': 'auto'
         });
+
+        _reInitCoordPart();
     });
 
     $('#id-btn-down').click(function(e) {
@@ -189,13 +193,38 @@ function setPartsButtons() {
 }
 
 
+/*-----------------------------------------------------------------------------
+ * 코디하기 윈도우에서 DOM size 변경시 새로 설정한다.
+ */
+function _reInitCoordPart() {
+    const $div = g_$currentCoortPart.clone();
+    unsetPartsImage(g_$currentCoortPart, 'pid');
+    const $img = $div.find('img');
+    $img.click(function(e) {
+        e.stopPropagation();
+        if (g_$currentCoortPart != null) {
+            g_$currentCoortPart.removeClass('outline');
+        }
+        g_$currentCoortPart = $img.parent();
+        g_$currentCoortPart.addClass('outline');
+    });
+    // unsetPartsImage(g_$currentCoortPart, 'pid');
+    // g_$currentCoortPart.remove();
+    $div.appendTo($('#id-div-coord-win'))
+    g_moveables.push($div);
+    g_$currentCoortPart = $div;
+
+    enableDnD();
+}
+
+
 
 /*-----------------------------------------------------------------------------
  * 각 파트에 선택한 이미지를 등록하거나 혹은 취소하여 원복시킴
  */
 let g_$currentCoortPart = null;
 function  setPartsImage(part, imgTag) {
-    unsetPartsImage(part);
+    unsetPartsImage(part, 'id');
 
     let $imgUrl = $(imgTag).attr('src');
     let $imgTag = $(part).find('img');
@@ -247,8 +276,8 @@ function  setPartsImage(part, imgTag) {
     $('#myModal').modal('toggle');
 }
 
-function unsetPartsImage(part) {
-    let pid = $(part).attr('id');
+function unsetPartsImage(part, strAttr) {
+    let pid = $(part).attr(strAttr);
     g_moveables.forEach(function(elem, i) {
         let $elem = $(elem);
         if ($elem.attr('pid') == pid) {
@@ -267,7 +296,7 @@ function unsetPartsImage(part) {
     });
     g_moveables_set = g_moveables_set.filter(el => el != null);
 
-    if (g_moveables.length == 0) 
+    if (g_moveables.length == 0 && strAttr == 'id') 
         $('.save-group .btn').attr('disabled', true);
 
     $(part).addClass('blank');
