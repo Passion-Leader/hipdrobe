@@ -1,5 +1,6 @@
 # django 
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.http import HttpResponse
@@ -17,6 +18,7 @@ import os, json, re, uuid
 from PIL import Image, ExifTags
 from pilkit.processors import Thumbnail, ResizeToFit
 from datetime import datetime, timedelta
+from hashlib import md5
 
 # Custom
 from .removebg import removebg
@@ -25,7 +27,6 @@ from .utils import _deleteTmpImage, _convert_to_localtime, \
 
 # dev
 from .dev import clearAllWornCount
-
 
 
 
@@ -78,7 +79,7 @@ def cate2(request):
 # -----------------------------------------------------------------------------
 # upload image
 # -----------------------------------------------------------------------------
-# 나중에 로그인 필수 넣기
+@login_required
 @require_POST
 def upload(request):
     """
@@ -148,15 +149,15 @@ def upload(request):
 # -----------------------------------------------------------------------------
 # additem
 # -----------------------------------------------------------------------------
-# 나중에 로그인 필수 넣기
+@login_required
 @require_POST
 def additem(request):
     data = request.POST
 
     try:
         # 저장할 유저 선택 및 옷 이미지 저장 경로 생성
-        user = User.objects.get(userid='user01@test.com')
-        destPath = destFile = os.path.join(settings.CLOTHES_ROOT, user.userid)
+        md5_str = md5(request.user.username.encode('utf-8')).hexdigest()[0:16]
+        destPath = destFile = os.path.join(settings.CLOTHES_ROOT, md5_str)
         if not os.path.exists(destPath):
             os.makedirs(destPath)
 
@@ -171,6 +172,7 @@ def additem(request):
         
         # DB 저장 가즈아~
         clothes = Clothes()
+        clothes.user = request.user
         clothes.part = data['part']
         clothes.cate1_name = data['cate1']
         clothes.cate2_name = data['cate2']
@@ -181,14 +183,15 @@ def additem(request):
         if data['texture'] != ''    : clothes.texture = data['texture']
         if data['brand'] != ''      : clothes.brand = data['brand']
         if data['descript'] != ''   : clothes.descript = data['descript']
-        clothes.url = '/clothes/' + user.userid + '/' + filename
+        clothes.url = '/clothes/' + md5_str + '/' + filename
         clothes.save()
 
         json_data = json.dumps({
             'result': 'success', 
         })
 
-    except:
+    except Exception as e:
+        print(e)
         filename = data['url'][data['url'].rindex('/')+1:]
         _deleteTmpImage(settings.CLOTHES_ROOT_TMP, filename[:22])
 
@@ -203,14 +206,14 @@ def additem(request):
 # -----------------------------------------------------------------------------
 # updateitem
 # -----------------------------------------------------------------------------
-# 나중에 로그인 필수 넣기
+@login_required
 @require_POST
 def updateitem(request):
     data = request.POST
-    print('##############'+data['cid'])
+    print('#'*10 + data['cid'])
     
-    print('11111111111111111111111111111111111111111111111'+ data['color'] + '11111111111111111111111111111111111111111111111')
-    clothes = Clothes.objects.get(id=data['cid'])
+    print('1'*10 + data['color'] + '1'*10)
+    clothes = request.user.clothes_set.get(id=data['cid'])
     print('2222222' + clothes.color)
     clothes.part = data['part']
     clothes.cate1_name = data['cate1']
@@ -224,7 +227,7 @@ def updateitem(request):
     if data['descript'] != ''   : clothes.descript = data['descript']
     clothes.save()
 
-    clothes = Clothes.objects.get(id=data['cid'])
+    # clothes = Clothes.objects.get(id=data['cid'])
     data = model_to_dict(clothes)
     json_data = json.dumps(data)
 
@@ -233,12 +236,12 @@ def updateitem(request):
 # -----------------------------------------------------------------------------
 # delete_clothes
 # -----------------------------------------------------------------------------
-# 나중에 로그인 필수 넣기
+@login_required
 @require_POST
 def delete_clothes(request):
     data = json.loads(request.body)['data']
-    print(data)
-    clothes = Clothes.objects.get(id=data['id'])
+    # print(data)
+    clothes = request.user.clothes_set.get(id=data['id'])
     clothes.delete()
 
     
@@ -249,13 +252,12 @@ def delete_clothes(request):
 # -----------------------------------------------------------------------------
 # coordi_new : 작성한 코디 업로드
 # -----------------------------------------------------------------------------
-# 나중에 로그인 필수 넣기
+@login_required
 @require_POST
 @transaction.atomic
 def coordi_new(request):
     coordi_obj = json.loads(request.body)['data']
-    user = User.objects.get(userid='user01@test.com')
- 
+
     try:
         coordi = Coordi()
         coordi.title = coordi_obj['title']
@@ -263,7 +265,7 @@ def coordi_new(request):
         coordi.elem_list = str(coordi_obj['elem_list'])
         coordi.is_daily = coordi_obj['is_daily']
         coordi.bg_type = coordi_obj['bg_type']
-        coordi.user = user
+        coordi.user = request.user
 
         if coordi.is_daily:
             now = datetime.now(timezone.utc)
@@ -274,16 +276,16 @@ def coordi_new(request):
                     else tomorrow
 
             # 변경 시 기존 옷들 worn 값 -1 
-            if user.coordi_set.filter(wear_at=coordi.wear_at).exists():
-                oldCoordi = user.coordi_set.get(wear_at=coordi.wear_at)
-                _change_worn_count(user, oldCoordi, -1)
+            if request.user.coordi_set.filter(wear_at=coordi.wear_at).exists():
+                oldCoordi = request.user.coordi_set.get(wear_at=coordi.wear_at)
+                _change_worn_count(request.user, oldCoordi, -1)
                 # 옷 worn 값을 초기화 했으면 oldCoordi를 삭제한다.
                 oldCoordi.delete()
 
             # 새로 설정 되는 옷들 worn 값 +1
-            _change_worn_count(user, coordi, 1)
+            _change_worn_count(request.user, coordi, 1)
 
-            # 너무 빨라서 UI 시각적 효과가 다이나믹 하지 않으므로 추가ㅋㅋ
+            # 너무 빨라서 UI 시각적 효과가 다이나믹하지 않으므로 추가ㅋㅋ
             import time
             time.sleep(1)
 
@@ -303,16 +305,16 @@ def coordi_new(request):
 # -----------------------------------------------------------------------------
 # coordi : 작성한 코디 불러오기
 # -----------------------------------------------------------------------------
+@login_required
 def coordi(request):
     is_daily = request.GET.get('is_daily') == 'true'
     page_num = int(request.GET.get('page_num'))
 
-    user = User.objects.get(userid='user01@test.com')
     if is_daily:
-        coordis = user.coordi_set.filter(
+        coordis = request.user.coordi_set.filter(
                 is_daily=is_daily).order_by('-wear_at')
     else:
-        coordis = user.coordi_set.filter(
+        coordis = request.user.coordi_set.filter(
                 is_daily=is_daily).order_by('-created_at')
 
     # Paginator(전체리스트, 페이지당 보여지는 개수)
@@ -338,15 +340,16 @@ def coordi(request):
 # -----------------------------------------------------------------------------
 # daily_status : 오늘과 내일의 데일리룩 기저장 여부 확인
 # -----------------------------------------------------------------------------
+@login_required
 def daily_status(request):
     now = datetime.now(timezone.utc)
     today = now.strftime('%Y-%m-%d')
     tomorrow = (now + timedelta(days=1)).strftime('%Y-%m-%d')
 
-    user = User.objects.get(userid='user01@test.com')
-    bToday = True if len(user.coordi_set.filter(wear_at=today)) > 0 \
+    bToday = True if len(request.user.coordi_set.filter(wear_at=today)) > 0 \
         else False
-    bTomorrow = True if len(user.coordi_set.filter(wear_at=tomorrow)) > 0 \
+    bTomorrow = True if len(
+                request.user.coordi_set.filter(wear_at=tomorrow)) > 0 \
         else False
 
     json_data = json.dumps({
@@ -362,34 +365,39 @@ def daily_status(request):
 # -----------------------------------------------------------------------------
 # clothes : userid와 클릭한 name을 기준으로 옷 url 리스트 넘기기
 # -----------------------------------------------------------------------------
+@login_required
 def clothes(request):
-    userid = request.GET.get('userid')
+    # userid = request.GET.get('userid') #필요 없어서 지움 front에서도 지우셈
     name = request.GET.get('name')
-    # print(name)
+    print(name)
 
     if name == '상의':
         url = list(map(lambda clothes : clothes['url'], 
-            Clothes.objects.filter(Q(userid = userid) & Q(part = name) & ~Q(cate1_name__endswith = '아우터')).values('url')))
-        json_data = json.dumps({'url': url})
-        print(json_data)
+            request.user.clothes_set.filter(Q(part = name) & 
+                ~Q(cate1_name__endswith = '아우터')).values('url')))
+        # json_data = json.dumps({'url': url})
+        # print(json_data)
 
     elif name == '아우터':
         url = list(map(lambda clothes : clothes['url'], 
-            Clothes.objects.filter(Q(userid = userid) & Q(cate1_name__endswith = name)).values('url')))
-        json_data = json.dumps({'url': url})
-        print(json_data)
+            request.user.clothes_set.filter(
+                cate1_name__endswith=name).values('url')))
+        # json_data = json.dumps({'url': url})
+        # print(json_data)
 
     elif name == '하의':
         url = list(map(lambda clothes : clothes['url'], 
-            Clothes.objects.filter(Q(userid = userid) & Q(part = name)).values('url')))
-        json_data = json.dumps({'url': url})
-        print(json_data)
+            request.user.clothes_set.filter(part = name).values('url')))
+        # json_data = json.dumps({'url': url})
+        # print(json_data)
 
     else:
         url = list(map(lambda clothes : clothes['url'], 
-            Clothes.objects.filter(Q(userid = userid) & Q(cate1_name = name)).values('url')))
-        json_data = json.dumps({'url': url})
-        print(json_data)
+            request.user.clothes_set.filter(cate1_name = name).values('url')))
+        # json_data = json.dumps({'url': url})
+        # print(json_data)
+
+    json_data = json.dumps({'url': url})
 
     return HttpResponse(json_data, content_type="application/json")
 
@@ -397,15 +405,16 @@ def clothes(request):
 # -----------------------------------------------------------------------------
 # clothes_detail : 클릭한 옷의 url로 옷 전체 데이터 받아서 detail 구현
 # -----------------------------------------------------------------------------
+@login_required
 def clothes_detail(request):
-    userid = request.GET.get('userid')
+    # userid = request.GET.get('userid') #필요 없어서 지움 front에서도 지우셈
     url = request.GET.get('url')
-    print(url)
+    # print(url)
 
-    u_clothes = Clothes.objects.get(url = url)
+    u_clothes = request.user.clothes_set.get(url=url)
     clothe = model_to_dict(u_clothes)
     json_data = json.dumps(clothe)
-    print(json_data)
+    # print(json_data)
 
     return HttpResponse(json_data, content_type="application/json")
 

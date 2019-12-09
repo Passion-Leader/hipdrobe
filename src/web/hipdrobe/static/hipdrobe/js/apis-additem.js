@@ -193,12 +193,16 @@ function uploadImage(event) {
         success: function (data) {
             disableLoading();
             $('#id-btn-additem').prop("disabled", false);
-
-            $('#id-modal-success').modal('show');
-            setTimeout(_ => {
-                $('#id-modal-success').modal('hide')
-                $('#id-modal-additem').modal('hide');
-            }, 1000);         
+            if (data['result'] == 'success') {
+                $('#id-modal-success').modal('show');
+                setTimeout(_ => {
+                    $('#id-modal-success').modal('hide')
+                    $('#id-modal-additem').modal('hide');
+                }, 1000);         
+            }
+            else {
+                alert("fail");
+            }
         },
         error: function (e) {
             console.log("ERROR : ", e);
