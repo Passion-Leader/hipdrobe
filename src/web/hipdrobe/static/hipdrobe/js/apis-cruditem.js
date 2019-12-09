@@ -22,8 +22,8 @@ function getItemUrlsAndOpenList(name, fnStr) {
             
             // url 개수가 3보다 작은 경우
             if(g_data_len<=3) {
+                $('div.carousel-inner').append("<div class='carousel-item active'></div>")
                 for(var i=0; i<=g_data_len-1; i++) {
-                    $('div.carousel-inner').append("<div class='carousel-item active'></div>")
                     $('div.carousel-item.active').append(`<img class='d-block w-100' onclick='${fnStr}' src='` +
                     g_data[i] + "' />")
                 }
@@ -50,7 +50,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
 
             $('.modal-title.item').text(name + ' 리스트')
                 
-            $('#myModal').modal();
+            $('#itemlist').modal();
 
             // setTimeout(function(){  
             // }, 500);
@@ -59,6 +59,9 @@ function getItemUrlsAndOpenList(name, fnStr) {
                 var url = null;
                 // 이미지 클릭시 실행 함수 start
                 $('div.carousel-item img').click(function() {
+                    
+                    
+
                     url = $(this).attr('src');
                     $.ajax({
                         type: "GET",
@@ -72,30 +75,53 @@ function getItemUrlsAndOpenList(name, fnStr) {
                             $('#cate').text(" 종류 : " + data['cate1_name'] + " ▶ " + data['cate2_name']);
                             $('#descript').text(" 옷 설명 : " + data['descript']);
                             $('#brand').text(" 브랜드 : " + data['brand']);
-                            $('#color').append("색깔 : " + "<input type='color' onclick='' value='" + data['color'] + "' />");
-                            $('#pattern').append(data['pattern']);
+                            $("#color input[name='color']").val(data['color']);
+                            $('#pattern').text(" 패턴 : " + data['pattern'])
                             $('#texture').text(" 재질 : " + data['texture']);
                             $('#season').text(" 계절 : " + data['season']);
                             $('#count').text(" 입은 횟수 : " + data['worn'] + "회")
                             
                             // 모달 닫을 때 입력값 초기화 되는 세팅 추가로 해야 함
                             $('#detail_modal').modal();
+                            $('#detail_modal').on('hidden.bs.modal', function (e) {
+                                // 모달 초기화
+                                let forms = $('#detail_modal').find('form');
+                                for(let i = 0; i < forms.length; i++) {
+                                    forms[i].reset();
+                                }
+                                let imgs = $('#detail_modal').find('img');
+                                for(let i = 0; i < imgs.length; i++) {
+                                    $(imgs[i]).attr('src', "");
+                                }
+                            });
 
                             // 삭제 버튼 누를 시 이벤트
                             $('#delete_btn').click(function() {
-                                $.ajax({
-                                    type: "GET",
-                                    url: "/apis/delete_clothes",
-                                    contentType: "application/json",
-                                    data: data,
-                                    success: function(data) {
-                                        // 모달 닫고 리스트 갱신하는 함수 추가
-                                        alert("success")
-                                    },
-                                    error: function (e) {
-                                        console.log("ERROR : ", e);
-                                        alert("fail");
-                                    }
+                                axios.defaults.xsrfCookieName = 'csrftoken';
+                                axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+                                axios.post(
+                                    '/apis/delete_clothes/', 
+                                    JSON.stringify(
+                                        { data : data }
+                                    )
+                                )
+                                .then(response => {
+                                    result = response.data['result'];
+                                    alert("성공")
+                                    $('#detail_modal').modal('hide');
+                                    // 리스트 닫고 다시 켜기
+                                    $('#itemlist').modal('hide');
+                                    // if(data['part']=='상의' || data['part']=='하의' || data['part']=='머리' || data['part']=='발') {
+                                    //     $(".cont_wrap input[value='" + data['part'] + "']" ).trigger("click")
+                                    // }
+
+
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function(){
+                                    
                                 });
 
                             });
@@ -174,18 +200,14 @@ function getItemUrlsAndOpenList(name, fnStr) {
                                     // descript default 처리
                                     $('#id-updateitem-desc').val(data['descript']);
 
+                                    // 옷 id 히든으로 넘기기 위해 input hidden 생성
+                                    var cid = String(data['id'])
+                                    $('#id-updateitem-id').val(cid);
+
                                 }, 100);                          
 
-                                 
-
-
-
-
-
                             });
-
-                            
-                            
+ 
                         },
                         error: function (e) {
                             console.log("ERROR : ", e);

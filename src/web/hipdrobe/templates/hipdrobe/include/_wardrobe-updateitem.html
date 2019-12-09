@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="#" id="id-form-updateitem">
+        <form action="#" id="id-form-updateitem" method="POST">
           {% csrf_token %}
           <div class="row cls-updateitem-firstrow">
             <div class="col-3">
@@ -121,6 +121,7 @@
             </div>
           </div><!-- 셋째 줄 end-->
           <input type="hidden" name="url" id="id-updateitem-url"/>
+          <input type="hidden" name="cid" id="id-updateitem-id" value=""/>
         </form>
       </div>
       <div class="modal-footer">

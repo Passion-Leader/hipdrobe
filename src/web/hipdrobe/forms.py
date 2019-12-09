@@ -1,9 +1,11 @@
 from django import forms 
 from django.contrib.auth.models import User 
+from django.contrib.auth import get_user_model
 
 class UserForm(forms.ModelForm):
     class Meta: 
-        model = User 
+        model = get_user_model()
+
         fields = ['username', 'email', 'password']
         widgets = {
         'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'15자 이내로 입력 가능합니다.'}),
@@ -20,7 +22,7 @@ class UserForm(forms.ModelForm):
 
 class LoginForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ['email', 'password']
 # 글자수 제한
 def __init__(self, *args, **kwargs):

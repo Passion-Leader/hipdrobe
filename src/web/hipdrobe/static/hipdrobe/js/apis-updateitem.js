@@ -99,9 +99,7 @@ function onCate1Change() {
     enableLoading();
 
     $('#id-btn-updateitem').prop("disabled", true);
-    
     var data = $('#id-form-updateitem').serialize();
-    console.log(data);
     
     $.ajax({
         type: "POST",
@@ -111,7 +109,25 @@ function onCate1Change() {
         success: function (data) {
             disableLoading();
             $('#id-btn-updateitem').prop("disabled", false);
-            $('#id-modal-updateitem').modal('hide');            
+            alert('아이템 정보가 변경되었습니다.')
+            $('#id-modal-updateitem').modal('hide');
+            $('#id-modal-updateitem').on('hidden.bs.modal', function (e) {
+                // refresh modal content
+                $('#cate').text(" 종류 : " + data['cate1_name'] + " ▶ " + data['cate2_name']);
+                $('#descript').text(" 옷 설명 : " + data['descript']);
+                $('#brand').text(" 브랜드 : " + data['brand']);
+                $("#color input[name='color']").val(data['color']);
+                $('#pattern').text(" 패턴 : " + data['pattern'])
+                $('#texture').text(" 재질 : " + data['texture']);
+                $('#season').text(" 계절 : " + data['season']);
+                $("#detail_modal").load();
+                
+                // updateitem페이지 초기화
+                _clearModal();
+
+              })
+            
+          
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -145,6 +161,17 @@ function _eraseOption(target) {
     select.append("<option selected>선택하세요</option>");
 }
 
+
+/*-----------------------------------------------------------------------------
+ * 의상 수정 다이얼로그를 새로 띄웠을 경우 기존 데이터를 모두 지움
+ */
+function _clearModal() {
+    let forms = $('#id-modal-updateitem').find('form');
+    for(let i = 0; i < forms.length; i++) {
+        forms[i].reset();
+    }
+    $('#id-updateitem-id').val("");
+}
 
 /*-----------------------------------------------------------------------------
  * 기존에 작동된 validation 결과를 삭제함
@@ -207,7 +234,7 @@ function _makeValidator() {
         },
         submitHandler: function (frm) {
             // 이미지 선택 form의 validation으로 넘김
-            $("#id-form-image").submit()
+            postUpdateItem();
         },
         success: function (e) {
             //ToDo: Nonthing To Do...
