@@ -545,6 +545,8 @@ function postCoordi(coordiData) {
                 g_coordiNormalPage = 0;
                 $('#id-coordi-timeline-normal').html('')
             }
+
+            window.location.hash = '#page' + 0;
         } else {
             // ToDo: 실패할 경우 사용자에게 알림 구현...
             console.log("코디 업로드 실패...");
@@ -630,9 +632,9 @@ function pushCoordisToBottom(data, $parent) {
             // Title
             const $title = $('<h4>').attr('class', 'card-title');
             $title.appendTo($cardBody);
-            const $a = $('<a>').attr('href', 
-                `/wardrobe/coordi/${data[cardsIndex]['id']}/detail/`)
-                .attr('target', '_blank').html(data[cardsIndex]['title']);
+            const $a = $('<a>')
+                .attr('href', `/wardrobe/coordi/${data[cardsIndex]['id']}/detail/`)
+                .html(data[cardsIndex]['title']);
             $a.appendTo($title);
             
             // Content

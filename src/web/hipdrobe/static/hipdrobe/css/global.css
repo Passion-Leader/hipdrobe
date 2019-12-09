@@ -572,6 +572,10 @@ label.error {
     float: right;
 }
 
+.max-600 {
+    max-width: 600px;
+}
+
 
 /* text effect */
 .ml7 {

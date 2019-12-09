@@ -21,34 +21,22 @@
         </div>
       </div>
 
-      <!-- 부위 설정 / 코디하기 -->
-      <!-- 제목 -->
       <div class="row">
-        <div class="detail-title mb-1">
-          <h5>{{ data.title }}</h5>
-        </div>
-      </div>
-      
-  
-
-      <div class="row">
-        <div class="card-gorup">
+        <div class="card-group">
           <div class="card">
           </div>
         </div>
-        <div class="mb-2 win-wrapper">
-        </div> 
       </div>
 
-      <!-- 본문-->
-      <div class="row">
-        <div class="detail-content">
-          <p>{{ data.content }}</p>
+      <div class="row btn-wrapper">
+        <div class="btn-group">
+          <form action="{% url 'hipdrobe:coordi_delete' data.id %}" method="POST">
+            {% csrf_token %}
+            <a href="{% url 'hipdrobe:coordi_update' data.id %}" class="btn btn-warning">수정하기</a>
+            <button type="submit" class="btn btn-danger">삭제하기</button>
+          </form>
         </div>
       </div>
-      
-      <input type="hidden" value="{{data}}" id="hidden-data"/>
-      
     </div>
 
 
@@ -66,6 +54,7 @@
       <p>content-info</p>
     </div>
   </div>
+  <input type="hidden" value="{{data}}" id="hidden-data"/>
 {% endblock %}
 {% block content-bottom %}
   {% include 'hipdrobe/include/_wardrobe-additem.html' %}

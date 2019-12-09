@@ -37,9 +37,9 @@ function setCoordi() {
     // Title
     const $title = $('<h4>').attr('class', 'card-title');
     $title.appendTo($cardBody);
-    const $a = $('<a>').attr('href', 
-        `/wardrobe/coordi/${g_coordi['id']}/detail/`)
-        .attr('target', '_blank').html(g_coordi['title']);
+    const $a = $('<a>')
+        .attr('href', `/wardrobe/coordi/${g_coordi['id']}/detail/`)
+        .html(g_coordi['title']);
     $a.appendTo($title);
     
     // Content
@@ -60,8 +60,16 @@ function setCoordi() {
 
 
 
+function _setTimelineCoordHeight() {
+    const targetList = $('.card .coord-post');
+    targetList.each(function(i, target) {
+        _setPartHeight($(target), 1);
+    });
+}
+
+
 var g_windowResized = false;
 $(window).resize(function() {
-    
+    _setTimelineCoordHeight()
+    g_windowResized = true;
 });
-

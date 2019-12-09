@@ -10,6 +10,8 @@ urlpatterns = [
     path('wardrobe/items/', views.items, name="items" ),
     path('wardrobe/coordi/', views.coordi, name="coordi"),
     path('wardrobe/coordi/<int:c_id>/detail/', views.coordi_detail, name="coordi_detail"),
+    path('wardrobe/coordi/<int:c_id>/update/', views.coordi_update, name="coordi_update"),
+    path('wardrobe/coordi/<int:c_id>/delete/', views.coordi_delete, name="coordi_delete"),
     path('wardrobe/stat/', views.stat, name="stat" ),
     
     path('signup/',views.signup, name="signup"),

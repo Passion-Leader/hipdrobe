@@ -63,6 +63,21 @@ def coordi_detail(request, c_id):
     return render(request, 'hipdrobe/wardrobe-coordi-detail.html', context)
 
 
+@login_required
+def coordi_update(request, c_id):
+
+    return render(request, 'hipdrobe/wardrobe-coordi-update.html')
+
+
+
+@login_required
+@require_POST
+def coordi_delete(request, c_id):
+
+    return redirect('hipdrobe:coordi')
+
+
+
 def stat(request):
     # 여기에 로그인 세션 체크 등 코드가 들어가야 함
     return render(request, 'hipdrobe/wardrobe-stat.html')

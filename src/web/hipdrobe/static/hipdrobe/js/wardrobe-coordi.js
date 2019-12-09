@@ -66,6 +66,8 @@ function getCoordi(is_daily, page_num) {
             pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-normal'));
         }
 
+        window.location.hash = '#page' + data['page_num'];
+
     })
     .catch(function (error) {
         console.log(error);
