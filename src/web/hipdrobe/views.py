@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.http import HttpResponse
 # from django.contrib.auth.decorators import login_required
@@ -8,6 +8,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 import simplejson as json
 from .forms import UserForm, LoginForm
+
+# Model
+from .models import *
+
+# Custom
+from .utils import _coordi_to_dict
 
 
 
@@ -32,8 +38,17 @@ def coordi(request):
     return render(request, 'hipdrobe/wardrobe-coordi.html')
 
 def coordi_detail(request, c_id):
-    # 여기에 로그인 세션 체크 등 코드가 들어가야 함
-    return render(request, 'hipdrobe/wardrobe-coordi-detail.html')
+    # 요청한 유저가 Coordi 주인이 맞는지 체크 필요
+
+    coordi = get_object_or_404(Coordi, id=c_id)
+    coordi_dict = _coordi_to_dict(coordi)
+
+    context = {
+        'data': coordi_dict
+    }
+    
+
+    return render(request, 'hipdrobe/wardrobe-coordi-detail.html', context)
 
 def stat(request):
     # 여기에 로그인 세션 체크 등 코드가 들어가야 함

@@ -6,9 +6,43 @@
     color: black;
 }
 
+p {
+    font-family: 'Nanum Pen Script', cursive;
+    font-weight: 100;
+    font-size: medium;
+}
+
 .content-main {
     background-image: url(/static/hipdrobe/img/bg_index01.jpg);
     padding: 0px 5% 0px;
+    color: white;
+}
+
+.detail-title, 
+.detail-content {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    text-align: left;
+    margin: auto;
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+.card-title {
+    color: black;
+}
+
+.detail-title {
+ 
+}
+
+.detail-content {
+
+}
+
+.win-wrapper {
+    width: 100%;
 }
 
 .heading {

@@ -22,18 +22,33 @@
       </div>
 
       <!-- 부위 설정 / 코디하기 -->
-      <div class="row mb-3">
+      <!-- 제목 -->
+      <div class="row">
+        <div class="detail-title mb-1">
+          <h5>{{ data.title }}</h5>
+        </div>
+      </div>
+      
+  
+
+      <div class="row">
+        <div class="card-gorup">
+          <div class="card">
+          </div>
+        </div>
         <div class="mb-2 win-wrapper">
-          
         </div> 
       </div>
 
-      <!-- 제목 -->
-      <div class="form-group">
-
-      </div>
       <!-- 본문-->
-
+      <div class="row">
+        <div class="detail-content">
+          <p>{{ data.content }}</p>
+        </div>
+      </div>
+      
+      <input type="hidden" value="{{data}}" id="hidden-data"/>
+      
     </div>
 
 

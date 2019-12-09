@@ -13,19 +13,18 @@ from django.utils import timezone
 from .models import *
 
 # other python packages
-import os, json, re
+import os, json, re, uuid
 from PIL import Image, ExifTags
 from pilkit.processors import Thumbnail, ResizeToFit
-import uuid
-from .removebg import removebg
 from datetime import datetime, timedelta
 
 # Custom
+from .removebg import removebg
 from .utils import _deleteTmpImage, _convert_to_localtime, \
-    _change_worn_count
+    _change_worn_count, _coordi_to_dict
 
 # dev
-from .dev import *
+from .dev import clearAllWornCount
 
 
 
@@ -332,13 +331,7 @@ def coordi(request):
 
         coordi_dicts = []
         for coordi in page.object_list:
-            coordi_dict = model_to_dict(coordi)
-            coordi_dict['elem_list'] = json.loads(
-                    re.sub("'", '"', coordi_dict['elem_list']))
-            coordi_dict['created_at'] = \
-                    str(_convert_to_localtime(coordi.created_at))
-            coordi_dict['updated_at'] = \
-                    str(_convert_to_localtime(coordi.updated_at))
+            coordi_dict = _coordi_to_dict(coordi)
             coordi_dicts.append(coordi_dict)
 
         json_data = json.dumps({
