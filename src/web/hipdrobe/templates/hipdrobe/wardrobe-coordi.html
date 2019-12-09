@@ -14,9 +14,10 @@
   <div class="container-fluid content-wrap ctnt-center">
     <!-- main content section -->
     <div class="content-main">
+      <br>
       <div class="row mb-3">
         <div class="col-8">
-          <h3>My Coordi</h3>
+          <h3 class="heading">My Coordi</h3>
         </div>
         <div class="col-4" style="text-align: right;">
           <button class="btn btn-primary" onclick="openAddItemDialog(event)">옷 추가 테스트</button>
@@ -26,7 +27,7 @@
 
       <!-- 부위 설정 / 코디하기 -->
       <div class="row mb-3">
-        <div class="col-12">
+        <div class="col-12 text-center">
           {% include 'hipdrobe/include/_char-win-control.html' %}
           {% include 'hipdrobe/include/_char-win.html' %}
         </div>
@@ -34,7 +35,7 @@
 
       <!-- 내 저장된 코디 타임라인 -->
       <br>
-      <h3>My Coordi Timeline</h3>
+      <h3 class="heading">My Coordi Timeline</h3>
       <ul class="nav nav-tabs" id="id-coordi-timeline">
         <li class="nav-item">
           <a class="nav-link active daily" data-toggle="tab" href="#id-coordi-timeline-daily">데일리룩 타임라인</a>

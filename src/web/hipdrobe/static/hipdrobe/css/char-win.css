@@ -7,10 +7,17 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    /* max-width: 600px; */
+    max-width: 600px;
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
+    margin: auto;
+}
+
+.coord-win.main {
+    border-top: 0.5px solid gray;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .coord-post {
@@ -74,6 +81,12 @@ div.control {
 
 .coord-post.inside::after {
     background-image: url('/static/hipdrobe/img/bg-inside1.png'); 
+}
+
+#id-div-mode-change {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
 }
 
 #id-div-coord-win ul {

@@ -45,10 +45,17 @@ function enableDnD() {
  * 부위 설정 / 코디 하기 모드 전환 함수
  */
 function changeCoordMode(mode) {
+
+    
+
     // 옷 설정 모드
     if (mode === 0) {
         $('#id-div-char-win').css('display', 'flex');
-        $('#id-div-coord-win').css('display', 'none')
+        $('#id-div-coord-win').css('display', 'none');
+
+        const $parent = $('#id-div-mode-change');
+        $parent.find('.btn-info').addClass('active')
+        $parent.find('.btn-warning').removeClass('active')
 
         setTimeout(function(){
             setPartsHeights();
@@ -58,6 +65,10 @@ function changeCoordMode(mode) {
     else {
         $('#id-div-char-win').css('display', 'none');
         $('#id-div-coord-win').css('display', 'flex');
+
+        const $parent = $('#id-div-mode-change');
+        $parent.find('.btn-info').removeClass('active')
+        $parent.find('.btn-warning').addClass('active')
 
         setTimeout(function(){
             enableDnD();

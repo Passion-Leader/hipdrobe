@@ -6,6 +6,15 @@
     color: black;
 }
 
+.content-main {
+    background-image: url(/static/hipdrobe/img/bg_index01.jpg);
+    padding: 0px 5% 0px;
+}
+
+.heading {
+    color: white;
+}
+
 .carousel-item img {
     max-width: 30%;
     height: auto;
@@ -34,6 +43,8 @@
 
 .card {
     /* font-family: 'NanumGothic', sans-serif; */
+    margin: 10px 5px;
+    border: solid 1px black;
 }
 
 .card .coord-post {
