@@ -1,24 +1,27 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
+
+
+
+
+
 
 # Create your models here.
-class User(models.Model):
-    userid = models.CharField(primary_key=True, max_length=20)
-    userpwd = models.CharField(max_length=20)
-    nick = models.CharField(max_length=12)
-    created_at =models.DateTimeField(auto_now_add=True)
-    updated_at=models.DateTimeField(auto_now=True)
-    logged_at=models.DateTimeField(auto_now=True)
+
+
+class User(AbstractUser):
+    
+    gender = models.BooleanField(null=True)
     level_point=models.IntegerField(default=0)
     level=models.IntegerField(default=1)
     count_top=models.IntegerField(default=0) # 상의 보유 개수
     count_bottom=models.IntegerField(default=0) # 하의 보유 개수
     count_shoes=models.IntegerField(default=0) # 신발 보유 개수
-    gender = models.IntegerField()
-
-    
 
     def __str__(self):
-        return self.userid
+        return f'{self.id} | {self.username}'
 
 
 class Part(models.Model):
@@ -49,7 +52,7 @@ class Cate2(models.Model):
 
     
 class Clothes(models.Model):
-    userid = models.ForeignKey(User, on_delete=models.CASCADE) # 유저id
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # 유저id
     cate1_name = models.CharField(max_length=20) # 카테고리1 이름
     cate2_name = models.CharField(max_length=20) # 카테고리2 이름
     part = models.CharField(max_length=10) # 부위

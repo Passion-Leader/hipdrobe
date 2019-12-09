@@ -5,9 +5,13 @@ from django.http import HttpResponse
 # from django.views.decorators.http import require_POST
 from django.contrib import auth
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, get_user_model
 import simplejson as json
 from .forms import UserForm, LoginForm
+
+
+
+
 
 
 
@@ -46,11 +50,12 @@ def signup(request):
         print("11")
         form = UserForm(request.POST)
         print("12")
+        User = get_user_model()
         if form.is_valid():
             print("13")
             new_user = User.objects.create_user(**form.cleaned_data)
             login(request, new_user, backend='django.contrib.auth.backends.ModelBackend')
-
+            print(new_user)
             return redirect('hipdrobe:index')
         else:
             return HttpResponse('이미 존재하는 계정입니다.')
@@ -61,6 +66,7 @@ def signup(request):
 
 def signin(request):
     if request.method == "POST":
+        
         form = LoginForm(request.POST)
         email = request.POST['email']
         print(email)
