@@ -31,6 +31,10 @@ def coordi(request):
     # 여기에 로그인 세션 체크 등 코드가 들어가야 함
     return render(request, 'hipdrobe/wardrobe-coordi.html')
 
+def coordi_detail(request, c_id):
+    # 여기에 로그인 세션 체크 등 코드가 들어가야 함
+    return render(request, 'hipdrobe/wardrobe-coordi-detail.html')
+
 def stat(request):
     # 여기에 로그인 세션 체크 등 코드가 들어가야 함
     return render(request, 'hipdrobe/wardrobe-stat.html')
