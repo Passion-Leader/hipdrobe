@@ -1,0 +1,30 @@
+/*
+ * wardrobe-coordi.css
+ */
+
+.wrapper {
+    color: black;
+}
+
+.content-main {
+    background-image: url(/static/hipdrobe/img/bg_index01.jpg);
+    padding: 0px 5% 0px;
+}
+
+.heading {
+    color: white;
+}
+
+.carousel-item img {
+    max-width: 30%;
+    height: auto;
+    position: relative;
+    top: 5%;
+    left: 3%;
+    right: 0;
+    bottom: 0;
+    border-right: solid 0.5px lightgray;
+    cursor: pointer;
+    float: left;
+    vertical-align:middle;
+}

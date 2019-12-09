@@ -81,62 +81,7 @@ function getCoordi(is_daily, page_num) {
     });  
 }
 
-/* ----------------------------------------------------------------------------
- * 서버에서 날아온 Coordi Object를 DOM Element로 복원하여 화면에 심어준다.
- */
-function pushCoordisToBottom(data, $parent) {
-    
-    const length = data.length;
-    const rowToGo = Math.ceil(parseFloat(length)/CARDS_IN_ROW);
 
-    let cardsIndex = 0;
-    for (let i = 0; i < rowToGo; i++) {
-        
-        const $cardGroup = $('<div>').attr('class', 'card-group');
-        $cardGroup.appendTo($parent)
-        
-        let slotRemained = CARDS_IN_ROW;
-        for (let j = 0; j < slotRemained; j++) {
-            const $card = $('<div>').attr('class', 'card')
-                .css('visibility', 'collapse');
-            $card.appendTo($cardGroup);
-
-            if (cardsIndex >= length)  
-                return;
-
-            // Coordi Win
-            const $coordiWin = _objToCoordWind(
-                    '100%', 'auto', data[cardsIndex]);
-            $coordiWin.appendTo($card);
-
-            // Card Body
-            const $cardBody = $('<div>').attr('class', 'card-body');
-            $cardBody.appendTo($card);
-            // Title
-            const $title = $('<h4>').attr('class', 'card-title');
-            $title.appendTo($cardBody);
-            const $a = $('<a>').attr('href', 
-                `/wardrobe/coordi/${data[cardsIndex]['id']}/detail/`)
-                .attr('target', '_blank').html(data[cardsIndex]['title']);
-            $a.appendTo($title);
-            
-            // Content
-            const $content = $('<p>').attr('class', 'card-text').html(
-                    data[cardsIndex]['content']);
-            $content.appendTo($cardBody);
-            // DateTime
-            const $cardFooter = $('<div>').attr('class', 'card-footer');
-            $cardFooter.appendTo($card);
-            const $small = $('<small>').attr('class', 'text-muted').html(
-                    data[cardsIndex]['created_at']);
-            $small.appendTo($cardFooter);
-
-            setTimeout(_ => $card.css('visibility', 'visible'), 300);
-
-            cardsIndex++;
-        }
-    }
-}
 
 
 function _setTimelineCoordHeight() {

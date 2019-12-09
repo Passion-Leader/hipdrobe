@@ -327,6 +327,11 @@ div.control {
     text-align: initial;
 }
 
+#id-modal-post .modal-body {
+    background-image: url(/static/hipdrobe/img/bg_index01.jpg);
+    color: white;
+}
+
 #id-modal-post .modal-title {
     margin-left: 0px;
 }
