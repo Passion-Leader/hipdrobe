@@ -113,9 +113,13 @@ function pushCoordisToBottom(data, $parent) {
             const $cardBody = $('<div>').attr('class', 'card-body');
             $cardBody.appendTo($card);
             // Title
-            const $title = $('<h4>').attr('class', 'card-title').html(
-                    data[cardsIndex]['title']);
+            const $title = $('<h4>').attr('class', 'card-title');
             $title.appendTo($cardBody);
+            const $a = $('<a>').attr('href', 
+                `/wardrobe/coordi/${data[cardsIndex]['id']}/detail/`)
+                .attr('target', '_blank').html(data[cardsIndex]['title']);
+            $a.appendTo($title);
+            
             // Content
             const $content = $('<p>').attr('class', 'card-text').html(
                     data[cardsIndex]['content']);
