@@ -14,7 +14,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
         type: "GET",
         url: "/apis/clothes/",
         contentType: "application/json",
-        data: {userid: "user01@test.com", name: name},
+        data: {name: name},
         success: function (data) { 
             if ( typeof data == 'string') {
                 window.location.href = '/login/';
