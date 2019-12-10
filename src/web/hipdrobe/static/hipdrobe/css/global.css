@@ -18,7 +18,7 @@
 
 body {
     /* font-family: 'Poppins', sans-serif; */
-    font-family: 'Nanum Pen Script', cursive;
+    font-family: 'Nanum Pen Script', 'Stylish', cursive , sans-serif;
     background: #fafafa;
 }
 
@@ -149,7 +149,6 @@ a, a:hover, a:focus {
 
 #sidebar #brand-main-hangeul {
     margin: 0px 15px 0px 0px;
-
 }
 
 
@@ -615,6 +614,7 @@ a[data-toggle="collapse"] {
     position: relative;
 }
 
+
 .dropdown-toggle::after {
     display: block;
     position: absolute;
@@ -622,6 +622,7 @@ a[data-toggle="collapse"] {
     right: 20px;
     transform: translateY(-50%);
 }
+
 
 .custom-control-label:before{
     /* background-color:red; */
@@ -670,6 +671,14 @@ a[data-toggle="collapse"] {
     .carousel-item img {
         min-width: 0px !important;
         min-height: 0px !important;
+    }
+
+    .bg.bd-carousel {
+        margin-top: 72px !important;
+    }
+
+    .content-bottom {
+        padding-top: 72px;
     }
 }
 

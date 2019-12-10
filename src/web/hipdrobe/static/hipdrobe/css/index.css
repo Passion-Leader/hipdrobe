@@ -21,7 +21,7 @@
 
 .content-bottom-elem {
     font-family: 'Stylish', sans-serif;
-    padding: 40px;
+    padding: 40px 0px;
 }
 
 .content-bottom-elem p {
@@ -47,6 +47,22 @@
     width: 45%;
 }
 
+#sidebar {
+    text-align: end;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px 0px;
+    text-align: right;
+}
+
+#main-ln-wardrobe .dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+}
 
 
 
