@@ -82,7 +82,7 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul ul a {
-    font-size: 0.9em !important;
+    font-size: 1.3em !important;
     padding-left: 30px !important;
     background: rgba(0, 0, 0, 0.3);
 }
@@ -149,29 +149,11 @@ a, a:hover, a:focus {
 /*
  * nav
  */
- .navbar-narrow {
-    margin-top: -150px;
-    padding: 20px 0px 0px 0px;
-    transition: all 0.3s;
- }
 
- .navbar-narrow .container-fluid {
-    justify-content: normal;
- }
-
- .navbar-narrow  > div > div {
-    display: inline-block;
- }
-
-.navbar-narrow  > div > div + div {
-     display: inline-block;
-     margin-left: 15px;
- }
-
-.navbar-narrow ul li {
-    font-size: 1.2em;
-    font-weight: 500;
-    margin-top: 5px;
+#id-nav-narrow .navbar-brand {
+    font-size: 2em;
+    font-weight: 900;
+    padding: 8px 16px 0px 0px;
 }
 
 #brand-main-hangeul-narrow {
@@ -190,20 +172,28 @@ nav.navbar > div > div p {
     transition: all 0.3s;
 }
 
+#id-div-nav-sub {
+
+}
+
 #page-title {
-    font-size: 3em;
+    font-size: 2.5em;
 }
 
 #page-title-sub {
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 /* 
  * login section
  */
 #log-section {
-    margin: 20px 50px 10px 10px;
-    
+    margin: 20px 0px 10px 0px;
+}
+
+#log-section ul {
+    margin: 0;
+    padding: 0;
 }
 
 #log-section li {
@@ -654,8 +644,31 @@ a[data-toggle="collapse"] {
         margin-left: 0;
     }
 
-    .navbar-narrow {
-        margin-top: 0px;
+    #id-div-nav-sub {
+        display: none;
+    }
+
+    .content-head li {
+        margin: 10px 5px 10px 0px;
+    }
+
+    .content-head li.active {
+        font-size: 1.3em;
+    }
+
+    .content-head { 
+        display: none;
+    }
+
+    .carousel-item img {
+        min-width: 0px !important;
+        min-height: 0px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    #id-nav-narrow {
+        display: none;
     }
 }
 
