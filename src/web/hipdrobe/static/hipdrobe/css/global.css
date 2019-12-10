@@ -124,10 +124,17 @@ a, a:hover, a:focus {
  * sidebar
  */
 
- #brand-main, #brand-main-narrow {
+ #brand-main {
     font-family: 'Rock Salt', cursive;
     font-size: 5em;
     color: white;
+ }
+
+ #brand-main-narrow {
+    font-family: 'Rock Salt', cursive;
+    font-size: 1em;
+    color: white;
+    font-weight: 900;
  }
 
 
