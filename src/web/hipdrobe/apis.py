@@ -337,6 +337,28 @@ def coordi(request):
 
     return HttpResponse(json_data, content_type="application/json")
 
+
+# -----------------------------------------------------------------------------
+# coordi : 작성한 코디 삭제
+# -----------------------------------------------------------------------------
+@login_required
+@require_POST
+def coordi_delete(request):
+    data = json.loads(request.body)['data']
+    try:
+        coordi = request.user.coordi_set.get(id=data['c_id'])
+        coordi.delete()
+        json_data = json.dumps({
+            'result': True
+        })
+    except Exception as e:
+        print(e)
+        json_data = json.dumps({
+            'result': False
+        })
+
+    return HttpResponse(json_data, content_type="application/json")
+
 # -----------------------------------------------------------------------------
 # daily_status : 오늘과 내일의 데일리룩 기저장 여부 확인
 # -----------------------------------------------------------------------------

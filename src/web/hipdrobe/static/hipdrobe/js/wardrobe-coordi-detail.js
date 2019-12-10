@@ -19,13 +19,10 @@ function setCoordi() {
             .replace(/True/gi, 'true')
             .replace(/False/gi, 'false')
             .replace(/None/gi, null);
-    console.log(dataRaw)
     g_coordi = JSON.parse(dataRaw);
+    $('#hidden-data').val('');
 
     const $coordiWin = _objToCoordWind('100%', 'auto', g_coordi);
-    
-
-   
 
     const $card = $('.card');
 
@@ -54,6 +51,49 @@ function setCoordi() {
     $small.appendTo($cardFooter);
 
 
+}
+
+function confirmDelete() {
+    $('#id-modal-delete').modal('show');
+}
+
+
+function deleteCoordi() {
+    enableLoading();
+
+    const data = {
+        'c_id': g_coordi['id']
+    }
+
+    axios.defaults.xsrfCookieName = 'csrftoken';
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    axios.post(
+        '/apis/coordi/delete/', 
+        JSON.stringify(
+            { data : data }
+        )
+    )
+    .then(response => {
+        result = response.data['result'];
+        
+        if (result) {
+            $('#id-modal-success').modal('show');
+            setTimeout(_ => {
+                $('#id-modal-delete').modal('hide');
+                $('#id-modal-success').modal('hide')
+                window.location.href = '/wardrobe/coordi/'
+            }, 1500);  
+        } else {
+            // ToDo: 실패할 경우 사용자에게 알림 구현...
+            console.log("코디 삭제 실패...");
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+    .finally(function(){
+        disableLoading();
+    });
 }
 
 

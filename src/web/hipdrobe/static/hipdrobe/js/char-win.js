@@ -284,7 +284,7 @@ function  setPartsImage(part, imgTag) {
     }, 500);
 
 
-    $('#myModal').modal('toggle');
+    $('#itemlist').modal('toggle');
 }
 
 function unsetPartsImage(part, strAttr) {
@@ -420,6 +420,7 @@ function _divToObject($elem) {
     const top = parseFloat($elem.css('top'));
     const zindex = $elem.css('z-index');
     const imgurl = $elem.find('img').attr('src');
+    const pid = $elem.attr('pid');
 
     const item = {
         'width': (width/divWidth)*100 + '%',
@@ -427,6 +428,7 @@ function _divToObject($elem) {
         'top': (top/divHeight)*100 + '%',
         'zindex': zindex,
         'imgurl': imgurl,
+        'pid' : pid
     };
 
     return item;
@@ -445,7 +447,8 @@ function _objToCoordWind(width, height, obj) {
 
     const arrDiv = [];
     list.forEach( elem => {
-        const $div = $('<div>').attr('class', "coord-part");
+        const $div = $('<div>').attr('class', "coord-part")
+                .attr('pid', obj['pid']);
         $div.css({
             'width': elem['width'],
             'height': 'auto',
@@ -545,8 +548,6 @@ function postCoordi(coordiData) {
                 g_coordiNormalPage = 0;
                 $('#id-coordi-timeline-normal').html('')
             }
-
-            window.location.hash = '#page' + 0;
         } else {
             // ToDo: 실패할 경우 사용자에게 알림 구현...
             console.log("코디 업로드 실패...");
