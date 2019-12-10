@@ -237,10 +237,10 @@ let g_$currentCoortPart = null;
 function  setPartsImage(part, imgTag) {
     unsetPartsImage(part, 'id');
 
-    let $imgUrl = $(imgTag).attr('src');
+    let imgUrl = $(imgTag).attr('src');
     let $imgTag = $(part).find('img');
     
-    $imgTag.attr('src', $imgUrl);
+    $imgTag.attr('src', imgUrl);
     $(part).removeClass('blank')
 
     // 선택한 이미지를 코디하기 창에도 넣어준다. (좀 크게 넣어준다.)
@@ -257,8 +257,8 @@ function  setPartsImage(part, imgTag) {
             'height': 'auto'
         });
         
-        const $img = $('<img>').attr('src',$imgUrl);
-        $img.attr('src',$imgUrl);
+        const $img = $('<img>').attr('src', imgUrl);
+        $img.attr('src', imgUrl);
 
         // 클릭되었을 경우 선택된 것으로 인식도록 outline을 설정한다.
         $img.click(function(e) {
@@ -284,7 +284,7 @@ function  setPartsImage(part, imgTag) {
     }, 500);
 
 
-    $('#itemlist').modal('toggle');
+    $('#itemlist').modal('hide');
 }
 
 function unsetPartsImage(part, strAttr) {
@@ -366,13 +366,13 @@ function _setPartHeight(target, ratio) {
  * 데일리룩 / 코디 저장 (데일리 룩은 기획을 더 해야해서 미완)
  */
 var g_coordiData = null;
-function openPostModal(e, bDaily) {
+function openPostModal(e, bDaily, bNew) {
     e.stopPropagation();
 
     const $modal = $('#id-modal-post');
+    eraseErrorLabel($modal);
     $modal.find('input').val('');
     $modal.find('textarea').val('');
-    eraseErrorLabel($modal);
     $modal.modal('toggle');
 
     // 제목/버튼 변경 및 개별 동작
@@ -406,6 +406,15 @@ function openPostModal(e, bDaily) {
     $coordWin.attr('id', 'id-div-post-win');
     $modal.find('.coord-post').remove();
     $modal.find('.win-wrapper').append($coordWin);
+
+    if (!bNew) {
+        $('#id-btn-coord-post').attr('onclick', 'coordSubmitUpdate(event)');
+        $('.form-group.daily').css('display', 'none');
+        $('#id-post-input-title').val(g_coordi['title']);
+        $('#id-post-textarea').val(g_coordi['content']);
+
+        console.log( $('#id-post-input-title')[0])
+    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -448,7 +457,7 @@ function _objToCoordWind(width, height, obj) {
     const arrDiv = [];
     list.forEach( elem => {
         const $div = $('<div>').attr('class', "coord-part")
-                .attr('pid', obj['pid']);
+                .attr('pid', elem['pid']);
         $div.css({
             'width': elem['width'],
             'height': 'auto',
@@ -497,7 +506,7 @@ function _makeValidator_post() {
         },
         submitHandler: function (frm) {
             //ToDo: 코디 저장 구현 (데일리룩 미완)
-            postCoordi(g_coordiData)
+            postCoordi(g_coordiData, '/apis/coordi/new/')
         },
         success: function (e) {
             //ToDo: Nonthing To Do...
@@ -509,7 +518,7 @@ function _makeValidator_post() {
 /*-----------------------------------------------------------------------------
  * 저장할 코디 데이터를 서버로 보낸다
  */
-function postCoordi(coordiData) {
+function postCoordi(coordiData, url) {
 
     // Spinner 활성화 및 버튼 비활성화
     $('#id-modal-post .btn').attr('disabled', true);
@@ -518,6 +527,12 @@ function postCoordi(coordiData) {
     coordiData['title'] = $('#id-modal-post [name=title]').val();
     coordiData['content'] = $('#id-modal-post [name=content]').val();
 
+    // 업데이트의 경우 현재 코디의 아이디가 필요하다.
+    if (url == '/apis/coordi/edit/') {
+        coordiData['c_id'] = g_coordi['id'];
+    }
+
+    // 
     if(coordiData['is_daily']) {
         coordiData['daywhen'] = 
             $('#id-modal-post').find('[name=daywhen]:checked').attr('data');
@@ -526,7 +541,7 @@ function postCoordi(coordiData) {
     axios.defaults.xsrfCookieName = 'csrftoken';
     axios.defaults.xsrfHeaderName = 'X-CSRFToken';
     axios.post(
-        '/apis/coordi/new/', 
+        url, 
         JSON.stringify(
             { data : coordiData }
         )
@@ -539,6 +554,12 @@ function postCoordi(coordiData) {
             setTimeout(_ => {
                 $('#id-modal-success').modal('hide')
                 $('#id-modal-post').modal('hide');
+
+                // update의 경우 detail 페이지로 돌아간다
+                if (url == '/apis/coordi/edit/') {
+                    window.location.href = 
+                        `/wardrobe/coordi/${g_coordi['id']}/detail/`;
+                }
             }, 1000);
 
             if(coordiData['is_daily']) {

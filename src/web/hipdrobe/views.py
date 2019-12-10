@@ -43,12 +43,12 @@ def coordi(request):
     # 같아서 로그인 체크 안 함
     return render(request, 'hipdrobe/wardrobe-coordi.html')
 
+
 @login_required
 def coordi_detail(request, c_id):
-    # 요청한 유저가 Coordi 주인이 맞는지 체크 필요
-    coordi = get_object_or_404(Coordi, id=c_id)
+    coordi = get_object_or_404(request.user.coordi_set, id=c_id)
 
-    if coordi.user == request.user:
+    if coordi:
         coordi_dict = _coordi_to_dict(coordi)
         context = {
             'result': True,
@@ -65,8 +65,22 @@ def coordi_detail(request, c_id):
 
 @login_required
 def coordi_update(request, c_id):
+    coordi = get_object_or_404(request.user.coordi_set, id=c_id)
 
-    return render(request, 'hipdrobe/wardrobe-coordi-update.html')
+    if coordi:
+        coordi_dict = _coordi_to_dict(coordi)
+        context = {
+            'result': True,
+            'data': coordi_dict
+        }
+    else:
+        context = {
+            'result': False,
+            'reason': 'forbidden'
+        }
+
+    return render(request, 'hipdrobe/wardrobe-coordi-update.html', context)
+
 
 def stat(request):
     # 여기에 로그인 세션 체크 등 코드가 들어가야 함

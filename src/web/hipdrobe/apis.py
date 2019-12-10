@@ -285,9 +285,9 @@ def coordi_new(request):
             # 새로 설정 되는 옷들 worn 값 +1
             _change_worn_count(request.user, coordi, 1)
 
-            # 너무 빨라서 UI 시각적 효과가 다이나믹하지 않으므로 추가ㅋㅋ
-            import time
-            time.sleep(1)
+        # 너무 빨라서 UI 시각적 효과가 다이나믹하지 않으므로 추가ㅋㅋ
+        import time
+        time.sleep(1)
 
         coordi.save()
             
@@ -343,11 +343,19 @@ def coordi(request):
 # -----------------------------------------------------------------------------
 @login_required
 @require_POST
+@transaction.atomic
 def coordi_delete(request):
     data = json.loads(request.body)['data']
     try:
         coordi = request.user.coordi_set.get(id=data['c_id'])
+
+        # 데일리룩을 삭제하면 옷을 입었던 횟수도 차감한다.
+        if coordi.is_daily:
+            _change_worn_count(request.user, coordi, -1)
+        
+        # 코디 삭제
         coordi.delete()
+            
         json_data = json.dumps({
             'result': True
         })
@@ -358,6 +366,51 @@ def coordi_delete(request):
         })
 
     return HttpResponse(json_data, content_type="application/json")
+
+
+
+# -----------------------------------------------------------------------------
+# coordi : 작성한 코디 수정
+# -----------------------------------------------------------------------------
+@login_required
+@require_POST
+@transaction.atomic
+def coordi_edit(request):
+    coordi_obj = json.loads(request.body)['data']
+
+    try:
+        coordi = request.user.coordi_set.get(id=coordi_obj['c_id'])
+
+        # 데일리룩을 삭제하면 옷을 입었던 횟수도 차감한다.
+        if coordi.is_daily:
+            _change_worn_count(request.user, coordi, -1)
+
+        coordi.title = coordi_obj['title']
+        coordi.content = coordi_obj['content']
+        coordi.elem_list = str(coordi_obj['elem_list'])
+        coordi.bg_type = coordi_obj['bg_type']
+        
+        # 새로 설정 되는 옷들 worn 값 +1
+        if coordi.is_daily:
+            _change_worn_count(request.user, coordi, 1)
+        
+        coordi.save()
+
+        # 너무 빨라서 UI 시각적 효과가 다이나믹하지 않으므로 추가ㅋㅋ
+        import time
+        time.sleep(1)
+
+        json_data = json.dumps({
+            'result': True
+        })
+    except Exception as e:
+        print(e)
+        json_data = json.dumps({
+            'result': False
+        })
+
+    return HttpResponse(json_data, content_type="application/json")
+
 
 # -----------------------------------------------------------------------------
 # daily_status : 오늘과 내일의 데일리룩 기저장 여부 확인

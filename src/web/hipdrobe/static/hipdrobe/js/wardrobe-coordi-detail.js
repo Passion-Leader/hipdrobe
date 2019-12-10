@@ -5,7 +5,7 @@ $(document).ready(function(){
 
     // 제목 및 액티브 효과 적용
     setTitle(["나만의 옷장 :", "코디 자세히보기"]);
-    setActive(["main-ln-wardrobe", "ln-coordi"]);
+    // setActive(["main-ln-wardrobe", "ln-coordi"]);
 
     setCoordi();
 
@@ -49,8 +49,6 @@ function setCoordi() {
     const $small = $('<small>').attr('class', 'text-muted').html(
         g_coordi['created_at']);
     $small.appendTo($cardFooter);
-
-
 }
 
 function confirmDelete() {
@@ -95,9 +93,6 @@ function deleteCoordi() {
         disableLoading();
     });
 }
-
-
-
 
 
 function _setTimelineCoordHeight() {

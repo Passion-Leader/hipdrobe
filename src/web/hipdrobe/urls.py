@@ -38,6 +38,7 @@ urlpatterns = [
     path('apis/coordi/', apis.coordi, name="coordi_list"),
     path('apis/coordi/new/', apis.coordi_new, name="coordi_new"),
     path('apis/coordi/delete/', apis.coordi_delete, name="coordi_delete"),
+    path('apis/coordi/edit/', apis.coordi_edit, name="coordi_edit"),
     path('apis/daily-status/', apis.daily_status, name="daily_status"),
     # path('check_id/',views.check_id,name="check_id"),
     path('apis/clothes_detail/', apis.clothes_detail, name="clothes_detail"),
