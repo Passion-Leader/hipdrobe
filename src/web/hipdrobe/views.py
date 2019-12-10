@@ -120,7 +120,7 @@ def signin(request):
             login(request, user)
             return redirect('hipdrobe:index')
         else:
-            return HttpResponse('로그인 실패. 다시 시도 해보세요.')
+            return render(request,'hipdrobe/login_Fail.html')
     else:
         form = LoginForm()
         return render(request, 'hipdrobe/login.html', {'form': form})
