@@ -82,7 +82,7 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul ul a {
-    font-size: 0.9em !important;
+    font-size: 1.3em !important;
     padding-left: 30px !important;
     background: rgba(0, 0, 0, 0.3);
 }
@@ -124,10 +124,17 @@ a, a:hover, a:focus {
  * sidebar
  */
 
- #brand-main, #brand-main-narrow {
+ #brand-main {
     font-family: 'Rock Salt', cursive;
     font-size: 5em;
     color: white;
+ }
+
+ #brand-main-narrow {
+    font-family: 'Rock Salt', cursive;
+    font-size: 1em;
+    color: white;
+    font-weight: 900;
  }
 
 
@@ -149,29 +156,40 @@ a, a:hover, a:focus {
 /*
  * nav
  */
- .navbar-narrow {
-    margin-top: -150px;
-    padding: 20px 0px 0px 0px;
+.navbar-narrow {
+    margin-top: -60px;
+    padding: 5px 0px 0px 0px;
     transition: all 0.3s;
- }
+}
 
- .navbar-narrow .container-fluid {
+.navbar-narrow .container-fluid {
     justify-content: normal;
- }
+}
 
- .navbar-narrow  > div > div {
+.navbar-narrow  > div > div {
     display: inline-block;
- }
+}
 
 .navbar-narrow  > div > div + div {
-     display: inline-block;
-     margin-left: 15px;
- }
+    display: inline-block;
+    /* margin-left: 15px; */
+}
+
+.navbar-narrow  > div > div + div + div {
+    position: absolute;
+    right: 10px;
+}
+
+.navbar-narrow  > div > div + div ul {
+    margin: 0;
+    padding: 0;
+}
 
 .navbar-narrow ul li {
     font-size: 1.2em;
     font-weight: 500;
-    margin-top: 5px;
+    display: inline-block;
+    margin-left: 10px;
 }
 
 #brand-main-hangeul-narrow {
@@ -382,7 +400,6 @@ label.error {
     color:black;
     font-size:30px;
     text-align:center;
-    margin-left:212px;
 }
 
 .modal-dialog .modal-content .modal-division {

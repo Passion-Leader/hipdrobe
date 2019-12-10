@@ -25,9 +25,11 @@ function getItemUrlsAndOpenList(name, fnStr) {
             g_data = data['url'];
             var g_data_len = Object.keys(g_data).length;
             $('div.carousel-inner').html('');
+            $('#img_list > h5').remove();
+            $('#img_list > p').remove();
             
             // url 개수가 3보다 작은 경우
-            if(g_data_len<=3) {
+            if(0 < g_data_len && g_data_len <= 3) {
                 $('div.carousel-inner').append("<div class='carousel-item active'></div>")
                 for(var i=0; i<=g_data_len-1; i++) {
                     $('div.carousel-item.active').append(`<img class='d-block w-100' onclick='${fnStr}' src='` +
@@ -53,7 +55,11 @@ function getItemUrlsAndOpenList(name, fnStr) {
                     }    
                 } //for end
             } // else if1 end
-
+            else {
+                $('#img_list').append($('<h5>').html('이 카테고리의 옷이 한 벌도 없어요.'));
+                $('#img_list').append($('<p>').html('옷을 추가해보세요!'));
+            }
+            
             $('.modal-title.item').text(name + ' 리스트')
                 
             $('#itemlist').modal();

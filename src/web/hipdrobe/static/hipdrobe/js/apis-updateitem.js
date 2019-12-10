@@ -1,5 +1,5 @@
 /*
- * apis-additem.js
+ * apis-updateitem.js
  */
 
 
@@ -9,8 +9,13 @@
  * 필수항목 validator를 구성
  */
 $('document').ready(function(){
+<<<<<<< HEAD
     _setUploadTrigger2();
     _makeValidator2();
+=======
+    _setUploadTrigger($('#id-btn-updateitem'), $('#id-form-updateitem'));
+    _makeValidator_clothes_update();
+>>>>>>> master
 });
 
 
@@ -18,16 +23,27 @@ $('document').ready(function(){
  * 업데이트 모달 띄우기 
  */
 function openUpdateItem(event) {
+<<<<<<< HEAD
     _eraseOption2('#id-updateitem-cate1')
     _eraseOption2('#id-updateitem-cate2')
     _eraseErrorLabel2();
+=======
+    _eraseOption('#id-updateitem-cate1')
+    _eraseOption('#id-updateitem-cate2')
+    eraseErrorLabel($('#id-modal-updateitem'));
+>>>>>>> master
     
     $.ajax({
         type: "GET",
         url: "/apis/parts/",
         success: function (data) {
+<<<<<<< HEAD
             _clearModal2()
             _addOption2('#id-updateitem-part', data['parts'])
+=======
+            _clearModal($('#id-modal-updateitem'), $('#id-updateitem-id'));
+            _addOption('#id-updateitem-part', data['parts']);
+>>>>>>> master
             $('#id-modal-updateitem').modal('toggle');
         },
         error: function (e) {
@@ -39,6 +55,7 @@ function openUpdateItem(event) {
 
 
 /*-----------------------------------------------------------------------------
+<<<<<<< HEAD
  * 부위가 변경되면 카테고리1의 항목값을 DB에서 받아와 채워줌
  */
 function onPartChange2() {
@@ -92,6 +109,8 @@ function onCate1Change2() {
 
 
 /*-----------------------------------------------------------------------------
+=======
+>>>>>>> master
  * Validator에서 모든 체크가 완료되면 실질적으로 AJAX POST를 진행한다. 
  * form에 있는 모든 정보를 서버로 전송한다.
  */
@@ -123,11 +142,9 @@ function onCate1Change2() {
                 $("#detail_modal").load();
                 
                 // updateitem페이지 초기화
-                _clearModal();
+                _clearModal($('#id-modal-updateitem'), $('#id-updateitem-id'));
 
-              })
-            
-          
+            })
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -135,6 +152,7 @@ function onCate1Change2() {
             $('#id-btn-updateitem').prop("disabled", false);
             disableLoading();
         }
+<<<<<<< HEAD
    });
  }
 
@@ -202,6 +220,8 @@ function _setUploadTrigger2() {
 
         // 버튼이 클릭되면 validator로 결정권을 넘김
         $('#id-form-updateitem').submit();
+=======
+>>>>>>> master
     });
 }
 
@@ -213,7 +233,11 @@ function _setUploadTrigger2() {
  *  https://jqueryvalidation.org/
  *      
  */
+<<<<<<< HEAD
 function _makeValidator2() {
+=======
+function _makeValidator_clothes_update() {
+>>>>>>> master
     $("#id-form-updateitem").validate({
         rules: {
           part: {required: true },
@@ -229,25 +253,5 @@ function _makeValidator2() {
         success: function (e) {
             //ToDo: Nonthing To Do...
         }
-    });
-
-    $.extend( $.validator.messages, { 
-        required: "필수 항목입니다.", 
-        remote: "항목을 수정하세요.", 
-        email: "유효하지 않은 E-Mail주소입니다.", 
-        url: "유효하지 않은 URL입니다.", 
-        date: "올바른 날짜를 입력하세요.", 
-        dateISO: "올바른 날짜(ISO)를 입력하세요.", 
-        number: "유효한 숫자가 아닙니다.", 
-        digits: "숫자만 입력 가능합니다.", 
-        creditcard: "신용카드 번호가 바르지 않습니다.", 
-        equalTo: "같은 값을 다시 입력하세요.", 
-        extension: "올바른 확장자가 아닙니다.", 
-        maxlength: $.validator.format( "{0}자를 넘을 수 없습니다. " ), 
-        minlength: $.validator.format( "{0}자 이상 입력하세요." ), 
-        rangelength: $.validator.format( "문자 길이가 {0} 에서 {1} 사이의 값을 입력하세요." ), 
-        range: $.validator.format( "{0} 에서 {1} 사이의 값을 입력하세요." ),
-        max: $.validator.format( "{0} 이하의 값을 입력하세요." ), 
-        min: $.validator.format( "{0} 이상의 값을 입력하세요." ) 
     });
 }

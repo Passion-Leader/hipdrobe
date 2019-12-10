@@ -11,7 +11,6 @@ urlpatterns = [
     path('wardrobe/coordi/', views.coordi, name="coordi"),
     path('wardrobe/coordi/<int:c_id>/detail/', views.coordi_detail, name="coordi_detail"),
     path('wardrobe/coordi/<int:c_id>/update/', views.coordi_update, name="coordi_update"),
-    path('wardrobe/coordi/<int:c_id>/delete/', views.coordi_delete, name="coordi_delete"),
     path('wardrobe/stat/', views.stat, name="stat" ),
     
     path('signup/',views.signup, name="signup"),
@@ -38,6 +37,8 @@ urlpatterns = [
     path('apis/additem/', apis.additem, name="additem"),
     path('apis/coordi/', apis.coordi, name="coordi_list"),
     path('apis/coordi/new/', apis.coordi_new, name="coordi_new"),
+    path('apis/coordi/delete/', apis.coordi_delete, name="coordi_delete"),
+    path('apis/coordi/edit/', apis.coordi_edit, name="coordi_edit"),
     path('apis/daily-status/', apis.daily_status, name="daily_status"),
     # path('check_id/',views.check_id,name="check_id"),
     path('apis/clothes_detail/', apis.clothes_detail, name="clothes_detail"),

@@ -13,19 +13,26 @@
   <div class="container-fluid content-wrap ctnt-center">
     <!-- main content section -->
     <div class="content-main">
-        <h3> My hipdrobe </h3>
-        <div class="cont_wrap">
-          <input type="button" class="fun-btn" id="item_top" value="상의"> <br>
-          <input type="button" class="fun-btn" id="item_hat" value="모자"> <br><br><br>
-          <input type="button" class="fun-btn" id="item_bag" value="가방"> <br><br><br>
-          <input type="button" class="fun-btn" id="item_btm" value="하의"> 
-          <input type="button" class="fun-btn" id="item_out" value="아우터"> <br><br>
-          <input type="button" class="fun-btn" id="item_acc" value="액세서리"> <br><br><br>
-          <input type="button" class="fun-btn" id="item_else" value="기타"><br><br>
-          <input type="button" class="fun-btn" id="item_sock" value="양말"><br>
-          <input type="button" class="fun-btn" id="item_shoe" value="신발">
-          
+      <div class="row mb-3">
+        <div class="col-8">
+          <h3 class="heading">My Hipdrobe</h3>
         </div>
+        <div class="col-4" style="text-align: right;">
+          <button class="btn btn-primary" onclick="openAddItemDialog(event)">옷 추가하기</button>
+        </div>
+      </div>
+      <div class="cont_wrap">
+        <input type="button" class="fun-btn" id="item_top" value="상의"> <br>
+        <input type="button" class="fun-btn" id="item_hat" value="모자"> <br><br><br>
+        <input type="button" class="fun-btn" id="item_bag" value="가방"> <br><br><br>
+        <input type="button" class="fun-btn" id="item_btm" value="하의"> 
+        <input type="button" class="fun-btn" id="item_out" value="아우터"> <br><br>
+        <input type="button" class="fun-btn" id="item_acc" value="액세서리"> <br><br><br>
+        <input type="button" class="fun-btn" id="item_else" value="기타"><br><br>
+        <input type="button" class="fun-btn" id="item_sock" value="양말"><br>
+        <input type="button" class="fun-btn" id="item_shoe" value="신발">
+        
+      </div>
         
         
 

@@ -9,7 +9,7 @@
  * 필수항목 validator를 구성
  */
 $('document').ready(function(){
-    _setUploadTrigger();
+    _setUploadTrigger($('#id-btn-additem'), $('#id-form-additem'));
     _makeValidator();
 });
 
@@ -27,7 +27,7 @@ function openAddItemDialog(event) {
         type: "GET",
         url: "/apis/parts/",
         success: function (data) {
-            _clearModal()
+            _clearModal($('#id-modal-additem'), $('#id-additem-url') )
             _addOption('#id-additem-part', data['parts'])
             $('#id-modal-additem').modal('toggle');
         },
@@ -42,11 +42,16 @@ function openAddItemDialog(event) {
 /*-----------------------------------------------------------------------------
  * 부위가 변경되면 카테고리1의 항목값을 DB에서 받아와 채워줌
  */
-function onPartChange() {
+function onPartChange(type) {
     part_name = $('#id-additem-part option:selected').val()
     if (part_name == "") {
-        _eraseOption('#id-additem-cate1')
-        _eraseOption('#id-additem-cate2')
+        if (type == 'add') {
+            _eraseOption('#id-additem-cate1');
+            _eraseOption('#id-additem-cate2');
+        } else {
+            _eraseOption('#id-updateitem-cate1')
+            _eraseOption('#id-updateitem-cate2')
+        }
         return;
     }      
 
@@ -56,7 +61,10 @@ function onPartChange() {
         contentType: "application/json",
         data: {part: part_name},
         success: function (data) {
-            _addOption('#id-additem-cate1', data['cate1'])
+            if (type == 'add')
+                _addOption('#id-additem-cate1', data['cate1'])
+            else
+                _addOption('#id-updateitem-cate1', data['cate1'])
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -69,10 +77,18 @@ function onPartChange() {
 /*-----------------------------------------------------------------------------
  * 카테고리1이 변경되면 카테고리2의 항목값을 DB에서 받아와 채워줌
  */
-function onCate1Change() {
-    cate1_name = $('#id-additem-cate1 option:selected').val()
+function onCate1Change(type) {
+    let cate1_name = "";
+    if (type == 'add')
+        cate1_name = $('#id-additem-cate1 option:selected').val();
+    else
+        cate1_name = $('#id-updateitem-cate1 option:selected').val();
+
     if (cate1_name == "") {
-        _eraseOption('#id-additem-cate2')
+        if (type == 'add')
+            _eraseOption('#id-additem-cate2');
+        else
+            _eraseOption('#id-updateitem-cate2')
         return;
     }
         
@@ -82,7 +98,10 @@ function onCate1Change() {
         contentType: "application/json",
         data: {cate1: cate1_name},
         success: function (data) {
-            _addOption('#id-additem-cate2', data['cate2'])
+            if (type == 'add')
+                _addOption('#id-additem-cate2', data['cate2'])
+            else
+                _addOption('#id-updateitem-cate2', data['cate2'])
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -210,10 +229,10 @@ function uploadImage(event) {
             $('#id-btn-additem').prop("disabled", false);
             disableLoading();
         }
-   });
- }
+    });
+}
 
- 
+
 /*-----------------------------------------------------------------------------
  * target으로 주어진 select-box에 data로 주어진 항목들을 채움
  */
@@ -240,8 +259,8 @@ function _eraseOption(target) {
 /*-----------------------------------------------------------------------------
  * 의상 등록 다이얼로그를 새로 띄웠을 경우 기존 데이터를 모두 지움
  */
-function _clearModal() {
-    let forms = $('#id-modal-additem').find('form');
+function _clearModal($modal, $elem) {
+    let forms = $modal.find('form');
     for(let i = 0; i < forms.length; i++) {
         forms[i].reset();
     }
@@ -251,20 +270,20 @@ function _clearModal() {
         $(imgs[i]).attr('src', "/static/hipdrobe/img/no-image.png");
     }
 
-    $('#id-additem-url').val("");
+    $elem.val("");
 }
 
 
 /*-----------------------------------------------------------------------------
  * 최종 업로드 버튼
  */
-function _setUploadTrigger() {
-    $('#id-btn-additem').click(function(event){
+function _setUploadTrigger($btn, $form) {
+    $btn.click(function(event){
         event.stopPropagation();
         event.preventDefault();
 
         // 버튼이 클릭되면 validator로 결정권을 넘김
-        $('#id-form-additem').submit();
+        $form.submit();
     });
 }
 
