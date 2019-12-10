@@ -1,29 +1,123 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>hipdrobe 로그인</title>
+  <link rel="stylesheet" href="{% static 'hipdrobe/css/login.css' %}" />
+  <link rel="shortcut icon" href="{% static 'hipdrobe/favicon/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
 
-<form method="post" action="{% url 'hipdrobe:signin' %}" class="sign-in-form">
-    {%csrf_token%}
-    <h2 class="sub-title"> 로그인 </h2>
-    {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
-    {% if next %}
-        {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed,
-        please login with an account that has access.</p>
-        {% else %}
-        <p>Please login to see this page.</p>
-        {% endif %}
-    {% endif %}
-    <div class="form-group">
-      <label for="{{ form.email.id_for_label }}">이메일!@@@@@</label>
-      <input class="form-control" id="{{ form.email.id_for_label }}" maxlength="50" name="{{ form.email.html_name }}" type="text" />
+
+    <div class="page">
+        <div class="container">
+          <div class="left">
+            <div class="login">Hipdrobe</div>
+            <div class="eula">옷장관리 & 소통으로 Hipster가 되어보세요!</div>
+          </div>
+          <div class="right">
+            <svg viewBox="0 0 320 300">
+              <defs>
+                <linearGradient
+                                inkscape:collect="always"
+                                id="linearGradient"
+                                x1="13"
+                                y1="193.49992"
+                                x2="307"
+                                y2="193.49992"
+                                gradientUnits="userSpaceOnUse">
+                  <stop
+                        style="stop-color:#ff00ff;"
+                        offset="0"
+                        id="stop876" />
+                  <stop
+                        style="stop-color:#ff0000;"
+                        offset="1"
+                        id="stop878" />
+                </linearGradient>
+              </defs>
+              <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+            </svg>
+            <div class="form">
+              <form method="post" action="{% url 'hipdrobe:signin' %}" class="sign-in-form">
+                  {%csrf_token%}
+              <label for="{{ form.email.id_for_label }}">이메일</label>
+              <input id="email" class="form-control" id="{{ form.email.id_for_label }}" maxlength="50" name="{{ form.email.html_name }}" type="text" />
+              <label for="{{ form.password.id_for_label }}">패스워드</label>
+              <input id="password" class="form-control" id="{{ form.password.id_for_label }}" maxlength="120" name="{{ form.password.html_name }}" type="password" />
+              <input type="submit" id="submit" class="save btn btn-success" value="로그인">              
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+<!-- 
+<div class="page">
+    <div class="container">
+      <div class="left">
+        <div class="login">Login</div>
+        <div class="eula">By logging in you agree to the ridiculously long terms that you didn't bother to read</div>
+      </div>
+      <div class="right">
+        <svg viewBox="0 0 320 300">
+          <defs>
+            <linearGradient
+                            inkscape:collect="always"
+                            id="linearGradient"
+                            x1="13"
+                            y1="193.49992"
+                            x2="307"
+                            y2="193.49992"
+                            gradientUnits="userSpaceOnUse">
+              <stop
+                    style="stop-color:#ff00ff;"
+                    offset="0"
+                    id="stop876" />
+              <stop
+                    style="stop-color:#ff0000;"
+                    offset="1"
+                    id="stop878" />
+            </linearGradient>
+          </defs>
+          <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+        </svg>
+        <form method="post" action="{% url 'hipdrobe:signin' %}" class="sign-in-form">
+          {%csrf_token%}
+        <div class="form">
+            <div class="form-group">
+              
+              </div>
+              <div class="form-group">
+                
+              </div>
+              
+                <button type="button" class="btn btn-danger">취소</button>
+              </a>
+              <input type="hidden" name="next" value="{{ next }}" />
+        </form> 
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="{{ form.password.id_for_label }}">패스워드</label>
-      <input class="form-control" id="{{ form.password.id_for_label }}" maxlength="120" name="{{ form.password.html_name }}" type="password" />
-    </div>
-    <input type="submit" class="save btn btn-success" value="로그인">
-    <a href="{% url 'hipdrobe:index' %}">
-      <button type="button" class="btn btn-danger">취소</button>
-    </a>
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
+  </div> -->
+
+<script src="{% static 'hipdrobe/js/login.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
