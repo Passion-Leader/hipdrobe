@@ -13,10 +13,7 @@ $(document).ready(function(){
         }
     });
 
-   
-
     getCoordi(true, 1);
-    getCoordi(false, 1);
 });
 
 
@@ -60,12 +57,10 @@ function getCoordi(is_daily, page_num) {
         if (is_daily) {
             g_coordiDailyPage = data['page_num']
             pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-daily'));
-            
         } else {
             g_coordiNormalPage = data['page_num']
             pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-normal'));
         }
-
     })
     .catch(function (error) {
         console.log(error);

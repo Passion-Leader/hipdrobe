@@ -21,19 +21,21 @@
         </div>
       </div>
 
-      <!-- 부위 설정 / 코디하기 -->
-      <div class="row mb-3">
-        <div class="mb-2 win-wrapper">
-          
-        </div> 
+      <div class="row">
+        <div class="card-group">
+          <div class="card">
+          </div>
+        </div>
       </div>
 
-      <!-- 제목 -->
-      <div class="form-group">
+      <div class="row btn-wrapper">
+        <div class="btn-group">
 
+          <a href="{% url 'hipdrobe:coordi_update' data.id %}" class="btn btn-warning">수정하기</a>
+          <button class="btn btn-danger" onclick="confirmDelete(event)">삭제하기</button>
+    
+        </div>
       </div>
-      <!-- 본문-->
-
     </div>
 
 
@@ -51,6 +53,27 @@
       <p>content-info</p>
     </div>
   </div>
+  <input type="hidden" value="{{data}}" id="hidden-data"/>
+  <div class="modal fade" id="id-modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">정말 삭제할까요?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        삭제한 코디는 다시 되돌릴 수 없습니다.<br>
+        정말 삭제할까요?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-danger" onclick="deleteCoordi(event)">삭제하기</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 {% block content-bottom %}
   {% include 'hipdrobe/include/_wardrobe-additem.html' %}

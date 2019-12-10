@@ -6,9 +6,78 @@
     color: black;
 }
 
+p {
+    font-family: 'Nanum Pen Script', cursive;
+    font-weight: 100;
+    font-size: medium;
+}
+
 .content-main {
     background-image: url(/static/hipdrobe/img/bg_index01.jpg);
-    padding: 0px 5% 0px;
+    padding: 0px 5% 5%;
+    color: white;
+}
+
+
+.detail-title, 
+.detail-content {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    text-align: left;
+    margin: auto;
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+.card-title {
+    color: black;
+}
+
+.card-group {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.card {
+    /* font-family: 'NanumGothic', sans-serif; */
+    margin: 10px;
+    border: solid 1px black;
+}
+
+.card .coord-post {
+    border-radius: 0;
+    border-style: none;
+    border-top-right-radius: calc(.25rem - 1px);
+}
+
+.card .coord-post::after {
+    border-radius: 0;
+}
+
+.btn-wrapper {
+    text-align: right;
+}
+
+.btn-group {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 10px;
+    display: inline-block;
+}
+
+.detail-title {
+ 
+}
+
+.detail-content {
+
+}
+
+.win-wrapper {
+    width: 100%;
 }
 
 .heading {

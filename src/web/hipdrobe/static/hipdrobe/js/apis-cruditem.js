@@ -16,6 +16,12 @@ function getItemUrlsAndOpenList(name, fnStr) {
         contentType: "application/json",
         data: {userid: "user01@test.com", name: name},
         success: function (data) { 
+            if ( typeof data == 'string') {
+                window.location.href = '/login/';
+                return;
+            }
+                
+
             g_data = data['url'];
             var g_data_len = Object.keys(g_data).length;
             $('div.carousel-inner').html('');

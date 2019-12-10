@@ -284,7 +284,7 @@ function  setPartsImage(part, imgTag) {
     }, 500);
 
 
-    $('#myModal').modal('toggle');
+    $('#itemlist').modal('toggle');
 }
 
 function unsetPartsImage(part, strAttr) {
@@ -420,6 +420,7 @@ function _divToObject($elem) {
     const top = parseFloat($elem.css('top'));
     const zindex = $elem.css('z-index');
     const imgurl = $elem.find('img').attr('src');
+    const pid = $elem.attr('pid');
 
     const item = {
         'width': (width/divWidth)*100 + '%',
@@ -427,6 +428,7 @@ function _divToObject($elem) {
         'top': (top/divHeight)*100 + '%',
         'zindex': zindex,
         'imgurl': imgurl,
+        'pid' : pid
     };
 
     return item;
@@ -445,7 +447,8 @@ function _objToCoordWind(width, height, obj) {
 
     const arrDiv = [];
     list.forEach( elem => {
-        const $div = $('<div>').attr('class', "coord-part");
+        const $div = $('<div>').attr('class', "coord-part")
+                .attr('pid', obj['pid']);
         $div.css({
             'width': elem['width'],
             'height': 'auto',
@@ -630,9 +633,9 @@ function pushCoordisToBottom(data, $parent) {
             // Title
             const $title = $('<h4>').attr('class', 'card-title');
             $title.appendTo($cardBody);
-            const $a = $('<a>').attr('href', 
-                `/wardrobe/coordi/${data[cardsIndex]['id']}/detail/`)
-                .attr('target', '_blank').html(data[cardsIndex]['title']);
+            const $a = $('<a>')
+                .attr('href', `/wardrobe/coordi/${data[cardsIndex]['id']}/detail/`)
+                .html(data[cardsIndex]['title']);
             $a.appendTo($title);
             
             // Content

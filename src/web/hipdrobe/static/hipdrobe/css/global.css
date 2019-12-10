@@ -382,7 +382,6 @@ label.error {
     color:black;
     font-size:30px;
     text-align:center;
-    margin-left:212px;
 }
 
 .modal-dialog .modal-content .modal-division {
@@ -570,6 +569,10 @@ label.error {
 
 .right {
     float: right;
+}
+
+.max-600 {
+    max-width: 600px;
 }
 
 
