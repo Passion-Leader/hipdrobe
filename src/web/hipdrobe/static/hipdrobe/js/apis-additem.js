@@ -43,7 +43,12 @@ function openAddItemDialog(event) {
  * 부위가 변경되면 카테고리1의 항목값을 DB에서 받아와 채워줌
  */
 function onPartChange(type) {
-    part_name = $('#id-additem-part option:selected').val()
+    let part_name = "";
+    if (type == 'add')
+        part_name = $('#id-additem-part option:selected').val();
+    else
+        part_name = $('#id-updateitem-part option:selected').val();
+
     if (part_name == "") {
         if (type == 'add') {
             _eraseOption('#id-additem-cate1');

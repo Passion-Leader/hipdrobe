@@ -218,6 +218,9 @@
       border : none;
       color : black;
       font-size : 22px;
+      position: absolute;
+      left: 39.5%;
+      bottom: 6%;
     }
 
     #delete_btn {

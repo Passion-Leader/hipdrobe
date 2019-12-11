@@ -68,15 +68,15 @@ div.control {
 }
 
 .coord-post.summer::after {
-    background-image: url('/static/hipdrobe/img/bg-summer.png'); 
+    background-image: url('/static/hipdrobe/img/bg-summer.jpg'); 
 }
 
 .coord-post.autumn::after {
-    background-image: url('/static/hipdrobe/img/bg-autumn.png'); 
+    background-image: url('/static/hipdrobe/img/bg-autumn.jpg'); 
 }
 
 .coord-post.winter::after {
-    background-image: url('/static/hipdrobe/img/bg-winter.png'); 
+    background-image: url('/static/hipdrobe/img/bg-winter.jpg'); 
 }
 
 .coord-post.inside::after {

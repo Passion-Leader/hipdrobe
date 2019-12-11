@@ -30,6 +30,10 @@ function changeLogColor(color) {
     $('#brand-main').css('color', color);
     $('#brand-main-narrow').css('color', color);
     $('#brand-main-hangeul-narrow').css('color', color);
+
+    if( color == 'black')
+        $('#brand-main-hangeul img').attr(
+            'src', '/static/hipdrobe/img/brand-g-bl.svg');
 }
 
 

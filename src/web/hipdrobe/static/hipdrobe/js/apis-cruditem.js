@@ -56,8 +56,8 @@ function getItemUrlsAndOpenList(name, fnStr) {
                 } //for end
             } // else if1 end
             else {
-                $('#img_list').append($('<h5>').html('이 카테고리의 옷이 한 벌도 없어요.'));
-                $('#img_list').append($('<p>').html('옷을 추가해보세요!'));
+                $('#img_list').append($('<h5>').html('이 카테고리의 패션 아이템이 하나도 없어요.'));
+                $('#img_list').append($('<p>').html('아이템을 추가해보세요!'));
             }
             
             $('.modal-title.item').text(name + ' 리스트')
@@ -179,7 +179,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
                                     $('#id-updateitem-color').attr("value", data['color']);
                                     
                                     // season checked 처리
-                                    console.log(data['season'])
+                                    // console.log(data['season'])
                                     for(var i=1; i<=4; i++) {
                                         $("input:checkbox[id='id-updateitem-season"+i+"']").prop("checked", false);
                                         if (data['season'].includes($('#id-updateitem-season' + i).val())) {
@@ -188,7 +188,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
                                     }
 
                                     // pattern checked 처리
-                                    console.log(data['pattern'])
+                                    // console.log(data['pattern'])
                                     for(var i=1; i<=4; i++) {
                                         if ($('#id-updateitem-pattern' + i).val() == data['pattern']) {
                                             $("input:radio[id='id-updateitem-pattern"+i+"']").attr("checked", true);
@@ -197,7 +197,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
 
                                     // solid 여부 checked 처리
                                     for(var i=1; i<=2; i++) {
-                                        console.log($('#id-updateitem-colortype' + i).val())
+                                        // console.log($('#id-updateitem-colortype' + i).val())
                                         if ($('#id-updateitem-colortype' + i).val() == data['solid']) {
                                             $("input:radio[id='id-updateitem-colortype"+i+"']").attr("checked", true);
                                         }

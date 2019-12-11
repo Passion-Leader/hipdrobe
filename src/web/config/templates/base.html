@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
 
@@ -45,15 +45,14 @@
                           <span class="letters">Wardrobe</span>
                         </span>
                       </h1>
-                    <!-- 
-                    <div class="m17"><span class="text-wrapper">war</span><span class="letters">drobe</span></div>
-                    <div class="clearfix"></div>
-                    <div id="brand-main-hangeul"></div> 
-                    -->
+                    
+                    <div id="brand-main-hangeul">
+                        <img src="{% static '/hipdrobe/img/brand-g-wh.svg'%}" alt="힙드로브"/>
+                    </div> 
+                    
                 </a>
             </div>
             <ul class="list-unstyled components">
-                <p>Dummy Heading</p>
                 <li id="main-ln-wardrobe" class="">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">나만의 옷장</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -80,42 +79,61 @@
                 <li>
                     <a href="#">입는다그램</a>
                 </li>
-                <li>
-                    <a href="#">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
             </ul>
         </nav>
 
         <!-- Page Content-->
         <div id="content">
-            <nav class="navbar navbar-light navbar-narrow">
-                <div class="container-fluid">
-                    <div>
-                        <a href="{% url 'hipdrobe:index'%}">
-                            <p id="brand-main-narrow">HIP</p>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="{% url 'hipdrobe:index'%}">
-                            <!--
-                            <p id="brand-main-hangeul-narrow">힙드로브</p>
-                            -->
-                            <span class="brand-del">war</span><span class="brand-sub">drobe</span>
-                        </a>
-                    </div>
-                    <div>
-                        <ul>
-                            <li><a href="{% url 'hipdrobe:items' %}">나만의 옷장</a></li>
-                            <li><a href="#">랭킹 보기</a></li>
-                            <li><a href="#">입는다그램</a></li>
-                        </ul>
-                    </div>
+            <nav id="id-nav-narrow" class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'hipdrobe/img/brand.png' %}" width="45" height="45" class="d-inline-block align-top" alt="">
+                    HIPdrobe
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        {% if user.is_active %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">{{user.username}}님 환영합니다</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'hipdrobe:logout' %}">로그아웃</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'hipdrobe:signin' %}">로그인</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'hipdrobe:signup' %}">회원가입</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            나만의 옷장
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'hipdrobe:items' %}">내 옷장 보기</a>
+                            <a class="dropdown-item" href="{% url 'hipdrobe:coordi' %}">코디 작성</a>
+                            <a class="dropdown-item" href="{% url 'hipdrobe:stat' %}">힙-스탯</a>
+                            <a class="dropdown-item" href="#">방명록</a>
+                            <a class="dropdown-item" href="#">거래</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">랭킹 보기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">입는다그램</a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
-            <nav class="navbar navbar-expand-lg navbar-light">
+            <nav id="id-div-nav-sub" class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
                     <div>
                         <p id="page-title"></p>&nbsp;&nbsp;<p id="page-title-sub"></p>
@@ -130,8 +148,8 @@
                             <li><a href="{% url 'hipdrobe:logout' %}">로그아웃</a></li>
                                 
                             {% else %}
-                            <li><a href="{%url 'hipdrobe:signin' %}"> <span class="glyphicon glyphicon-user"></span> 로그인</a></li>
-                            <li><a class="nav-link" href="{%url 'hipdrobe:signup' %}">회원가입</a></li>
+                            <li><a href="{% url 'hipdrobe:signin' %}"> <span class="glyphicon glyphicon-user"></span> 로그인</a></li>
+                            <li><a class="nav-link" href="{% url 'hipdrobe:signup' %}">회원가입</a></li>
                             {% endif %}
                         </li>
                             

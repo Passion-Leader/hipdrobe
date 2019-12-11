@@ -623,16 +623,19 @@ function getAndSetDailyStatus() {
 /* ----------------------------------------------------------------------------
  * 서버에서 날아온 Coordi Object를 DOM Element로 복원하여 화면에 심어준다.
  */
-function pushCoordisToBottom(data, $parent) {
+function pushCoordisToBottom(data, $parent, tag) {
     
     const length = data.length;
     const rowToGo = Math.ceil(parseFloat(length)/CARDS_IN_ROW);
 
     let cardsIndex = 0;
     for (let i = 0; i < rowToGo; i++) {
-        
         const $cardGroup = $('<div>').attr('class', 'card-group');
         $cardGroup.appendTo($parent)
+
+        if (i == 0) {
+            $cardGroup.attr('name', tag);
+        }
         
         let slotRemained = CARDS_IN_ROW;
         for (let j = 0; j < slotRemained; j++) {

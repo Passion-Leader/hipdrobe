@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 
 
-let g_coordi = null;
+var g_coordi = null;
 function setCoordiForUpdate() {
     // 코디 정보를 가져와 오브젝트로 만들고
     const dataRaw = $('#hidden-data').val()
@@ -36,6 +36,35 @@ function setCoordiForUpdate() {
         setPartsImage(g_currentPart, imgTag);
     });
 
+    // 위치 복원
+    const fn = function() {
+        setTimeout(function() {
+            const $parts = $('#id-div-coord-win').find('.coord-part');
+            if($parts.length == 0) {
+                fn();
+                return;
+            }
+
+            $parts.each(function(i, part) {
+                const $part = $(part);
+                const elem_list = g_coordi['elem_list'];
+                for (let j = 0; j <elem_list.length; j++) {
+                    const coordi = elem_list[j];
+                    if ($part.attr('pid') == coordi['pid']) {
+                        $part.css({
+                            'width': coordi['width'],
+                            'top': coordi['top'],
+                            'left': coordi['left'],
+                            'z-index': coordi['zindex']
+                        })
+                        break;
+                    }
+                }
+            });
+        }, 50);
+    };
+    fn();
+
     // 배경 설정
     const $btnGroup =  $('#id-div-coord-win .btn-group');
     $btnGroup.find('.active').removeClass('active');
@@ -56,6 +85,7 @@ function setCoordiForUpdate() {
             .attr('onclick', 'openPostModal(event, false, false)')
     }
 }
+
 
 function coordSubmitUpdate(e) {
     e.stopPropagation();

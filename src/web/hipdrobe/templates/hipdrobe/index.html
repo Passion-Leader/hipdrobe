@@ -27,7 +27,7 @@
           훨씬 좋은 조합을 찾을 수 있을걸요?<br>
           <i>Fashion Insight!</i>
       </p>
-      <a href=""><ins><i>Go!</i></ins></a>
+      <a href="{% url 'hipdrobe:items' %}"><ins><i>Go!</i></ins></a>
     </div>
     <hr>
     <div class="content-bottom-elem">
@@ -40,20 +40,20 @@
           나는 어떤 스타일의 옷을 주로 입을까?<br>
           <i>정보가 쌓이면 유의미한 정보를 얻을 수 있어요!</i>
       </p>
-      <a href=""><ins><i>Go!</i></ins></a>
+      <a href="{% url 'hipdrobe:stat' %}"><ins><i>Go!</i></ins></a>
     </div>
     <hr>
     <div class="content-bottom-elem">
       <p class="p-head">
-        무름르 프르글 무글무글 크프르르글<br>
-        아옳옳옳옳 프르글 무름르 프르글
+        내가 가진 힙템들로 코디 포스트를 작성하고<br>
+        다른 사람들과 공유해보세요.
       </p>
       <p class="p-body">
-          블라블라 브블라 블라브블 블라라라블라<br>
-          요로로로롤 롤로로롤 로롱로로로로롱로로롤?<br>
-          <i>철컹철컹!</i>
+          내가 작성한 코디 포스트를 공유하고<br>
+          다른 사람의 코디 포스트를 참조해보세요.<br>
+          <i>안목이 늘면, Yo! 나도 패션리더!</i>
       </p>
-      <a href=""><ins><i>Go!</i></ins></a>
+      <a href="{% url 'hipdrobe:coordi' %}"><ins><i>Go!</i></ins></a>
     </div>
   </div>
 {% endblock %}

@@ -40,3 +40,20 @@ p {
     float: left;
     vertical-align:middle;
 }
+
+
+.btn-wrapper {
+    text-align: right;
+}
+
+.btn-group-bottom {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 10px;
+    display: inline-block;
+}
+
+.coord-win {
+    margin-bottom: 0px !important;
+}
