@@ -56,8 +56,8 @@ function getItemUrlsAndOpenList(name, fnStr) {
                 } //for end
             } // else if1 end
             else {
-                $('#img_list').append($('<h5>').html('이 카테고리의 옷이 한 벌도 없어요.'));
-                $('#img_list').append($('<p>').html('옷을 추가해보세요!'));
+                $('#img_list').append($('<h5>').html('이 카테고리의 패션 아이템이 하나도 없어요.'));
+                $('#img_list').append($('<p>').html('아이템을 추가해보세요!'));
             }
             
             $('.modal-title.item').text(name + ' 리스트')

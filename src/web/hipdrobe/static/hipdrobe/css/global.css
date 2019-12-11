@@ -56,7 +56,7 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
+    padding: 20px 0 20px 20px;
     /* border-bottom: 1px solid #47748b; */
 }
 
@@ -266,6 +266,7 @@ nav.navbar > div > div p {
 .content-main {
     width: 100%;
     padding: 0px 6px 0px;
+    min-height: 100vh;
 }
 
 .content-info {

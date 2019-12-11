@@ -107,4 +107,5 @@ bag_backpack = Cate2.objects.create(cate2='bag_backpack', cate2_name='백팩', c
 bag_cross = Cate2.objects.create(cate2='bag_cross', cate2_name='크로스백', cate1=bag)
 bag_echo = Cate2.objects.create(cate2='bag_echo', cate2_name='에코백', cate1=bag)
 bag_else = Cate2.objects.create(cate2='bag_else', cate2_name='기타', cate1=bag)
-
+sports_top_basic = Cate2.objects.create(cate2='sports_top_basic', cate2_name='기본', cate1=sports_top)
+sports_bottom_basic = Cate2.objects.create(cate2='sports_bottom_basic', cate2_name='기본', cate1=sports_bottom)
