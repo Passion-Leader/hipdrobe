@@ -272,6 +272,7 @@ nav.navbar > div > div p {
 .content-info {
     min-width: 200px;
     max-width: 200px;
+    padding: 0px 10px 10px 30px;
     /* min-height: 100vh; */
     /* transition: all 0.3s; */
 }
