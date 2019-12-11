@@ -54,8 +54,8 @@ function changeCoordMode(mode) {
         $('#id-div-coord-win').css('display', 'none');
 
         const $parent = $('#id-div-mode-change');
-        $parent.find('.btn-info').addClass('active')
-        $parent.find('.btn-warning').removeClass('active')
+        $parent.find('.btn-light').addClass('active')
+        $parent.find('.btn-dark').removeClass('active')
 
         setTimeout(function(){
             setPartsHeights();
@@ -67,8 +67,8 @@ function changeCoordMode(mode) {
         $('#id-div-coord-win').css('display', 'flex');
 
         const $parent = $('#id-div-mode-change');
-        $parent.find('.btn-info').removeClass('active')
-        $parent.find('.btn-warning').addClass('active')
+        $parent.find('.btn-light').removeClass('active')
+        $parent.find('.btn-dark').addClass('active')
 
         setTimeout(function(){
             enableDnD();
