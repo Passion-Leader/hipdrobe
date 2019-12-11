@@ -173,7 +173,7 @@ def signup(request):
             print(new_user)
             return redirect('hipdrobe:index')
         else:
-            return HttpResponse('이미 존재하는 계정입니다.')
+            return render(request,'hipdrobe/login_Fail.html')
     else:
         print("33")
         form = UserForm()

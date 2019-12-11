@@ -18,7 +18,10 @@ body {
 
 }
 .page {
-  background: #e2e2e5;
+  /* background: #e2e2e5; */
+  background-image:url(../img/regist_images/background.jpg);
+  background-repeat:no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   height: calc(100% - 40px);
@@ -26,6 +29,7 @@ body {
   place-content: center;
   width: calc(100% - 40px);
 }
+
 @media (max-width: 767px) {
   .page {
     height: auto;
