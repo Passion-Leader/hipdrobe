@@ -18,6 +18,7 @@ $('document').ready(function(){
  * 업데이트 모달 띄우기 
  */
 function openUpdateItem(event) {
+    _eraseOption('#id-updateitem-part');
     _eraseOption('#id-updateitem-cate1')
     _eraseOption('#id-updateitem-cate2')
     eraseErrorLabel($('#id-modal-updateitem'));
