@@ -37,66 +37,74 @@ def items(request):
     # 로그인 안 해도 화면은 보여주고 실제 동작 할때 로그인 하라고 하는 게 나을 것
     # 같아서 로그인 체크 안 함
 
-    # 시연용 테스트 코드 실제로 구현할 땐 이렇게 하면 안되지만 그냥 보여주기 용
+    # 시연용 테스트 코드 
+    # 실제로 구현할 땐 이렇게 하면 안 되지만 그냥 보여주기 용
     # 실제로 구현할 땐 서버에서 일정 주기로 전체 정보를 갱신하여 갖고있도록 해 놓고
-    # 유저 것만 조회하여 계산...
-    list_top = [ len(user.clothes_set.filter(part='상의'))
-        for user in User.objects.all() ]
-    my_top = len(request.user.clothes_set.filter(part='상의'))
+    # 각 유저 것만 조회하여 계산...
 
-    list_bottom = [ len(user.clothes_set.filter(part='하의'))
-        for user in User.objects.all() ]
-    my_bottom = len(request.user.clothes_set.filter(part='하의'))
+    if request.user.is_authenticated:
+        try:
+            list_top = [ len(user.clothes_set.filter(part='상의'))
+                for user in User.objects.all() ]
+            my_top = len(request.user.clothes_set.filter(part='상의'))
 
-    list_head = [ len(user.clothes_set.filter(part='머리'))
-        for user in User.objects.all() ]
-    my_head = len(request.user.clothes_set.filter(part='머리'))
+            list_bottom = [ len(user.clothes_set.filter(part='하의'))
+                for user in User.objects.all() ]
+            my_bottom = len(request.user.clothes_set.filter(part='하의'))
 
-    list_foot = [ len(user.clothes_set.filter(part='발'))
-        for user in User.objects.all() ]
-    my_foot = len(request.user.clothes_set.filter(part='발'))
+            list_head = [ len(user.clothes_set.filter(part='머리'))
+                for user in User.objects.all() ]
+            my_head = len(request.user.clothes_set.filter(part='머리'))
+
+            list_foot = [ len(user.clothes_set.filter(part='발'))
+                for user in User.objects.all() ]
+            my_foot = len(request.user.clothes_set.filter(part='발'))
+            
+            avg_top = sum(list_top) / len(list_top)
+            max_top = max(list_top)
+            avg_top = (avg_top / max_top) * 100
+            my_top = (my_top / max_top) * 100
+
+            avg_bottom = sum(list_bottom) / len(list_bottom)
+            max_bottom = max(list_bottom)
+            avg_bottom= (avg_bottom / max_bottom) * 100
+            my_bottom = (my_bottom / max_bottom) * 100
+
+            avg_head = sum(list_head) / len(list_head)
+            max_head = max(list_head)
+            avg_head = (avg_head / max_head) * 100
+            my_head = (my_head / max_head) * 100
+
+            avg_foot = sum(list_foot) / len(list_foot)
+            max_foot = max(list_foot)
+            avg_foot = (avg_foot / max_foot) * 100
+            my_foot = (my_foot / max_foot) * 100
+        except Exception as e:
+            print(e)
+            context = {}
+
+        else:
+            context = {
+                'top': {
+                    'avg': avg_top,
+                    'my' : my_top
+                },
+                'bottom': {
+                    'avg': avg_bottom,
+                    'my' : my_bottom
+                },
+                'head': {
+                    'avg': avg_head,
+                    'my' : my_head
+                },
+                'foot': {
+                    'avg': avg_foot,
+                    'my' : my_foot
+                }
+            }
+    else:
+        context = {}
     
-    avg_top = sum(list_top) / len(list_top)
-    max_top = max(list_top)
-    avg_top = (avg_top / max_top) * 100
-    my_top = (my_top / max_top) * 100
-
-    avg_bottom = sum(list_bottom) / len(list_bottom)
-    max_bottom = max(list_bottom)
-    avg_bottom= (avg_bottom / max_bottom) * 100
-    my_bottom = (my_bottom / max_bottom) * 100
-
-    avg_head = sum(list_head) / len(list_head)
-    max_head = max(list_head)
-    avg_head = (avg_head / max_head) * 100
-    my_head = (my_head / max_head) * 100
-
-    avg_foot = sum(list_foot) / len(list_foot)
-    max_foot = max(list_foot)
-    avg_foot = (avg_foot / max_foot) * 100
-    my_foot = (my_foot / max_foot) * 100
-
-    print(avg_foot)
-    print(my_foot)
-
-    context = {
-        'top': {
-            'avg': avg_top,
-            'my' : my_top
-        },
-        'bottom': {
-            'avg': avg_bottom,
-            'my' : my_bottom
-        },
-        'head': {
-            'avg': avg_head,
-            'my' : my_head
-        },
-        'foot': {
-            'avg': avg_foot,
-            'my' : my_foot
-        }
-    }
     # 시연용 테스트 코드 끝
     # -------------------------------------------------------------------------
 
