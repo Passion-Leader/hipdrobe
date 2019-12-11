@@ -56,10 +56,14 @@ function getCoordi(is_daily, page_num) {
 
         if (is_daily) {
             g_coordiDailyPage = data['page_num']
-            pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-daily'));
+            pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-daily'), 
+                `#page-d-${data['page_num']}`);
+            window.location.hash = `#page-d-${data['page_num']}`;
         } else {
             g_coordiNormalPage = data['page_num']
-            pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-normal'));
+            pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-normal'),
+                `#page-n-${data['page_num']}`);
+            window.location.hash = `#page-n-${data['page_num']}`;
         }
     })
     .catch(function (error) {

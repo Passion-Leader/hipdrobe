@@ -36,6 +36,9 @@ def index(request):
 def items(request):
     # 로그인 안 해도 화면은 보여주고 실제 동작 할때 로그인 하라고 하는 게 나을 것
     # 같아서 로그인 체크 안 함
+
+    # 시연용 테스트 코드
+
     return render(request, 'hipdrobe/wardrobe-items.html')
 
 def coordi(request):
