@@ -615,7 +615,7 @@ a[data-toggle="collapse"] {
     position: relative;
 }
 
-
+/*
 .dropdown-toggle::after {
     display: block;
     position: absolute;
@@ -623,6 +623,7 @@ a[data-toggle="collapse"] {
     right: 20px;
     transform: translateY(-50%);
 }
+*/
 
 
 .custom-control-label:before{
@@ -702,6 +703,3 @@ a[data-toggle="collapse"] {
 }
 
 
-  
-
-  

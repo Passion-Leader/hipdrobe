@@ -65,6 +65,9 @@
     transform: translateY(-50%);
 }
 
+.content-main {
+    min-height: 0px;
+}
 
 
 
