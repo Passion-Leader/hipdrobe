@@ -1,24 +1,35 @@
 from django import forms 
 from django.contrib.auth.models import User 
 from django.contrib.auth import get_user_model
-
+from django.core import validators
+from django import forms
+from django.contrib.auth.password_validation import validate_password
 class UserForm(forms.ModelForm):
+    gender = forms.TypedChoiceField(
+                coerce=lambda x: x == 'True',
+                choices=((False, 'Male'), (True, 'Female')),
+                widget=forms.RadioSelect,
+                required=False
+                
+            )
+    
     class Meta: 
         model = get_user_model()
 
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password','gender']
         widgets = {
-        'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'15자 이내로 입력 가능합니다.'}),
-        'email': forms.EmailInput(attrs={'class': 'form-control'}),
-        'password' : forms.PasswordInput(attrs={'class': 'form-control'}),
-        
-    }
-    labels = {
-        'username': '닉네임',
-        'email': '이메일',
-        'password': '패스워드',
-        
-    }
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'password' : forms.PasswordInput(attrs={'class': 'form-control'}),
+            
+
+        }
+        labels = {
+            'username': 'ID',
+            'email': 'email',
+            'password': 'password',
+            'gender':'gender',
+        }
 
 class LoginForm(forms.ModelForm):
     class Meta:
