@@ -13,6 +13,7 @@ $(document).ready(function(){
         }
     });
 
+    getCoordi(false, 1);
     getCoordi(true, 1);
 });
 
@@ -58,12 +59,12 @@ function getCoordi(is_daily, page_num) {
             g_coordiDailyPage = data['page_num']
             pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-daily'), 
                 `#page-d-${data['page_num']}`);
-            window.location.hash = `#page-d-${data['page_num']}`;
+            // window.location.hash = `#page-d-${data['page_num']}`;
         } else {
             g_coordiNormalPage = data['page_num']
             pushCoordisToBottom(data['coordis'], $('#id-coordi-timeline-normal'),
                 `#page-n-${data['page_num']}`);
-            window.location.hash = `#page-n-${data['page_num']}`;
+            // window.location.hash = `#page-n-${data['page_num']}`;
         }
     })
     .catch(function (error) {
@@ -99,7 +100,7 @@ $(window).resize(function() {
 
 
 $(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+    if($(window).scrollTop() + $(window).height() >= $(document).height()-2) {
         const is_daily = $('.nav-link.active').attr('href') 
             == '#id-coordi-timeline-daily';
         let page_num = is_daily ? g_coordiDailyPage : g_coordiNormalPage;

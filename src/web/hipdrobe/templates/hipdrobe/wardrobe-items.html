@@ -50,7 +50,7 @@
         <div class="progress-bar bg-info" role="progressbar" style="width:{{top.avg}}%" aria-valuenow="{{top.avg}}" aria-valuemin="0" aria-valuemax="100">평균</div>
       </div>
       <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: {{top.my}}%" aria-valuenow="{{top.my}}" aria-valuemin="0" aria-valuemax="100">{{user.username}}</div>
+        <div class="progress-bar {% if top.avg > top.my %}bg-warning{% endif %}" role="progressbar" style="width: {{top.my}}%" aria-valuenow="{{top.my}}" aria-valuemin="0" aria-valuemax="100">{{user.username}}</div>
       </div>
       <br>
 
@@ -59,7 +59,7 @@
         <div class="progress-bar bg-info" role="progressbar" style="width: {{bottom.avg}}%" aria-valuenow="{{bottom.avg}}" aria-valuemin="0" aria-valuemax="100">평균</div>
       </div>
       <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: {{bottom.my}}%" aria-valuenow="{{bottom.my}}" aria-valuemin="0" aria-valuemax="100">{{user.username}}</div>
+        <div class="progress-bar {% if bottom.avg > bottom.my %}bg-warning{% endif %}" role="progressbar" style="width: {{bottom.my}}%" aria-valuenow="{{bottom.my}}" aria-valuemin="0" aria-valuemax="100">{{user.username}}</div>
       </div>
       <br>
 
@@ -68,7 +68,7 @@
         <div class="progress-bar bg-info" role="progressbar" style="width: {{head.avg}}%" aria-valuenow="{{head.avg}}" aria-valuemin="0" aria-valuemax="100">평균</div>
       </div>
       <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: {{head.my}}%" aria-valuenow="{{head.my}}" aria-valuemin="0" aria-valuemax="100">{{user.username}}</div>
+        <div class="progress-bar {% if head.avg > head.my %}bg-warning{% endif %}" role="progressbar" style="width: {{head.my}}%" aria-valuenow="{{head.my}}" aria-valuemin="0" aria-valuemax="100">{{user.username}}</div>
       </div>
       <br>
 
@@ -77,7 +77,7 @@
         <div class="progress-bar bg-info" role="progressbar" style="width: {{foot.avg}}%" aria-valuenow="{{foot.avg}}" aria-valuemin="0" aria-valuemax="100">평균</div>
       </div>
       <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: {{foot.my}}%" aria-valuenow="{{foot.my}}" aria-valuemin="0" aria-valuemax="100">{{user.username}}</div>
+        <div class="progress-bar {% if foot.avg > foot.my %}bg-warning{% endif %}" role="progressbar" style="width: {{foot.my}}%" aria-valuenow="{{foot.my}}" aria-valuemin="0" aria-valuemax="100">{{user.username}}</div>
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@
 ### Custom ###
 venv/
 **/clothes_images/tmp/
+.env
 
 
 ### Django ###
