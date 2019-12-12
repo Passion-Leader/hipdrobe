@@ -39,9 +39,10 @@ def _change_worn_count(user, coordi, val):
     elemList = json.loads(re.sub("'", '"', coordi_dict['elem_list']))
     for elem in elemList:
         imgUrl = elem['imgurl']
-        item = user.clothes_set.get(url=imgUrl)
-        item.worn += val
-        item.save()
+        if user.clothes_set.filter(url=imgUrl).exists():
+            item = user.clothes_set.get(url=imgUrl)
+            item.worn += val
+            item.save()
 
 
 # -----------------------------------------------------------------------------
