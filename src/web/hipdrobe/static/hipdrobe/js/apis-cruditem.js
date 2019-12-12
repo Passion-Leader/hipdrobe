@@ -172,8 +172,8 @@ function getItemUrlsAndOpenList(name, fnStr) {
                                                }
                                             });
                                             $('#id-updateitem-cate2').trigger('change');
-                                        }, 100); 
-                                    }, 100);
+                                        }, 300); 
+                                    }, 300);
                                     
                                     // color default 처리
                                     $('#id-updateitem-color').attr("value", data['color']);
@@ -216,7 +216,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
                                     var cid = String(data['id'])
                                     $('#id-updateitem-id').val(cid);
 
-                                }, 100);                          
+                                }, 300);                          
 
                             });
  

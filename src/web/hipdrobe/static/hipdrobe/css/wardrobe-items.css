@@ -152,12 +152,6 @@
       background-image : url('../img/detail_bg.png');
     }
     
-    /* #detail_body::after {
-      background-size : 100% 100%;
-      background-image : url('../img/fountain.png');
-      opacity : 0.3;
-    } */
-
     .d_wrapper1 {
       width : 95%;
       height : 85%;
