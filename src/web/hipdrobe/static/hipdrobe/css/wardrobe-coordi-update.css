@@ -57,3 +57,19 @@ p {
 .coord-win {
     margin-bottom: 0px !important;
 }
+
+.content-info {
+    text-align: center;    
+}
+
+.content-info div {
+    border: 1px solid lightgray;
+}
+
+.content-info p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 5em;
+    color: lightgray;
+    font-weight: 900;
+    margin-bottom: 25px 0px;
+}
