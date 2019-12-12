@@ -80,7 +80,7 @@
     color: #fff;
     text-align: justify;
     width: 23%;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Stylish', cursive;
 }
 
 .carousel-caption div {
@@ -88,19 +88,12 @@
 }
 
 .carousel-caption p {
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-weight: 900;
+    font-family: 'Stylish', cursive;
 }
 
 
 @media (min-width: 768px) {
     
 }
-
-
-
-/*
-#bg {
-    background-image: url( "/static/hipdrobe/img/bg_index01.jpg" );
-}
-*/

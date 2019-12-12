@@ -14,7 +14,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
         type: "GET",
         url: "/apis/clothes/",
         contentType: "application/json",
-        data: {userid: "user01@test.com", name: name},
+        data: {name: name},
         success: function (data) { 
             if ( typeof data == 'string') {
                 window.location.href = '/login/';
@@ -172,8 +172,8 @@ function getItemUrlsAndOpenList(name, fnStr) {
                                                }
                                             });
                                             $('#id-updateitem-cate2').trigger('change');
-                                        }, 100); 
-                                    }, 100);
+                                        }, 300); 
+                                    }, 300);
                                     
                                     // color default 처리
                                     $('#id-updateitem-color').attr("value", data['color']);
@@ -216,7 +216,7 @@ function getItemUrlsAndOpenList(name, fnStr) {
                                     var cid = String(data['id'])
                                     $('#id-updateitem-id').val(cid);
 
-                                }, 100);                          
+                                }, 300);                          
 
                             });
  

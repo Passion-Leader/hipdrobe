@@ -13,7 +13,9 @@
 <body>
 
 <div class="page">
+    
   <div class="container">
+      
     <div class="left">
       <!-- <div id="container2"> -->
         <div id="wrapper">    
@@ -87,9 +89,9 @@
       <div class="form">
         <form method="post" action="{% url 'hipdrobe:signin' %}" class="sign-in-form">
             {%csrf_token%}
-        <label for="{{ form.email.id_for_label }}">이메일</label>
+        <label>아이디</label>
         <input id="email" class="form-control" id="{{ form.email.id_for_label }}" maxlength="50" name="{{ form.email.html_name }}" type="text" />
-        <label for="{{ form.password.id_for_label }}">패스워드</label>
+        <label>패스워드</label>
         <input id="password" class="form-control" id="{{ form.password.id_for_label }}" maxlength="120" name="{{ form.password.html_name }}" type="password" />
         <input type="submit" id="submit" class="save btn btn-success" value="로그인">              
         </form>
@@ -97,6 +99,7 @@
       </div>
     </div>
   </div>
+  
 </div>
       
 

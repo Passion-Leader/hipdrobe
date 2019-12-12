@@ -42,7 +42,7 @@ def items(request):
     # 실제로 구현할 땐 서버에서 일정 주기로 전체 정보를 갱신하여 갖고있도록 해 놓고
     # 각 유저 것만 조회하여 계산...
 
-    if request.user.is_authenticated:
+    if request.user.is_active:
         try:
             list_top = [ len(user.clothes_set.filter(part='상의'))
                 for user in User.objects.all() ]
@@ -61,22 +61,22 @@ def items(request):
             my_foot = len(request.user.clothes_set.filter(part='발'))
             
             avg_top = sum(list_top) / len(list_top)
-            max_top = max(list_top)
+            max_top = max(max(list_top), 0.000001)
             avg_top = (avg_top / max_top) * 100
             my_top = (my_top / max_top) * 100
 
             avg_bottom = sum(list_bottom) / len(list_bottom)
-            max_bottom = max(list_bottom)
+            max_bottom = max(max(list_bottom), 0.000001)
             avg_bottom= (avg_bottom / max_bottom) * 100
             my_bottom = (my_bottom / max_bottom) * 100
 
             avg_head = sum(list_head) / len(list_head)
-            max_head = max(list_head)
+            max_head = max(max(list_head), 0.000001)
             avg_head = (avg_head / max_head) * 100
             my_head = (my_head / max_head) * 100
 
             avg_foot = sum(list_foot) / len(list_foot)
-            max_foot = max(list_foot)
+            max_foot = max(max(list_foot), 0.000001)
             avg_foot = (avg_foot / max_foot) * 100
             my_foot = (my_foot / max_foot) * 100
         except Exception as e:
@@ -173,7 +173,7 @@ def signup(request):
             print(new_user)
             return redirect('hipdrobe:index')
         else:
-            return HttpResponse('이미 존재하는 계정입니다.')
+            return render(request,'hipdrobe/login_Fail.html')
     else:
         print("33")
         form = UserForm()

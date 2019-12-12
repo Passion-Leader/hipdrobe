@@ -3,6 +3,7 @@ import argparse
 import numpy as np
 import os
 
+
 def removebg(path, filename):
     #== Parameters ======================================================================
     BLUR = 1

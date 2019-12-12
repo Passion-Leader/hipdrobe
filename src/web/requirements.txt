@@ -4,11 +4,15 @@ chardet==3.0.4
 colorama==0.4.1
 decorator==4.4.1
 defusedxml==0.6.0
+dj-database-url==0.5.0
 Django==2.2.8
 django-allauth==0.40.0
 django-appconf==1.0.3
 django-extensions==2.2.5
+django-heroku==0.3.1
 django-imagekit==4.0.2
+djangorestframework==3.10.3
+gunicorn==20.0.4
 idna==2.8
 ipython==7.9.0
 ipython-genutils==0.2.0
@@ -21,7 +25,9 @@ pickleshare==0.7.5
 pilkit==2.0
 Pillow==6.2.1
 prompt-toolkit==2.0.10
+psycopg2==2.8.4
 Pygments==2.4.2
+python-decouple==3.3
 python3-openid==3.1.0
 pytz==2019.3
 requests==2.22.0
@@ -32,3 +38,4 @@ sqlparse==0.3.0
 traitlets==4.3.3
 urllib3==1.25.7
 wcwidth==0.1.7
+whitenoise==5.0
