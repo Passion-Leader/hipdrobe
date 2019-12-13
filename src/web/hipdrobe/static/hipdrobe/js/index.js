@@ -11,12 +11,36 @@ $(document).ready(function(){
     setTitle("");
 
     // Carousel 밑의 컨텐츠 시작 위치 맞추기
-    fitBottom();
-
+    fitBottomPromise();
 });
 
 window.onresize = function(event) {
     fitBottom();
 };
+
+
+/* ----------------------------------------------------------------------------
+ * index page에서 이미지 밑 부분의 컨텐츠 시작 위치를 맞추기 위한 함수
+ */
+function fitBottomPromise() {
+    setTimeout(function() {
+        let imgheight = parseInt($(".carousel-item.active img").css('height'));   
+        if (imgheight <= 10)
+        fitBottomPromise();
+        else {
+            $("#sidebar").css({
+                'height': imgheight + 'px'
+            });
+        }
+    }, 10); 
+}
+
+function fitBottom() {
+    let imgheight = $(".carousel-item.active img").css('height');
+    console.log(imgheight);
+    $("#sidebar").css({
+        'height': imgheight
+    });
+}
 
 

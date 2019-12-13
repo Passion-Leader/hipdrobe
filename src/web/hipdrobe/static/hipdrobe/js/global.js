@@ -37,18 +37,6 @@ function changeLogColor(color) {
 }
 
 
-/* ----------------------------------------------------------------------------
- * index page에서 이미지 밑 부분의 컨텐츠 시작 위치를 맞추기 위한 함수
- */
-function fitBottom() {
-    let imgheight = $(".carousel-item.active img").css('height')
-
-    $("#sidebar").css({
-       'height': imgheight
-    });
-}
-
-
 // text effect
 var textWrapper = document.querySelector('.ml7 .letters');
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
