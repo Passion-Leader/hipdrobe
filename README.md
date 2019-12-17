@@ -1,5 +1,5 @@
 # MULTICAMPUS-hackathon
-**Hipdrobe 나만의 옷장** (`django`, `python`, `opencv`, j`avascript`)
+**Hipdrobe 나만의 옷장** (`django`, `python`, `opencv`, `javascript`)
 
 ![image-20191217123011248](assets/image-20191217123011248.png)
 
