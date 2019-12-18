@@ -114,6 +114,7 @@ a, a:hover, a:focus {
  */
 .bd-carousel {
     position: absolute;
+    width: 100%;
 }
 
 .bg {
